@@ -11,17 +11,18 @@ Two first digits of SEL version match Elasticsearch version and then it's the in
 
 
 ## Full documentation
-[SEL doc](projects/sel/docs/build/html/index.html)  
-[SEL Server doc](http://localhost:9000/docs) (need to `make start-server`)  
+[SEL doc](https://arnaudparant.github.io/simple_elastic_language)  
+[SEL Server doc](http://localhost:9000/docs) (need `make start-server`)  
 
 
 ## Compagny
 SEL was initially developed for Heuritech in 2016 and used by everybody inside the compagny tech and no-tech people since that time to explore internal data, generate reports and analysis.
 
-## Quickstart
 
+## Quickstart
 SEL is using index schema to generate queries.  
 Be aware it will request ES schema at any query generation.  
+
 
 ### SEL as ES interface
 ```
@@ -80,7 +81,7 @@ Useful to run only one or few tests.
 ### start-server  
 Start SEL Server project into a docker.  
 Accessible locally on port [9000](http://localhost:9000)  
-See server documentation [here](http://localhost:9000/docs)  
+See server documentation locally in [/docs](http://localhost:9000/docs)  
 
 ### down-server  
 Down SEL Server project
@@ -89,5 +90,4 @@ Down SEL Server project
 Install Sphinx and dependencies to generate documentation
 
 ### doc
-Generate the documentation  
-Will be accessible [here](projects/sel/docs/build/html/index.html)
+Generate the documentation in `projects/sel/docs/build/html/`  
