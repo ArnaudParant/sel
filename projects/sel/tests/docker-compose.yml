@@ -1,0 +1,29 @@
+version: '2.4'
+services:
+
+  tests:
+    image: simple_elastic_language_sel_test:${BUILD_TAG}
+    command: bash -c "sleep infinity"
+    environment:
+      - "ES_HOST=http://elasticsearch"
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    networks:
+      - overlay
+
+  elasticsearch:
+    image: elasticsearch:2.4
+    command: elasticsearch -Des.nodes.discovery=false
+    environment:
+      - "ES_HEAP_SIZE=2G"
+    healthcheck:
+      test: curl -s http://localhost:9200 >/dev/null || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 50
+    networks:
+      - overlay
+
+networks:
+  overlay:

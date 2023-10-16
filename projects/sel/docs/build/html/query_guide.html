@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Queries Documentation &mdash; SEL 2.4.1  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=b3ba4146"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Schema example" href="schema.html" />
+    <link rel="prev" title="conf.ini" href="conf.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            SEL 2.4.1
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sel.html">sel package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="conf.html">conf.ini</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Queries Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#multiple-schema-querying">Multiple schema querying</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#queries-structure">Queries’ structure</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#query-string">Query string</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#auto-sort">Auto sort</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#object">Object</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#field-path">Field path</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#filters">Filters</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#string-comparison">String comparison</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#equals">Equals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#not-equals">Not Equals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spaces-and-special-characters">Spaces and Special characters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id1">Query String</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#not-match-query-string">Not match query string</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#prefix">Prefix</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#not-prefix">Not prefix</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#in">In</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#not-in">Not in</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#numerical-comparison">Numerical comparison</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id2">Equals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">Not Equals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#greater-than-or-equals">Greater than or Equals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#greater-than">Greater than</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#less-than-or-equals">Less than or Equals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#less-than">Less than</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#range">Range</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#not-in-range">Not in range</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#date-comparison">Date comparison</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#date-formats">Date formats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4">Range</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5">Not in range</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">Query string</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#and-or">AND / OR</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#grouping">Grouping</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#wildcards">Wildcards</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#regular-expressions">Regular expressions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fuzziness">Fuzziness</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#exact-match">Exact match</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#proximity-search">Proximity search</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#boosting">Boosting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#boolean-operators">Boolean operators</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#functions">Functions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#exists">Exists</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#missing">Missing</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#not">Not</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#combinations">Combinations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#and-combination">And combination</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#or-combination">Or combination</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#where-combination">Where combination</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#context-syntax">Context syntax</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#sorts">Sorts</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id7">Auto sort</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#special-values">Special values</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#order">Order</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mode">Mode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#where-filters">Where filters</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#under">Under</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#aggregations">Aggregations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#query-object">Query object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#aggregation-types">Aggregation types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#named-aggregations">Named aggregations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id8">Where filters</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id9">Under</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#limit-size">Limit size</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#histogram-interval">Histogram interval</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sub-aggregations">Sub aggregations</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#big-examples">Big Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#trend-moodboard">Trend moodboard</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fetch-all-trend-signals">Fetch all trend signals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#key-metrics">Key Metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#evolution-chart">Evolution chart</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#evolution-of-audience-breakdown">Evolution of audience breakdown</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#geographical-breakdown">Geographical breakdown</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#commercial-content">Commercial content</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#brand-mentions">Brand mentions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="schema.html">Schema example</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SEL 2.4.1</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Queries Documentation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/query_guide.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="queries-documentation">
+<h1>Queries Documentation<a class="headerlink" href="#queries-documentation" title="Permalink to this heading"></a></h1>
+<section id="multiple-schema-querying">
+<h2>Multiple schema querying<a class="headerlink" href="#multiple-schema-querying" title="Permalink to this heading"></a></h2>
+<p>Elasticsearch and SEL support to store and query multiple schema. You can even query several indexes in the same time with different schemas, basically it’s how works wildcard <code class="docutils literal notranslate"><span class="pre">foo_*</span></code>.</p>
+<p>By default SEL will take last inserted schema to build the query. It will only be an issue if you have the same field with two different types or more into schemas.</p>
+</section>
+<section id="queries-structure">
+<h2>Queries’ structure<a class="headerlink" href="#queries-structure" title="Permalink to this heading"></a></h2>
+<section id="query-string">
+<h3>Query string<a class="headerlink" href="#query-string" title="Permalink to this heading"></a></h3>
+<p>Queries string are composted of three parts: filters, aggregations and sorts, ordered as bellow:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="n">filters</span><span class="p">}</span> <span class="p">{</span><span class="n">aggregations</span><span class="p">}</span> <span class="p">{</span><span class="n">sorts</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>Filters limit the number of hits and sort allowed to order returned hits.</p>
+<p>Aggregations does not have any impact on returned documents, but are only made on matched documents. You can do several aggregations in a single query, it will not impact each other and a key allow to differentiate them. Aggregations can also contains a specific filter with the <code class="docutils literal notranslate"><span class="pre">where</span></code> keyword, which will not impact the main query neither other aggregations. Of course sort does not have any impact on aggregations.</p>
+<p>Sort query order matter and it’s apply in the same order into Elasticsearch. The first sort is applied, and, on equals values, according on this sort, the second sort is applied, etc.</p>
+</section>
+<section id="auto-sort">
+<h3>Auto sort<a class="headerlink" href="#auto-sort" title="Permalink to this heading"></a></h3>
+<p>By default there is an auto sort system in SEL, see <code class="docutils literal notranslate"><span class="pre">conf.ini</span></code> to disable it.<br />
+It take all your filters in the same order to make a sort on the inner <code class="docutils literal notranslate"><span class="pre">DefaultObjectSortField</span></code> field (<code class="docutils literal notranslate"><span class="pre">conf.ini</span></code>), with the original query as filter <code class="docutils literal notranslate"><span class="pre">where</span></code>.</p>
+<p>Those generated sorts are put after sorts you have set into your query.</p>
+</section>
+<section id="object">
+<h3>Object<a class="headerlink" href="#object" title="Permalink to this heading"></a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;query&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">Optional</span><span class="p">)</span> <span class="n">String</span> <span class="ow">or</span> <span class="n">Object</span><span class="p">,</span>
+  <span class="s2">&quot;aggregations&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">Optional</span><span class="p">)</span> <span class="n">Object</span> <span class="o">-</span> <span class="n">For</span> <span class="nb">object</span> <span class="n">query</span> <span class="n">only</span><span class="p">,</span>
+  <span class="s2">&quot;sort&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">Optional</span><span class="p">)</span> <span class="n">Object</span> <span class="n">List</span> <span class="o">-</span> <span class="n">For</span> <span class="nb">object</span> <span class="n">query</span> <span class="n">only</span><span class="p">,</span>
+  <span class="s2">&quot;meta&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">Optinal</span><span class="p">)</span> <span class="n">Object</span> <span class="o">-</span> <span class="n">Limit</span> <span class="n">hits</span><span class="p">,</span>
+  <span class="s2">&quot;extended&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">Optional</span><span class="p">)</span> <span class="n">Object</span> <span class="o">-</span> <span class="n">Additional</span> <span class="n">ES</span> <span class="n">query</span> <span class="n">keys</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Meta</strong></p>
+<p>Used for paging, it does not impact aggregations, such:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">Optional</span><span class="p">)</span> <span class="n">Int</span> <span class="o">-</span> <span class="n">default</span> <span class="mi">20</span>
+  <span class="s2">&quot;from&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">Optional</span><span class="p">)</span> <span class="n">Int</span> <span class="o">-</span> <span class="n">default</span> <span class="mi">0</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Extended</strong></p>
+<p>Allowed keys: <code class="docutils literal notranslate"><span class="pre">_source</span></code>, <code class="docutils literal notranslate"><span class="pre">fields</span></code>, <code class="docutils literal notranslate"><span class="pre">script_fields</span></code>, <code class="docutils literal notranslate"><span class="pre">fielddata_fields</span></code>, <code class="docutils literal notranslate"><span class="pre">explain</span></code>, <code class="docutils literal notranslate"><span class="pre">highlight</span></code>, <code class="docutils literal notranslate"><span class="pre">rescore</span></code>, <code class="docutils literal notranslate"><span class="pre">version</span></code>, <code class="docutils literal notranslate"><span class="pre">indices_boost</span></code>, <code class="docutils literal notranslate"><span class="pre">min_score</span></code>.<br />
+See <a class="reference external" href="https://www.elastic.co/guide/en/elasticsearch/reference/2.4/search-request-body.html">ES Search request body</a></p>
+<p><strong>Examples</strong></p>
+<p>Query string</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;query&quot;</span><span class="p">:</span> <span class="s2">&quot;label = bag aggreg: label.model sort: like&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;from&quot;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span> <span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="mi">20</span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Query object</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;query&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;bag&quot;</span><span class="p">},</span>
+  <span class="s2">&quot;aggregations&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;myaggreg&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label.model&quot;</span><span class="p">}},</span>
+  <span class="s2">&quot;sort&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;like&quot;</span><span class="p">}],</span>
+  <span class="s2">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;from&quot;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span> <span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="mi">20</span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="field-path">
+<h2>Field path<a class="headerlink" href="#field-path" title="Permalink to this heading"></a></h2>
+<p>To simplify queries, SEL allow to use short path for field path, if it’s ambiguous or if it does not found the field, it will raise an error.</p>
+<p>If you have this field path into your schema for eg. <code class="docutils literal notranslate"><span class="pre">media.label.id</span></code>, can use directly <code class="docutils literal notranslate"><span class="pre">id</span></code>.<br />
+But if there are other fields <code class="docutils literal notranslate"><span class="pre">id</span></code> into your schema, it will raise an error and you will need to specify which one you would like to use.</p>
+<p>If you have for exemple <code class="docutils literal notranslate"><span class="pre">media.label.id</span></code> and <code class="docutils literal notranslate"><span class="pre">id</span></code> at root, you can match them respectivly with <code class="docutils literal notranslate"><span class="pre">label.id</span></code> and <code class="docutils literal notranslate"><span class="pre">.id</span></code>.<br />
+As you can see it’s possible to use dot <code class="docutils literal notranslate"><span class="pre">.</span></code> at the beginning to specify that it’s at the root level.</p>
+</section>
+<section id="filters">
+<h2>Filters<a class="headerlink" href="#filters" title="Permalink to this heading"></a></h2>
+<p>🗒️ <strong>Note</strong>: All examples bellow refer to <code class="docutils literal notranslate"><span class="pre">Schema</span> <span class="pre">example</span></code>.</p>
+<section id="string-comparison">
+<h3>String comparison<a class="headerlink" href="#string-comparison" title="Permalink to this heading"></a></h3>
+<section id="equals">
+<h4>Equals<a class="headerlink" href="#equals" title="Permalink to this heading"></a></h4>
+<p>🗒️ <strong>Note</strong>: The default comparator is <code class="docutils literal notranslate"><span class="pre">=</span></code></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">label</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">blue</span>
+<span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label.color&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;blue&quot;</span><span class="p">}</span>
+<span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label.color&quot;</span><span class="p">,</span> <span class="s2">&quot;comparator&quot;</span><span class="p">:</span> <span class="s2">&quot;=&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;blue&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="not-equals">
+<h4>Not Equals<a class="headerlink" href="#not-equals" title="Permalink to this heading"></a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">label</span><span class="o">.</span><span class="n">color</span> <span class="o">!=</span> <span class="n">blue</span>
+<span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label.color&quot;</span><span class="p">,</span> <span class="s2">&quot;comparator&quot;</span><span class="p">:</span> <span class="s2">&quot;!=&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;blue&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="spaces-and-special-characters">
+<h4>Spaces and Special characters<a class="headerlink" href="#spaces-and-special-characters" title="Permalink to this heading"></a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">label</span><span class="o">.</span><span class="n">brand</span> <span class="o">=</span> <span class="s2">&quot;foo bar&quot;</span>
+<span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label.brand&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;foo bar&quot;</span><span class="p">}</span>
+
+<span class="n">label</span><span class="o">.</span><span class="n">entity</span> <span class="o">=</span> <span class="s1">&#39;bg:model&#39;</span>
+<span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label.entity&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;bg:model&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="id1">
+<h4>Query String<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h4>
+<p>Query string use <a class="reference external" href="https://www.elastic.co/guide/en/elasticsearch/reference/2.4/query-dsl-query-string-query.html">ES query string format</a></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">label</span> <span class="o">~</span> <span class="s2">&quot;*pant*&quot;</span>
+<span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="s2">&quot;comparator&quot;</span><span class="p">:</span> <span class="s2">&quot;~&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;*pant*&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="not-match-query-string">
+<h4>Not match query string<a class="headerlink" href="#not-match-query-string" title="Permalink to this heading"></a></h4>
+<p>Query string use <a class="reference external" href="https://www.elastic.co/guide/en/elasticsearch/reference/2.4/query-dsl-query-string-query.html">ES query string format</a></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>label !~ &quot;*pant*&quot;
+{&quot;field&quot;: &quot;label&quot;, &quot;comparator&quot;: &quot;!~&quot;, &quot;value&quot;: &quot;*pant*&quot;}
+</pre></div>
+</div>
+</section>
+<section id="prefix">
+<h4>Prefix<a class="headerlink" href="#prefix" title="Permalink to this heading"></a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">label</span> <span class="n">prefix</span> <span class="n">h</span>
+<span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="s2">&quot;comparator&quot;</span><span class="p">:</span> <span class="s2">&quot;prefix&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;h&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="not-prefix">
+<h4>Not prefix<a class="headerlink" href="#not-prefix" title="Permalink to this heading"></a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">label</span> <span class="n">nprefix</span> <span class="n">h</span>
+<span class="n">label</span> <span class="ow">not</span> <span class="n">prefix</span> <span class="n">h</span>
+<span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="s2">&quot;comparator&quot;</span><span class="p">:</span> <span class="s2">&quot;nprefix&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;h&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="in">
+<h4>In<a class="headerlink" href="#in" title="Permalink to this heading"></a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">label</span> <span class="ow">in</span> <span class="p">[</span><span class="n">human</span><span class="p">,</span> <span class="n">person</span><span class="p">]</span>
+<span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="s2">&quot;comparator&quot;</span><span class="p">:</span> <span class="s2">&quot;in&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;person&quot;</span><span class="p">]}</span>
+</pre></div>
+</div>
+</section>
+<section id="not-in">
+<h4>Not in<a class="headerlink" href="#not-in" title="Permalink to this heading"></a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">label</span> <span class="n">nin</span> <span class="p">[</span><span class="n">human</span><span class="p">,</span> <span class="n">person</span><span class="p">]</span>
+<span class="n">label</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="n">human</span><span class="p">,</span> <span class="n">person</span><span class="p">]</span>
+<span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="s2">&quot;comparator&quot;</span><span class="p">:</span> <span class="s2">&quot;nin&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;person&quot;</span><span class="p">]}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="numerical-comparison">
+<h3>Numerical comparison<a class="headerlink" href="#numerical-comparison" title="Permalink to this heading"></a></h3>
+<section id="id2">
+<h4>Equals<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h4>
+<p>🗒️ <strong>Note</strong>: The default comparator is <code class="docutils literal notranslate"><span class="pre">=</span></code></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">label</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">score</span> <span class="o">=</span> <span class="mf">0.8</span>
+<span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label.model.score&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="mf">0.8</span><span class="p">}</span>
+<span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label.model.score&quot;</span><span class="p">,</span> <span class="s2">&quot;comparator&quot;</span><span class="p">:</span> <span class="s2">&quot;=&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="mf">0.8</span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="id3">
+<h4>Not Equals<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">label</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">score</span> <span class="o">!=</span> <span class="mf">0.8</span>
+<span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label.model.score&quot;</span><span class="p">,</span> <span class="s2">&quot;comparator&quot;</span><span class="p">:</span> <span class="s2">&quot;!=&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="mf">0.8</span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="greater-than-or-equals">
+<h4>Greater than or Equals<a class="headerlink" href="#greater-than-or-equals" title="Permalink to this heading"></a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">label</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">score</span> <span class="o">&gt;=</span> <span class="mf">0.8</span>
+<span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label.model.score&quot;</span><span class="p">,</span> <span class="s2">&quot;comparator&quot;</span><span class="p">:</span> <span class="s2">&quot;&gt;=&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="mf">0.8</span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="greater-than">
+<h4>Greater than<a class="headerlink" href="#greater-than" title="Permalink to this heading"></a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">label</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">score</span> <span class="o">&gt;</span> <span class="mf">0.8</span>
+<span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label.model.score&quot;</span><span class="p">,</span> <span class="s2">&quot;comparator&quot;</span><span class="p">:</span> <span class="s2">&quot;&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="mf">0.8</span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="less-than-or-equals">
+<h4>Less than or Equals<a class="headerlink" href="#less-than-or-equals" title="Permalink to this heading"></a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">label</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">score</span> <span class="o">&lt;=</span> <span class="mf">0.8</span>
+<span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label.model.score&quot;</span><span class="p">,</span> <span class="s2">&quot;comparator&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;=&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="mf">0.8</span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="less-than">
+<h4>Less than<a class="headerlink" href="#less-than" title="Permalink to this heading"></a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">label</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">score</span> <span class="o">&lt;</span> <span class="mf">0.8</span>
+<span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label.model.score&quot;</span><span class="p">,</span> <span class="s2">&quot;comparator&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="mf">0.8</span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="range">
+<h4>Range<a class="headerlink" href="#range" title="Permalink to this heading"></a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">label</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">score</span> <span class="nb">range</span> <span class="p">(</span><span class="o">&gt;</span> <span class="mf">0.2</span><span class="p">,</span> <span class="o">&lt;</span> <span class="mf">0.8</span><span class="p">)</span>
+<span class="mf">0.2</span> <span class="o">&lt;</span> <span class="n">label</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">score</span> <span class="o">&lt;</span> <span class="mf">0.8</span>
+
+<span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label.model.score&quot;</span><span class="p">,</span> <span class="s2">&quot;comparator&quot;</span><span class="p">:</span> <span class="s2">&quot;range&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;&gt;&quot;</span><span class="p">:</span> <span class="mf">0.2</span><span class="p">,</span> <span class="s2">&quot;&lt;&quot;</span><span class="p">:</span> <span class="mf">0.8</span><span class="p">}}</span>
+</pre></div>
+</div>
+</section>
+<section id="not-in-range">
+<h4>Not in range<a class="headerlink" href="#not-in-range" title="Permalink to this heading"></a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">label</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">score</span> <span class="n">nrange</span> <span class="p">(</span><span class="o">&gt;</span> <span class="mf">0.2</span><span class="p">,</span> <span class="o">&lt;</span> <span class="mf">0.8</span><span class="p">)</span>
+<span class="n">label</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">score</span> <span class="ow">not</span> <span class="nb">range</span> <span class="p">(</span><span class="o">&gt;</span> <span class="mf">0.2</span><span class="p">,</span> <span class="o">&lt;</span> <span class="mf">0.8</span><span class="p">)</span>
+<span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label.model.score&quot;</span><span class="p">,</span> <span class="s2">&quot;comparator&quot;</span><span class="p">:</span> <span class="s2">&quot;nrange&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;&gt;&quot;</span><span class="p">:</span> <span class="mf">0.2</span><span class="p">,</span> <span class="s2">&quot;&lt;&quot;</span><span class="p">:</span> <span class="mf">0.8</span><span class="p">}}</span>
+
+<span class="ow">not</span> <span class="mf">0.2</span> <span class="o">&lt;</span> <span class="n">label</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">score</span> <span class="o">&lt;</span> <span class="mf">0.8</span>
+<span class="p">{</span><span class="s2">&quot;not&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label.model.score&quot;</span><span class="p">,</span> <span class="s2">&quot;comparator&quot;</span><span class="p">:</span> <span class="s2">&quot;range&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;&gt;&quot;</span><span class="p">:</span> <span class="mf">0.2</span><span class="p">,</span> <span class="s2">&quot;&lt;&quot;</span><span class="p">:</span> <span class="mf">0.8</span><span class="p">}}}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="date-comparison">
+<h3>Date comparison<a class="headerlink" href="#date-comparison" title="Permalink to this heading"></a></h3>
+<section id="date-formats">
+<h4>Date formats<a class="headerlink" href="#date-formats" title="Permalink to this heading"></a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">date</span> <span class="o">&gt;=</span> <span class="mi">2014</span>
+<span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="s2">&quot;comparator&quot;</span><span class="p">:</span> <span class="s2">&quot;&gt;=&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;2014&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">date</span> <span class="o">&gt;=</span> <span class="mi">2014</span><span class="o">-</span><span class="mi">05</span>
+<span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="s2">&quot;comparator&quot;</span><span class="p">:</span> <span class="s2">&quot;&gt;=&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;2014-05&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">date</span> <span class="o">&gt;=</span> <span class="mi">2014</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mi">04</span>
+<span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="s2">&quot;comparator&quot;</span><span class="p">:</span> <span class="s2">&quot;&gt;=&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;2014-10-04&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">date</span> <span class="o">&gt;=</span> <span class="s2">&quot;2014-10-04 15&quot;</span> 
+<span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="s2">&quot;comparator&quot;</span><span class="p">:</span> <span class="s2">&quot;&gt;=&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;2014-10-04 15&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">date</span> <span class="o">&gt;=</span> <span class="s2">&quot;2014-10-04 15:42&quot;</span>
+<span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="s2">&quot;comparator&quot;</span><span class="p">:</span> <span class="s2">&quot;&gt;=&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;2014-10-04 15:42&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">date</span> <span class="o">&gt;=</span> <span class="s2">&quot;2014-10-04 15:42:10&quot;</span>
+<span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="s2">&quot;comparator&quot;</span><span class="p">:</span> <span class="s2">&quot;&gt;=&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;2014-10-04 15:42:10&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="id4">
+<h4>Range<a class="headerlink" href="#id4" title="Permalink to this heading"></a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">date</span> <span class="nb">range</span> <span class="p">(</span><span class="o">&gt;=</span> <span class="mi">2018</span><span class="p">,</span> <span class="o">&lt;=</span> <span class="mi">2019</span><span class="p">)</span>
+<span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="s2">&quot;comparator&quot;</span><span class="p">:</span> <span class="s2">&quot;range&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;&gt;=&quot;</span><span class="p">:</span> <span class="s2">&quot;2018&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;=&quot;</span><span class="p">:</span> <span class="s2">&quot;2019&quot;</span><span class="p">}}</span>
+</pre></div>
+</div>
+</section>
+<section id="id5">
+<h4>Not in range<a class="headerlink" href="#id5" title="Permalink to this heading"></a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">date</span> <span class="n">nrange</span> <span class="p">(</span><span class="o">&gt;=</span> <span class="mi">2018</span><span class="p">,</span> <span class="o">&lt;=</span> <span class="mi">2019</span><span class="p">)</span>
+<span class="n">date</span> <span class="ow">not</span> <span class="nb">range</span> <span class="p">(</span><span class="o">&gt;=</span> <span class="mi">2018</span><span class="p">,</span> <span class="o">&lt;=</span> <span class="mi">2019</span><span class="p">)</span>
+<span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="s2">&quot;comparator&quot;</span><span class="p">:</span> <span class="s2">&quot;nrange&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;&gt;=&quot;</span><span class="p">:</span> <span class="s2">&quot;2018&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;=&quot;</span><span class="p">:</span> <span class="s2">&quot;2019&quot;</span><span class="p">}}</span>
+
+<span class="ow">not</span> <span class="mi">2018</span> <span class="o">&lt;=</span> <span class="n">date</span> <span class="o">&lt;=</span> <span class="mi">2019</span>
+<span class="p">{</span><span class="s2">&quot;not&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="s2">&quot;comparator&quot;</span><span class="p">:</span> <span class="s2">&quot;nrange&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;&gt;=&quot;</span><span class="p">:</span> <span class="s2">&quot;2018&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;=&quot;</span><span class="p">:</span> <span class="s2">&quot;2019&quot;</span><span class="p">}}}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="id6">
+<h3>Query string<a class="headerlink" href="#id6" title="Permalink to this heading"></a></h3>
+<p>Query string will match the <code class="docutils literal notranslate"><span class="pre">DefaultQueryStringFieldPath</span></code> (from <code class="docutils literal notranslate"><span class="pre">conf.ini</span></code>) with <a class="reference external" href="https://www.elastic.co/guide/en/elasticsearch/reference/2.4/query-dsl-query-string-query.html">ES query string format</a>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;foam cage&quot;</span>
+<span class="p">{</span><span class="s2">&quot;query_string&quot;</span><span class="p">:</span> <span class="s2">&quot;foam cage&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>The field path can be set with the following syntax:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mycontent</span> <span class="o">~</span> <span class="s2">&quot;foam cage&quot;</span>
+<span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;mycontent&quot;</span><span class="p">,</span> <span class="s2">&quot;comparator&quot;</span><span class="p">:</span> <span class="s2">&quot;~&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;foam cage&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+<section id="and-or">
+<h4>AND / OR<a class="headerlink" href="#and-or" title="Permalink to this heading"></a></h4>
+<p>By default, query string use OR operator</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;foam OR cage&quot;</span>
+<span class="p">{</span><span class="s2">&quot;query_string&quot;</span><span class="p">:</span> <span class="s2">&quot;foam OR cage&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>AND operator is possible as well</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;foam AND cage&quot;</span>
+<span class="p">{</span><span class="s2">&quot;query_string&quot;</span><span class="p">:</span> <span class="s2">&quot;foam AND cage&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="grouping">
+<h4>Grouping<a class="headerlink" href="#grouping" title="Permalink to this heading"></a></h4>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;(foam AND cage) OR (all AND blue)&quot;</span>
+<span class="p">{</span><span class="nt">&quot;query_string&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;foam OR cage&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="wildcards">
+<h4>Wildcards<a class="headerlink" href="#wildcards" title="Permalink to this heading"></a></h4>
+<p>Use <code class="docutils literal notranslate"><span class="pre">?</span></code> to replace a single character, <code class="docutils literal notranslate"><span class="pre">*</span></code> to replace zero or more characters.</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;foa?&quot;</span>
+<span class="p">{</span><span class="nt">&quot;query_string&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;foa?&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;foa*&quot;</span>
+<span class="p">{</span><span class="nt">&quot;query_string&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;foa*&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="regular-expressions">
+<h4>Regular expressions<a class="headerlink" href="#regular-expressions" title="Permalink to this heading"></a></h4>
+<p>Regular expression patterns can be embedded in the query string by wrapping them in forward-slashes (<code class="docutils literal notranslate"><span class="pre">&quot;/&quot;</span></code>)</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;/joh?n(ath[oa]n)/&quot;</span>
+<span class="p">{</span><span class="nt">&quot;query_string&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/joh?n(ath[oa]n)/&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="fuzziness">
+<h4>Fuzziness<a class="headerlink" href="#fuzziness" title="Permalink to this heading"></a></h4>
+<p>We can search for terms that are similar to, but not exactly like our search terms, using the “fuzzy” operator</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;quikc~&quot;</span>
+<span class="p">{</span><span class="nt">&quot;query_string&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;quikc~&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>The default edit distance is <code class="docutils literal notranslate"><span class="pre">2</span></code>, but you can edit the distance</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;quikc~1&quot;</span>
+<span class="p">{</span><span class="nt">&quot;query_string&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;quikc~1&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="exact-match">
+<h4>Exact match<a class="headerlink" href="#exact-match" title="Permalink to this heading"></a></h4>
+<p>It’s also possible to do exact match query with double quote.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;&quot;foam cage&quot;&#39;</span>
+<span class="p">{</span><span class="s2">&quot;query_string&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="se">\&quot;</span><span class="s2">foam cage</span><span class="se">\&quot;</span><span class="s2">&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="proximity-search">
+<h4>Proximity search<a class="headerlink" href="#proximity-search" title="Permalink to this heading"></a></h4>
+<p>While a phrase query (eg <code class="docutils literal notranslate"><span class="pre">&quot;john</span> <span class="pre">smith&quot;</span></code>) expects all of the terms in exactly the same order, a proximity query allows the specified words to be further apart or in a different order. In the same way that fuzzy queries can specify a maximum edit distance for characters in a word, a proximity search allows us to specify a maximum edit distance of words in a phrase:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;&quot;foam cage&quot;~3&#39;</span>
+<span class="p">{</span><span class="s2">&quot;query_string&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="se">\&quot;</span><span class="s2">foam cage</span><span class="se">\&quot;</span><span class="s2">~3&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="boosting">
+<h4>Boosting<a class="headerlink" href="#boosting" title="Permalink to this heading"></a></h4>
+<p>Use the boost operator <code class="docutils literal notranslate"><span class="pre">^</span></code> to make one term more relevant than another. For instance, if we want to find all documents about foxes, but we are especially interested in quick foxes:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;quick^2 fox&quot;</span>
+<span class="p">{</span><span class="nt">&quot;query_string&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;quick^2 fox&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>The default <code class="docutils literal notranslate"><span class="pre">boost</span></code> value is 1, but can be any positive floating point number. Boosts between 0 and 1 reduce relevance.</p>
+<p>Boosts can also be applied to phrases or to groups:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;&quot;john smith&quot;^2&#39;</span>
+<span class="p">{</span><span class="s2">&quot;query_string&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="se">\&quot;</span><span class="s2">john smith</span><span class="se">\&quot;</span><span class="s2">^2&quot;</span><span class="p">}</span>
+
+<span class="s2">&quot;(foo bar)^4&quot;</span>
+<span class="p">{</span><span class="s2">&quot;query_string&quot;</span><span class="p">:</span> <span class="s2">&quot;(foo bar)^4&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="boolean-operators">
+<h4>Boolean operators<a class="headerlink" href="#boolean-operators" title="Permalink to this heading"></a></h4>
+<p>By default, all terms are optional, as long as one term matches. A search for <code class="docutils literal notranslate"><span class="pre">foo</span> <span class="pre">bar</span> <span class="pre">baz</span></code> will find any document that contains one or more of <code class="docutils literal notranslate"><span class="pre">foo</span></code> or <code class="docutils literal notranslate"><span class="pre">bar</span></code> or <code class="docutils literal notranslate"><span class="pre">baz</span></code>. There are also boolean operators which can be used in the query string itself to provide more control.</p>
+<p>The preferred operators are <code class="docutils literal notranslate"><span class="pre">+</span></code> (this term <strong>must</strong> be present) and <code class="docutils literal notranslate"><span class="pre">-</span></code> (this term <strong>must not</strong> be present). All other terms are optional. For example, this query:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;quick brown +fox -news&quot;</span>
+<span class="p">{</span><span class="nt">&quot;query_string&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;quick brown +fox -news&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>states that:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">fox</span></code> must be present</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">news</span></code> must not be present</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">quick</span></code> and <code class="docutils literal notranslate"><span class="pre">brown</span></code> are optional — their presence increases the relevance</p></li>
+</ul>
+<p>The familiar operators <code class="docutils literal notranslate"><span class="pre">AND</span></code>, <code class="docutils literal notranslate"><span class="pre">OR</span></code> and <code class="docutils literal notranslate"><span class="pre">NOT</span></code> (also written <code class="docutils literal notranslate"><span class="pre">&amp;&amp;</span></code>, <code class="docutils literal notranslate"><span class="pre">||</span></code> and <code class="docutils literal notranslate"><span class="pre">!</span></code>) are also supported. However, the effects of these operators can be more complicated than is obvious at first glance. <code class="docutils literal notranslate"><span class="pre">NOT</span></code> takes precedence over <code class="docutils literal notranslate"><span class="pre">AND</span></code>, which takes precedence over <code class="docutils literal notranslate"><span class="pre">OR</span></code>. While the <code class="docutils literal notranslate"><span class="pre">+</span></code> and <code class="docutils literal notranslate"><span class="pre">-</span></code> only affect the term to the right of the operator, <code class="docutils literal notranslate"><span class="pre">AND</span></code> and <code class="docutils literal notranslate"><span class="pre">OR</span></code> can affect the terms to the left and right.</p>
+<p>Rewriting the above query using <code class="docutils literal notranslate"><span class="pre">AND</span></code>, <code class="docutils literal notranslate"><span class="pre">OR</span></code> and <code class="docutils literal notranslate"><span class="pre">NOT</span></code> demonstrates the complexity:</p>
+</section>
+</section>
+<section id="functions">
+<h3>Functions<a class="headerlink" href="#functions" title="Permalink to this heading"></a></h3>
+<section id="exists">
+<h4>Exists<a class="headerlink" href="#exists" title="Permalink to this heading"></a></h4>
+<p>Returns documents that contain at least one value for <code class="docutils literal notranslate"><span class="pre">author.id</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">author</span><span class="o">.</span><span class="n">id</span><span class="o">.</span><span class="n">exists</span> <span class="o">=</span> <span class="n">true</span>
+<span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;author.id.exists&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="missing">
+<h4>Missing<a class="headerlink" href="#missing" title="Permalink to this heading"></a></h4>
+<p>Returns documents that only have null values or not any value for this field.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">label</span><span class="o">.</span><span class="n">color</span><span class="o">.</span><span class="n">missing</span> <span class="o">=</span> <span class="n">true</span>
+<span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label.color.missing&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="not">
+<h3>Not<a class="headerlink" href="#not" title="Permalink to this heading"></a></h3>
+<p>We can use <code class="docutils literal notranslate"><span class="pre">not</span></code> keyword to not match a query.<br />
+It can be very useful on complexe queries.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ow">not</span> <span class="n">label</span> <span class="o">=</span> <span class="n">bag</span>
+<span class="p">{</span><span class="s2">&quot;not&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;bag&quot;</span><span class="p">}}</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ow">not</span> <span class="n">label</span> <span class="o">=</span> <span class="n">bag</span> <span class="n">where</span> <span class="n">color</span> <span class="o">=</span> <span class="n">blue</span>
+<span class="p">{</span><span class="s2">&quot;not&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;bag&quot;</span><span class="p">,</span> <span class="s2">&quot;where&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;color&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;blue&quot;</span><span class="p">}}}</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ow">not</span> <span class="p">(</span><span class="n">label</span> <span class="o">=</span> <span class="n">bag</span> <span class="n">where</span> <span class="n">color</span> <span class="o">=</span> <span class="n">blue</span> <span class="ow">or</span> <span class="n">label</span> <span class="o">=</span> <span class="n">hat</span> <span class="n">where</span> <span class="n">color</span> <span class="o">=</span> <span class="n">red</span><span class="p">)</span>
+<span class="p">{</span><span class="s2">&quot;not&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;operator&quot;</span><span class="p">:</span> <span class="s2">&quot;or&quot;</span><span class="p">,</span> <span class="s2">&quot;items&quot;</span><span class="p">:</span> <span class="p">[</span>
+   <span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;bag&quot;</span><span class="p">,</span> <span class="s2">&quot;where&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;color&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;blue&quot;</span><span class="p">}},</span>
+   <span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;hat&quot;</span><span class="p">,</span> <span class="s2">&quot;where&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;color&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;red&quot;</span><span class="p">}}</span>
+<span class="p">]}}</span>
+</pre></div>
+</div>
+</section>
+<section id="combinations">
+<h3>Combinations<a class="headerlink" href="#combinations" title="Permalink to this heading"></a></h3>
+<p>Filters can not be just separated by spaces, it need a combination instruction.</p>
+<section id="and-combination">
+<h4>And combination<a class="headerlink" href="#and-combination" title="Permalink to this heading"></a></h4>
+<p>⚠️  <strong>Warning</strong>: This query return an image containing bag and something in red.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">label</span> <span class="o">=</span> <span class="n">bag</span> <span class="ow">and</span> <span class="n">label</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">red</span>
+
+<span class="p">{</span><span class="s2">&quot;operator&quot;</span><span class="p">:</span> <span class="s2">&quot;and&quot;</span><span class="p">,</span> <span class="s2">&quot;items&quot;</span><span class="p">:</span> <span class="p">[</span>
+   <span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;bag&quot;</span><span class="p">},</span>
+   <span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label.color&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;red&quot;</span><span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</section>
+<section id="or-combination">
+<h4>Or combination<a class="headerlink" href="#or-combination" title="Permalink to this heading"></a></h4>
+<p>🗒️  <strong>Note</strong>: And combination is <strong>priority</strong>, thus brackets is not necessary.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">label</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">blue</span> <span class="ow">and</span> <span class="n">label</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">green</span><span class="p">)</span> <span class="ow">or</span> <span class="n">label</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">yellow</span>
+
+<span class="n">label</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">blue</span> <span class="ow">and</span> <span class="n">label</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">green</span> <span class="ow">or</span> <span class="n">label</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">yellow</span>
+
+<span class="p">{</span><span class="s2">&quot;operator&quot;</span><span class="p">:</span> <span class="s2">&quot;or&quot;</span><span class="p">,</span> <span class="s2">&quot;items&quot;</span><span class="p">:</span> <span class="p">[</span>
+   <span class="p">{</span><span class="s2">&quot;operator&quot;</span><span class="p">:</span> <span class="s2">&quot;and&quot;</span><span class="p">,</span> <span class="s2">&quot;items&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label.color&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;blue&quot;</span><span class="p">},</span>
+      <span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label.color&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;green&quot;</span><span class="p">}</span>
+   <span class="p">]},</span>
+   <span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label.color&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;yellow&quot;</span><span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</section>
+<section id="where-combination">
+<h4>Where combination<a class="headerlink" href="#where-combination" title="Permalink to this heading"></a></h4>
+<p>The <code class="docutils literal notranslate"><span class="pre">where</span></code> combination is different of the <code class="docutils literal notranslate"><span class="pre">and</span></code> combination.</p>
+<p>The where syntax allow to make a filter on a specific item of a list, instead of the whole document.</p>
+<p>For example the following query return all documents with a bag and something in red, which is not necessary the bag.</p>
+<p><code class="docutils literal notranslate"><span class="pre">label</span> <span class="pre">=</span> <span class="pre">bag</span> <span class="pre">and</span> <span class="pre">label.color</span> <span class="pre">=</span> <span class="pre">red</span></code></p>
+<p>💡 <strong>Note</strong>: You can do an infinite number of <code class="docutils literal notranslate"><span class="pre">where</span></code> inside a <code class="docutils literal notranslate"><span class="pre">where</span></code>, there is no depth limit.</p>
+<p>This query will return all red bag</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">label</span> <span class="o">=</span> <span class="n">bag</span> <span class="n">where</span> <span class="n">color</span> <span class="o">=</span> <span class="n">red</span>
+
+<span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;bag&quot;</span><span class="p">,</span> <span class="s2">&quot;where&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;color&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;red&quot;</span><span class="p">}}</span>
+</pre></div>
+</div>
+<p>This one will get all red foo bag.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">label</span> <span class="o">=</span> <span class="n">bag</span> <span class="n">where</span> <span class="p">(</span><span class="n">color</span> <span class="o">=</span> <span class="n">red</span> <span class="ow">and</span> <span class="n">model</span> <span class="o">=</span> <span class="n">foo</span><span class="p">)</span>
+
+<span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;bag&quot;</span><span class="p">,</span> <span class="s2">&quot;where&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;operator&quot;</span><span class="p">:</span> <span class="s2">&quot;and&quot;</span><span class="p">,</span> <span class="s2">&quot;items&quot;</span><span class="p">:</span> <span class="p">[</span>
+   <span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;color&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;red&quot;</span><span class="p">},</span>
+   <span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;model&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;foo&quot;</span><span class="p">},</span>
+<span class="p">]}</span>
+</pre></div>
+</div>
+<p>But the where syntax in not perfect, because it can only be applied on <code class="docutils literal notranslate"><span class="pre">nested</span></code> type object, and not simple <code class="docutils literal notranslate"><span class="pre">object</span></code>.</p>
+<p>Thus the where syntax automatically selection the deeper nested field to apply the filter, then you can not control it, and the where order can sometimes just not work.</p>
+<p>For example the first query will not work but the second will.</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="n">attribute</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">foo</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bag</span>
+<span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bag</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">attribute</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">foo</span>
+</pre></div>
+</div>
+<p>Here label and attribute are nested object, and attribute are under label, but label are not under attribute, this is why it does not work.</p>
+<p>On not nested object, the both order will work.</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pants</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">texture</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">denim</span>
+<span class="n">texture</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">denim</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pants</span>
+</pre></div>
+</div>
+<p>Here texture is a simple <code class="docutils literal notranslate"><span class="pre">object</span></code>, then the deeper nested field is label, then the both query will apply on label level.</p>
+</section>
+<section id="context-syntax">
+<h4>Context syntax<a class="headerlink" href="#context-syntax" title="Permalink to this heading"></a></h4>
+<p>The <code class="docutils literal notranslate"><span class="pre">context</span></code> syntax works in the same way than <code class="docutils literal notranslate"><span class="pre">where</span></code> syntax but allow a better control on the nested level. Basically you can chose the nested level instead of let SEL decide for you.</p>
+<p>💡 <strong>Note</strong>: You can do an infinite number of <code class="docutils literal notranslate"><span class="pre">where</span></code> inside a <code class="docutils literal notranslate"><span class="pre">where</span></code>, there is no depth limit.</p>
+<p>For example if we want to select bag or leather of red color.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">label</span> <span class="n">where</span> <span class="p">((</span><span class="n">label</span> <span class="o">=</span> <span class="n">bag</span> <span class="ow">or</span> <span class="n">texture</span> <span class="o">=</span> <span class="n">leather</span><span class="p">)</span> <span class="ow">and</span> <span class="n">color</span> <span class="o">=</span> <span class="n">red</span><span class="p">)</span>
+
+<span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="s2">&quot;where&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;operator&quot;</span><span class="p">:</span> <span class="s2">&quot;and&quot;</span><span class="p">,</span> <span class="s2">&quot;items&quot;</span><span class="p">:</span> <span class="p">[</span>
+  <span class="p">{</span><span class="s2">&quot;operator&quot;</span><span class="p">:</span> <span class="s2">&quot;or&quot;</span><span class="p">,</span> <span class="s2">&quot;items&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;bag&quot;</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;texture&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;leather&quot;</span><span class="p">}</span>
+  <span class="p">]}</span>
+  <span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;color&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;red&quot;</span><span class="p">}</span>
+<span class="p">]}}</span>
+</pre></div>
+</div>
+<p>Just for the example, even if this is not optimal, we can do this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">label</span> <span class="n">where</span> <span class="p">(</span><span class="n">label</span> <span class="o">=</span> <span class="n">top</span> <span class="ow">and</span> <span class="n">label</span> <span class="n">where</span> <span class="p">(</span><span class="n">gender</span> <span class="o">=</span> <span class="n">female</span> <span class="ow">and</span> <span class="n">color</span> <span class="n">where</span> <span class="p">(</span><span class="n">color</span> <span class="o">=</span> <span class="n">multicolor</span><span class="p">)))</span>
+
+<span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="s2">&quot;where&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;operator&quot;</span><span class="p">:</span> <span class="s2">&quot;and&quot;</span><span class="p">,</span> <span class="s2">&quot;items&quot;</span><span class="p">:</span> <span class="p">[</span>
+  <span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;top&quot;</span><span class="p">},</span>
+  <span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="s2">&quot;where&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;operator&quot;</span><span class="p">:</span> <span class="s2">&quot;and&quot;</span><span class="p">,</span> <span class="s2">&quot;items&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;gender&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;female&quot;</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;color&quot;</span><span class="p">,</span> <span class="s2">&quot;where&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;color&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;multicolor&quot;</span><span class="p">}</span>
+  <span class="p">]}}</span>
+<span class="p">]}}</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="sorts">
+<h2>Sorts<a class="headerlink" href="#sorts" title="Permalink to this heading"></a></h2>
+<p>🗒️ <strong>Note</strong>: All examples bellow refer to <code class="docutils literal notranslate"><span class="pre">Schema</span> <span class="pre">example</span></code>.</p>
+<p>Must be placed at the end of the query string. Numerous sorts can be put, the order is important, from left to right.</p>
+<p>For query object, use the key <code class="docutils literal notranslate"><span class="pre">&quot;sort&quot;</span></code> as a list.</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="nt">&quot;sort&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">  </span><span class="p">{</span><span class="nt">&quot;field&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;label&quot;</span><span class="p">},</span>
+<span class="w">  </span><span class="p">{</span><span class="nt">&quot;field&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;label.model&quot;</span><span class="p">},</span>
+<span class="p">]}</span>
+</pre></div>
+</div>
+<section id="id7">
+<h3>Auto sort<a class="headerlink" href="#id7" title="Permalink to this heading"></a></h3>
+<p>Auto sort are made for each fields containing score, such as:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bag</span><span class="w"> </span><span class="o">#</span><span class="w"> </span><span class="n">generate</span><span class="w"> </span><span class="n">following</span><span class="w"> </span><span class="n">sorts</span>
+<span class="n">sort</span><span class="p">:</span><span class="w"> </span><span class="n">label</span><span class="w"> </span><span class="k">desc</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bag</span><span class="w"> </span><span class="o">#</span><span class="w"> </span><span class="k">In</span><span class="w"> </span><span class="k">order</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">best</span><span class="w"> </span><span class="n">bag</span><span class="w"> </span><span class="k">first</span><span class="p">.</span>
+</pre></div>
+</div>
+<p>🗒️  <strong>Note</strong>: Your sorts are put before auto sorts.</p>
+</section>
+<section id="special-values">
+<h3>Special values<a class="headerlink" href="#special-values" title="Permalink to this heading"></a></h3>
+<p>Disabled auto sort: <code class="docutils literal notranslate"><span class="pre">sort:</span> <span class="pre">null</span></code></p>
+<p>Enable auto sort: <code class="docutils literal notranslate"><span class="pre">sort:</span> <span class="pre">auto</span></code></p>
+<p>Random sort: <code class="docutils literal notranslate"><span class="pre">sort:</span> <span class="pre">random</span></code></p>
+<p>💡 <strong>Note</strong>: A special integer parameter “seed” can control the random: <code class="docutils literal notranslate"><span class="pre">sort:</span> <span class="pre">random</span> <span class="pre">seed</span> <span class="pre">1</span></code></p>
+</section>
+<section id="order">
+<h3>Order<a class="headerlink" href="#order" title="Permalink to this heading"></a></h3>
+<p>Sort in descending order.</p>
+<p>🗒️  <strong>Note</strong>: It’s the default order, you don’t have to specify it.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sort</span><span class="p">:</span> <span class="n">label</span>
+<span class="n">sort</span><span class="p">:</span> <span class="n">label</span> <span class="n">desc</span>
+
+<span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label&quot;</span><span class="p">}</span>
+<span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="s2">&quot;order&quot;</span><span class="p">:</span> <span class="s2">&quot;desc&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>Sort in ascending order</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sort</span><span class="p">:</span> <span class="n">label</span> <span class="n">asc</span>
+<span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="s2">&quot;order&quot;</span><span class="p">:</span> <span class="s2">&quot;asc&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="mode">
+<h3>Mode<a class="headerlink" href="#mode" title="Permalink to this heading"></a></h3>
+<p>The mode allow to control the manner to build the score for a single document / if there is numerous score present in a single document.</p>
+<p>Sort by average of values</p>
+<p>🗒️  <strong>Note</strong>: It’s the default order, you don’t have to specify it.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sort</span><span class="p">:</span> <span class="n">label</span> <span class="n">mode</span> <span class="n">avg</span> 
+<span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="s2">&quot;mode&quot;</span><span class="p">:</span> <span class="s2">&quot;avg&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>Sort by the minimum of all values in the document.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sort</span><span class="p">:</span> <span class="n">label</span> <span class="n">mode</span> <span class="nb">min</span>
+<span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="s2">&quot;mode&quot;</span><span class="p">:</span> <span class="s2">&quot;min&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>Sort by the maximum of all values in the document.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sort</span><span class="p">:</span> <span class="n">label</span> <span class="n">mode</span> <span class="nb">max</span>
+<span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="s2">&quot;mode&quot;</span><span class="p">:</span> <span class="s2">&quot;max&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>Sort by the sum of all values the document.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sort</span><span class="p">:</span> <span class="n">label</span> <span class="n">mode</span> <span class="nb">sum</span>
+<span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label.model&quot;</span><span class="p">,</span> <span class="s2">&quot;mode&quot;</span><span class="p">:</span> <span class="s2">&quot;sum&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>Sort by the median of all values in the document.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sort</span><span class="p">:</span> <span class="n">label</span> <span class="n">mode</span> <span class="n">median</span>
+<span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label.model&quot;</span><span class="p">,</span> <span class="s2">&quot;mode&quot;</span><span class="p">:</span> <span class="s2">&quot;median&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="where-filters">
+<h3>Where filters<a class="headerlink" href="#where-filters" title="Permalink to this heading"></a></h3>
+<p>Apply filter on sort.</p>
+<p>💡 <strong>Note</strong>: The whole filter syntax is available here.</p>
+<p>Get best bag first.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sort</span><span class="p">:</span> <span class="n">label</span> <span class="n">where</span> <span class="p">(</span><span class="n">label</span> <span class="o">=</span> <span class="n">bag</span><span class="p">)</span>
+<span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="s2">&quot;where&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;bag&quot;</span><span class="p">}}</span>
+</pre></div>
+</div>
+<section id="under">
+<h4>Under<a class="headerlink" href="#under" title="Permalink to this heading"></a></h4>
+<p>Under syntax is used to apply given nested context for the <code class="docutils literal notranslate"><span class="pre">where</span></code> filter.</p>
+<p>Get best bags’ attribute first.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sort</span><span class="p">:</span> <span class="n">label</span><span class="o">.</span><span class="n">attribute</span> <span class="n">under</span> <span class="n">label</span> <span class="n">where</span> <span class="p">(</span><span class="n">label</span> <span class="o">=</span> <span class="n">bag</span><span class="p">)</span>
+
+<span class="p">{</span>
+  <span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label.attribute&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;under&quot;</span><span class="p">:</span> <span class="s2">&quot;label&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;where&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;bag&quot;</span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This sort can not works without <code class="docutils literal notranslate"><span class="pre">under</span></code>, because <code class="docutils literal notranslate"><span class="pre">label</span></code> field is not contained inside the attribute object. See <a class="reference internal" href="schema.html"><span class="doc std std-doc">schema</span></a>.</p>
+</section>
+</section>
+</section>
+<section id="aggregations">
+<h2>Aggregations<a class="headerlink" href="#aggregations" title="Permalink to this heading"></a></h2>
+<p>🗒️ <strong>Note</strong>: All examples bellow refer to <code class="docutils literal notranslate"><span class="pre">Schema</span> <span class="pre">example</span></code>.</p>
+<p>Aggregations must be at the end of the query string.</p>
+<section id="query-object">
+<h3>Query object<a class="headerlink" href="#query-object" title="Permalink to this heading"></a></h3>
+<p>In query object keys are used to find back your aggregations in returned results, it’s useful if you are doing numerous aggregations in a single query.</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="nt">&quot;aggregations&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;my_first_aggreg&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;field&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;label&quot;</span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;my_second_aggreg&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;histogram&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;field&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;date&quot;</span><span class="p">}</span>
+<span class="p">}}</span>
+</pre></div>
+</div>
+<p><strong>Return example</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;results&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;aggregations&quot;</span><span class="p">:</span> <span class="p">{</span>
+
+      <span class="s2">&quot;my_first_aggreg&quot;</span><span class="p">:</span> <span class="p">{</span>
+	    <span class="s2">&quot;buckets&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="o">...</span> <span class="p">]</span>
+      <span class="p">},</span>
+
+      <span class="s2">&quot;my_second_aggreg&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;buckets&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="o">...</span> <span class="p">]</span>
+      <span class="p">}</span>
+
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="aggregation-types">
+<h3>Aggregation types<a class="headerlink" href="#aggregation-types" title="Permalink to this heading"></a></h3>
+<p>Aggreg type is how you want to aggregate values.</p>
+<ul class="simple">
+<li><p><strong>aggreg</strong>: Return all existing values, and it’s number of occurrence.</p></li>
+<li><p><strong>histogram</strong>: Count occurrence of range of values, for numerical and date. Default <code class="docutils literal notranslate"><span class="pre">size</span></code> is <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p></li>
+<li><p><strong>count</strong>: Count the number of occurrence of the field, whatever it’s value.</p></li>
+<li><p><strong>distinct</strong>: Count the number of unique values for the field.</p></li>
+<li><p><strong>min</strong>: Return the minimum value of the field, for numerical and date only.</p></li>
+<li><p><strong>max</strong>: Return the maximum value of the field, for numerical and date only.</p></li>
+<li><p><strong>sum</strong>: Return the sum of values of the field, for numerical and date only.</p></li>
+<li><p><strong>average</strong>: Return the average of values of the field, for numerical and date only.</p></li>
+<li><p><strong>stats</strong>: Return numerous stats on the field: min, max, average, count, …, for numerical only.</p></li>
+</ul>
+<p><strong>Examples</strong></p>
+<p>Get all values of labels and it’s number of occurrence.</p>
+<p>🗒️  <strong>Note</strong>: In query object <code class="docutils literal notranslate"><span class="pre">type</span></code> is <code class="docutils literal notranslate"><span class="pre">aggreg</span></code> by default.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">aggreg</span><span class="p">:</span> <span class="n">label</span>
+<span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;date&quot;</span><span class="p">}</span>
+<span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;aggreg&quot;</span><span class="p">,</span> <span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;date&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>Count posts per day.</p>
+<p>💡 <strong>Note</strong>: <code class="docutils literal notranslate"><span class="pre">aggreg</span></code> type on date type field is actually doing an histogram aggregations.<br />
+💡 <strong>Note</strong>: By default histogram <code class="docutils literal notranslate"><span class="pre">size</span></code> is set to <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">aggreg</span><span class="p">:</span> <span class="n">date</span>
+<span class="n">histogram</span><span class="p">:</span> <span class="n">date</span>
+<span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;histogram&quot;</span><span class="p">,</span> <span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;date&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>Get all occurrences of labels, whatever it’s value.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">count</span><span class="p">:</span> <span class="n">label</span>
+<span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;count&quot;</span><span class="p">,</span> <span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>Get number of different labels’ value.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">distinct</span><span class="p">:</span> <span class="n">label</span>
+<span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;distinct&quot;</span><span class="p">,</span> <span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="named-aggregations">
+<h3>Named aggregations<a class="headerlink" href="#named-aggregations" title="Permalink to this heading"></a></h3>
+<p>You can named to your aggregations in queries, which is useful when you are doing numerous aggregations in the same query.</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="n">aggreg</span><span class="w"> </span><span class="n">bag_texture</span><span class="p">:</span><span class="w"> </span><span class="n">label</span><span class="p">.</span><span class="n">texture</span><span class="w"> </span><span class="k">under</span><span class="w"> </span><span class="n">label</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bag</span>
+<span class="n">aggreg</span><span class="w"> </span><span class="n">shoes_texture</span><span class="p">:</span><span class="w"> </span><span class="n">label</span><span class="p">.</span><span class="n">texture</span><span class="w"> </span><span class="k">under</span><span class="w"> </span><span class="n">label</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">shoes</span>
+</pre></div>
+</div>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="nt">&quot;aggregations&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;bag_texture&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;field&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;label.texture&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;under&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;label&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;where&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;field&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;label&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;bag&quot;</span><span class="p">}</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;shoes_texture&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;field&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;label.texture&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;under&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;label&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;where&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;field&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;label&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;shoes&quot;</span><span class="p">}</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="p">}}</span>
+</pre></div>
+</div>
+</section>
+<section id="id8">
+<h3>Where filters<a class="headerlink" href="#id8" title="Permalink to this heading"></a></h3>
+<p>Filter aggregations with a query.</p>
+<p>💡 <strong>Note</strong>: The whole filter syntax is available here.</p>
+<p>⚠️  <strong>Warning</strong>: Apply the filter on the nested context of the aggregated field, use <code class="docutils literal notranslate"><span class="pre">under</span></code> to change the nested field.</p>
+<p><strong>Examples</strong></p>
+<p>Limit aggregation results</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">aggreg</span><span class="p">:</span> <span class="n">label</span><span class="o">.</span><span class="n">color</span> <span class="n">where</span> <span class="p">(</span><span class="n">color</span> <span class="ow">in</span> <span class="p">[</span><span class="n">red</span><span class="p">,</span> <span class="n">blue</span><span class="p">])</span>
+
+<span class="p">{</span>
+  <span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label.color&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;where&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;color&quot;</span><span class="p">,</span> <span class="s2">&quot;comparator&quot;</span><span class="p">:</span> <span class="s2">&quot;in&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="s2">&quot;blue&quot;</span><span class="p">]}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Get all labels, excepted dress.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">aggreg</span><span class="p">:</span> <span class="n">label</span> <span class="n">where</span> <span class="n">label</span> <span class="o">!=</span> <span class="n">dress</span>
+
+<span class="p">{</span>
+  <span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;where&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="s2">&quot;comparator&quot;</span><span class="p">:</span> <span class="s2">&quot;!=&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;dress&quot;</span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<section id="id9">
+<h4>Under<a class="headerlink" href="#id9" title="Permalink to this heading"></a></h4>
+<p>Specify the nested level on which the filter (where keyword) will be applied.</p>
+<p>Get attributes of skirt.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">aggreg</span><span class="p">:</span> <span class="n">attribute</span> <span class="n">under</span> <span class="n">label</span> <span class="n">where</span> <span class="n">label</span> <span class="o">=</span> <span class="n">skirt</span>
+
+<span class="p">{</span>
+  <span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;attribute&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;under&quot;</span><span class="p">:</span> <span class="s2">&quot;label&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;where&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;dress&quot;</span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="limit-size">
+<h3>Limit size<a class="headerlink" href="#limit-size" title="Permalink to this heading"></a></h3>
+<p>Select the number of top results.</p>
+<p>🗒️  <strong>Note</strong>: Default is <code class="docutils literal notranslate"><span class="pre">Aggregations.DefaultSize</span></code> in <code class="docutils literal notranslate"><span class="pre">conf.ini</span></code>. A warning will be send if there is more values.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">aggreg</span><span class="p">:</span> <span class="n">label</span> <span class="n">size</span> <span class="mi">40</span>
+<span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="mi">40</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>Return all results</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">aggreg</span><span class="p">:</span> <span class="n">author</span> <span class="n">size</span> <span class="mi">0</span>
+<span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;author&quot;</span><span class="p">,</span> <span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="histogram-interval">
+<h3>Histogram interval<a class="headerlink" href="#histogram-interval" title="Permalink to this heading"></a></h3>
+<p>Select the date aggregation interval for numerical or date type.</p>
+<p>🗒️  <strong>Note</strong>: Default is <code class="docutils literal notranslate"><span class="pre">Aggregations.DefaultDateInterval</span></code> in <code class="docutils literal notranslate"><span class="pre">conf.ini</span></code>.</p>
+<p>Available expressions for interval: year, quarter, month, week, day, hour, minute, second</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">aggreg</span><span class="p">:</span> <span class="n">date</span> <span class="n">interval</span> <span class="n">month</span>
+<span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="s2">&quot;interval&quot;</span><span class="p">:</span> <span class="s2">&quot;month&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">histogram</span><span class="p">:</span> <span class="n">date</span> <span class="n">interval</span> <span class="n">year</span>
+<span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;histogram&quot;</span><span class="p">,</span> <span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="s2">&quot;interval&quot;</span><span class="p">:</span> <span class="s2">&quot;year&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>Advance interval exists, such as:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="nb">number</span><span class="o">&gt;&lt;</span><span class="n">interval_letter</span><span class="o">&gt;</span>
+<span class="mi">2</span><span class="n">d</span><span class="w">  </span><span class="o">#</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="n">days</span>
+<span class="mi">3</span><span class="n">w</span><span class="w">  </span><span class="o">#</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="n">weeks</span>
+</pre></div>
+</div>
+<p>See <a class="reference external" href="https://www.elastic.co/guide/en/elasticsearch/reference/2.4/common-options.html#time-units">Time units</a></p>
+</section>
+<section id="sub-aggregations">
+<h3>Sub aggregations<a class="headerlink" href="#sub-aggregations" title="Permalink to this heading"></a></h3>
+<p>Will proceed an aggregation under each bucket of the parent aggregation.</p>
+<p>Sub aggregations are named and several sub aggregations can be done on the same parent aggregation.</p>
+<p>For example to get all color values of each labels:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">aggreg</span><span class="p">:</span> <span class="n">label</span> <span class="n">subaggreg</span> <span class="n">my_aggreg</span> <span class="p">(</span><span class="n">aggreg</span><span class="p">:</span> <span class="n">color</span> <span class="n">size</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="p">{</span>
+  <span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;subaggreg&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;my_aggreg&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;color&quot;</span><span class="p">}}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>To get all colors and textures values for each labels.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">aggreg</span><span class="p">:</span> <span class="n">label</span> <span class="n">subaggreg</span> <span class="n">col</span> <span class="p">(</span><span class="n">aggreg</span><span class="p">:</span> <span class="n">color</span> <span class="n">size</span> <span class="mi">2</span><span class="p">)</span> <span class="n">subaggreg</span> <span class="n">tex</span> <span class="p">(</span><span class="n">aggreg</span><span class="p">:</span> <span class="n">texture</span> <span class="n">size</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="p">{</span>
+  <span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;subaggreg&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;col&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;color&quot;</span><span class="p">},</span>
+    <span class="s2">&quot;tex&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;texture&quot;</span><span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>It will return something like:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;buckets&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;key&quot;</span><span class="p">:</span> <span class="s2">&quot;dress&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;doc_count&quot;</span><span class="p">:</span> <span class="mi">203</span><span class="p">,</span>
+      <span class="s2">&quot;col&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;buckets&quot;</span><span class="p">:</span> <span class="p">[</span>
+          <span class="p">{</span><span class="s2">&quot;key&quot;</span><span class="p">:</span> <span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="s2">&quot;doc_count&quot;</span><span class="p">:</span> <span class="mi">88</span><span class="p">},</span>
+          <span class="p">{</span><span class="s2">&quot;key&quot;</span><span class="p">:</span> <span class="s2">&quot;brown&quot;</span><span class="p">,</span> <span class="s2">&quot;doc_count&quot;</span><span class="p">:</span> <span class="mi">80</span><span class="p">}</span>
+        <span class="p">]</span>
+      <span class="p">},</span>
+      <span class="s2">&quot;tex&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;buckets&quot;</span><span class="p">:</span> <span class="p">[</span>
+          <span class="p">{</span><span class="s2">&quot;key&quot;</span><span class="p">:</span> <span class="s2">&quot;printed&quot;</span><span class="p">,</span> <span class="s2">&quot;doc_count&quot;</span><span class="p">:</span> <span class="mi">52</span><span class="p">},</span>
+          <span class="p">{</span><span class="s2">&quot;key&quot;</span><span class="p">:</span> <span class="s2">&quot;floral&quot;</span><span class="p">,</span> <span class="s2">&quot;doc_count&quot;</span><span class="p">:</span> <span class="mi">29</span><span class="p">}</span>
+        <span class="p">]</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;key&quot;</span><span class="p">:</span> <span class="s2">&quot;shoes&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;doc_count&quot;</span><span class="p">:</span> <span class="mi">162</span><span class="p">,</span>
+      <span class="s2">&quot;col&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;buckets&quot;</span><span class="p">:</span> <span class="p">[]},</span>
+      <span class="s2">&quot;tex&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;buckets&quot;</span><span class="p">:</span> <span class="p">[</span>
+          <span class="p">{</span><span class="s2">&quot;key&quot;</span><span class="p">:</span> <span class="s2">&quot;leather&quot;</span><span class="p">,</span> <span class="s2">&quot;doc_count&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">},</span>
+          <span class="p">{</span><span class="s2">&quot;key&quot;</span><span class="p">:</span> <span class="s2">&quot;printed&quot;</span><span class="p">,</span> <span class="s2">&quot;doc_count&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
+        <span class="p">]</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="o">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="big-examples">
+<h2>Big Examples<a class="headerlink" href="#big-examples" title="Permalink to this heading"></a></h2>
+<p>🗒️ <strong>Note</strong>: All examples bellow refer to <code class="docutils literal notranslate"><span class="pre">Schema</span> <span class="pre">example</span></code>.</p>
+<section id="trend-moodboard">
+<h3>Trend moodboard<a class="headerlink" href="#trend-moodboard" title="Permalink to this heading"></a></h3>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="n">trend</span><span class="p">.</span><span class="n">entity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;pants:women:denim:straight&quot;</span>
+<span class="k">AND</span><span class="w"> </span><span class="p">.</span><span class="n">author</span><span class="p">.</span><span class="n">geozone</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">eu</span>
+<span class="k">AND</span><span class="w"> </span><span class="mi">2021</span><span class="o">-</span><span class="mi">07</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="nb">date</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">2021</span><span class="o">-</span><span class="mi">12</span>
+
+<span class="n">SORT</span><span class="p">:</span><span class="w"> </span><span class="nb">date</span>
+</pre></div>
+</div>
+</section>
+<section id="fetch-all-trend-signals">
+<h3>Fetch all trend signals<a class="headerlink" href="#fetch-all-trend-signals" title="Permalink to this heading"></a></h3>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="n">label</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="p">(</span>
+<span class="w">   </span><span class="n">gender</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">female</span>
+<span class="w">   </span><span class="k">AND</span><span class="w"> </span><span class="n">label</span><span class="p">.</span><span class="n">trend</span><span class="p">.</span><span class="n">entity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;pattern:plain&quot;</span>
+<span class="w">   </span><span class="k">AND</span><span class="w"> </span><span class="n">label</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">[</span><span class="ss">&quot;tops&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;outerwear&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;pants&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;shorts&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;dresses&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;skirts&quot;</span><span class="p">]</span>
+<span class="p">)</span>
+<span class="k">AND</span><span class="w"> </span><span class="mi">2015</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">10</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="nb">date</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">2021</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">14</span>
+
+<span class="n">AGGREG</span><span class="w"> </span><span class="n">labels</span><span class="p">:</span><span class="w"> </span><span class="n">label</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="p">(</span><span class="n">gender</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">female</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">label</span><span class="p">.</span><span class="n">trend</span><span class="p">.</span><span class="n">entity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;pattern:plain&quot;</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">label</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">[</span><span class="ss">&quot;tops&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;outerwear&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;pants&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;shorts&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;dresses&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;skirts&quot;</span><span class="p">])</span>
+<span class="w">   </span><span class="n">SUBAGGREG</span><span class="w"> </span><span class="n">raw_signal</span><span class="w"> </span><span class="p">(</span><span class="n">AGGREG</span><span class="p">:</span><span class="w"> </span><span class="nb">date</span><span class="w"> </span><span class="nb">INTERVAL</span><span class="w"> </span><span class="n">week</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">author</span><span class="p">.</span><span class="n">geozone</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">eu</span><span class="p">)</span>
+<span class="w">   </span><span class="n">SUBAGGREG</span><span class="w"> </span><span class="n">mainstream</span><span class="w"> </span><span class="p">(</span><span class="n">AGGREG</span><span class="p">:</span><span class="w"> </span><span class="nb">date</span><span class="w"> </span><span class="nb">INTERVAL</span><span class="w"> </span><span class="n">week</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="p">(</span><span class="n">follower</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">12000</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">author</span><span class="p">.</span><span class="n">geozone</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">eu</span><span class="p">))</span>
+<span class="w">   </span><span class="n">SUBAGGREG</span><span class="w"> </span><span class="n">trendy</span><span class="w"> </span><span class="p">(</span><span class="n">AGGREG</span><span class="p">:</span><span class="w"> </span><span class="nb">date</span><span class="w"> </span><span class="nb">INTERVAL</span><span class="w"> </span><span class="n">week</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="p">(</span><span class="mi">12000</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">follower</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">40000</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">author</span><span class="p">.</span><span class="n">geozone</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">eu</span><span class="p">))</span>
+<span class="w">   </span><span class="n">SUBAGGREG</span><span class="w"> </span><span class="n">edgy</span><span class="w"> </span><span class="p">(</span><span class="n">AGGREG</span><span class="p">:</span><span class="w"> </span><span class="nb">date</span><span class="w"> </span><span class="nb">INTERVAL</span><span class="w"> </span><span class="n">week</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="p">(</span><span class="n">follower</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">40000</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">author</span><span class="p">.</span><span class="n">geozone</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">eu</span><span class="p">))</span>
+<span class="w">   </span><span class="n">SUBAGGREG</span><span class="w"> </span><span class="n">followers_low</span><span class="w"> </span><span class="p">(</span><span class="n">AGGREG</span><span class="p">:</span><span class="w"> </span><span class="nb">date</span><span class="w"> </span><span class="nb">INTERVAL</span><span class="w"> </span><span class="n">week</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="p">(</span><span class="n">follower</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">1350</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">author</span><span class="p">.</span><span class="n">geozone</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">eu</span><span class="p">))</span>
+<span class="w">   </span><span class="n">SUBAGGREG</span><span class="w"> </span><span class="n">followers_mid</span><span class="w"> </span><span class="p">(</span><span class="n">AGGREG</span><span class="p">:</span><span class="w"> </span><span class="nb">date</span><span class="w"> </span><span class="nb">INTERVAL</span><span class="w"> </span><span class="n">week</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="p">(</span><span class="mi">1350</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">follower</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">7000</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">author</span><span class="p">.</span><span class="n">geozone</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">eu</span><span class="p">))</span>
+<span class="w">   </span><span class="n">SUBAGGREG</span><span class="w"> </span><span class="n">followers_high</span><span class="w"> </span><span class="p">(</span><span class="n">AGGREG</span><span class="p">:</span><span class="w"> </span><span class="nb">date</span><span class="w"> </span><span class="nb">INTERVAL</span><span class="w"> </span><span class="n">week</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="p">(</span><span class="n">follower</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">7000</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">author</span><span class="p">.</span><span class="n">geozone</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">eu</span><span class="p">))</span>
+<span class="w">   </span><span class="n">SUBAGGREG</span><span class="w"> </span><span class="n">fashion_forwards</span><span class="w"> </span><span class="p">(</span><span class="n">AGGREG</span><span class="p">:</span><span class="w"> </span><span class="nb">date</span><span class="w"> </span><span class="nb">INTERVAL</span><span class="w"> </span><span class="n">week</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">panel_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fashion_forward</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The heaviest query ever used. First part of the query filter documents and second part return timeseries’ histogram for each type of label.<br />
+The label query must be repeat inside the first aggregation level to be sure the aggregation is apply on the trend. For eg. <code class="docutils literal notranslate"><span class="pre">tops</span></code> can be in labels but not on the expected trend.<br />
+Finally each subaggreg will return a specific timeserie used for trend metrics and forecasting and will be applied on each labels.<br />
+This query can be too heavy to apply at once if there is lot of data in ES or if the cluster has not enought computation power and results to timeout. In that case the best is to apply each subaggreg query one by one.</p>
+</section>
+<section id="key-metrics">
+<h3>Key Metrics<a class="headerlink" href="#key-metrics" title="Permalink to this heading"></a></h3>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="n">label</span><span class="p">.</span><span class="n">model</span><span class="p">.</span><span class="n">entity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;bag:30montaigneleatherflap&quot;</span>
+<span class="k">AND</span><span class="w"> </span><span class="n">panel_category</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">[</span><span class="ss">&quot;fashion&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;sport&quot;</span><span class="p">]</span>
+<span class="k">AND</span><span class="w"> </span><span class="n">tag</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">commercial</span>
+<span class="k">AND</span><span class="w"> </span><span class="n">tag</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">owned_content</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="p">(</span><span class="n">tag</span><span class="p">.</span><span class="n">brand</span><span class="p">.</span><span class="n">entity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;br:750&quot;</span><span class="p">)</span>
+<span class="k">AND</span><span class="w"> </span><span class="mi">2020</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">19</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="nb">date</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">2020</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">19</span>
+
+<span class="k">COUNT</span><span class="w"> </span><span class="n">post</span><span class="p">:</span><span class="w"> </span><span class="p">.</span><span class="n">id</span>
+<span class="k">SUM</span><span class="w"> </span><span class="n">follower</span><span class="p">:</span><span class="w"> </span><span class="n">follower</span>
+<span class="k">SUM</span><span class="w"> </span><span class="n">engagement</span><span class="p">:</span><span class="w"> </span><span class="n">engagement</span>
+</pre></div>
+</div>
+</section>
+<section id="evolution-chart">
+<h3>Evolution chart<a class="headerlink" href="#evolution-chart" title="Permalink to this heading"></a></h3>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="n">panel_category</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">[</span><span class="ss">&quot;fashion&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;sport&quot;</span><span class="p">]</span>
+<span class="k">AND</span><span class="w"> </span><span class="n">tag</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">commercial</span>
+<span class="k">AND</span><span class="w"> </span><span class="n">tag</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">owned_content</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="p">(</span><span class="n">tag</span><span class="p">.</span><span class="n">brand</span><span class="p">.</span><span class="n">entity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;br:750&quot;</span><span class="p">)</span>
+<span class="k">AND</span><span class="w"> </span><span class="mi">2020</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">19</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="nb">date</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">2020</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">19</span>
+
+<span class="n">AGGREG</span><span class="w"> </span><span class="n">norm</span><span class="p">:</span><span class="w"> </span><span class="nb">date</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="p">(</span><span class="n">label</span><span class="p">.</span><span class="n">model</span><span class="p">.</span><span class="k">exists</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">true</span><span class="p">)</span>
+<span class="n">AGGREG</span><span class="w"> </span><span class="n">models</span><span class="p">:</span><span class="w"> </span><span class="nb">date</span><span class="w"> </span><span class="nb">INTERVAL</span><span class="w"> </span><span class="k">day</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="p">(</span><span class="n">label</span><span class="p">.</span><span class="n">model</span><span class="p">.</span><span class="n">entity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;bag:30montaigneleatherflap&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="evolution-of-audience-breakdown">
+<h3>Evolution of audience breakdown<a class="headerlink" href="#evolution-of-audience-breakdown" title="Permalink to this heading"></a></h3>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="n">label</span><span class="p">.</span><span class="n">model</span><span class="p">.</span><span class="n">entity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;bag:30montaigneleatherflap&quot;</span>
+<span class="k">AND</span><span class="w"> </span><span class="n">panel_category</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">[</span><span class="ss">&quot;fashion&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;sport&quot;</span><span class="p">]</span>
+<span class="k">AND</span><span class="w"> </span><span class="n">tag</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">commercial</span>
+<span class="k">AND</span><span class="w"> </span><span class="n">tag</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">owned_content</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="p">(</span><span class="n">tag</span><span class="p">.</span><span class="n">brand</span><span class="p">.</span><span class="n">entity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;br:750&quot;</span><span class="p">)</span>
+<span class="k">AND</span><span class="w"> </span><span class="mi">2020</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">19</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="nb">date</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">2020</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">19</span>
+
+<span class="n">AGGREG</span><span class="w"> </span><span class="n">voice</span><span class="p">:</span><span class="w"> </span><span class="nb">date</span><span class="w"> </span><span class="nb">INTERVAL</span><span class="w"> </span><span class="k">day</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="p">(</span><span class="n">follower</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">1000</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="n">follower</span><span class="p">.</span><span class="k">exists</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">false</span><span class="p">)</span>
+<span class="n">AGGREG</span><span class="w"> </span><span class="n">micro</span><span class="p">:</span><span class="w"> </span><span class="nb">date</span><span class="w"> </span><span class="nb">INTERVAL</span><span class="w"> </span><span class="k">day</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="mi">1000</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">follower</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">10000</span>
+<span class="n">AGGREG</span><span class="w"> </span><span class="n">macro</span><span class="p">:</span><span class="w"> </span><span class="nb">date</span><span class="w"> </span><span class="nb">INTERVAL</span><span class="w"> </span><span class="k">day</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="mi">10000</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">follower</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">500000</span>
+<span class="n">AGGREG</span><span class="w"> </span><span class="n">superstar</span><span class="p">:</span><span class="w"> </span><span class="nb">date</span><span class="w"> </span><span class="nb">INTERVAL</span><span class="w"> </span><span class="k">day</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">follower</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">500000</span>
+</pre></div>
+</div>
+</section>
+<section id="geographical-breakdown">
+<h3>Geographical breakdown<a class="headerlink" href="#geographical-breakdown" title="Permalink to this heading"></a></h3>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="n">label</span><span class="p">.</span><span class="n">model</span><span class="p">.</span><span class="n">entity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;bag:30montaigneleatherflap&quot;</span>
+<span class="k">AND</span><span class="w"> </span><span class="n">panel_category</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">[</span><span class="ss">&quot;fashion&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;sport&quot;</span><span class="p">]</span>
+<span class="k">AND</span><span class="w"> </span><span class="n">tag</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">commercial</span>
+<span class="k">AND</span><span class="w"> </span><span class="n">tag</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">owned_content</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="p">(</span><span class="n">tag</span><span class="p">.</span><span class="n">brand</span><span class="p">.</span><span class="n">entity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;br:750&quot;</span><span class="p">)</span>
+<span class="k">AND</span><span class="w"> </span><span class="mi">2020</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">19</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="nb">date</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">2020</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">19</span>
+
+<span class="k">COUNT</span><span class="w"> </span><span class="n">norm</span><span class="p">:</span><span class="w"> </span><span class="p">.</span><span class="n">id</span>
+<span class="n">AGGREG</span><span class="w"> </span><span class="n">models</span><span class="p">:</span><span class="w"> </span><span class="n">continent</span><span class="w"> </span><span class="k">SIZE</span><span class="w"> </span><span class="mi">0</span>
+</pre></div>
+</div>
+</section>
+<section id="commercial-content">
+<h3>Commercial content<a class="headerlink" href="#commercial-content" title="Permalink to this heading"></a></h3>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="n">label</span><span class="p">.</span><span class="n">model</span><span class="p">.</span><span class="n">entity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;bag:30montaigneleatherflap&quot;</span>
+<span class="k">AND</span><span class="w"> </span><span class="n">panel_category</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">[</span><span class="ss">&quot;fashion&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;sport&quot;</span><span class="p">]</span>
+<span class="k">AND</span><span class="w"> </span><span class="n">tag</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">owned_content</span>
+<span class="k">AND</span><span class="w"> </span><span class="mi">2020</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">19</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="nb">date</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">2020</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">19</span>
+
+<span class="k">COUNT</span><span class="w"> </span><span class="n">norm</span><span class="p">:</span><span class="w"> </span><span class="p">.</span><span class="n">id</span>
+<span class="k">COUNT</span><span class="w"> </span><span class="n">commercial</span><span class="p">:</span><span class="w"> </span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">tag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">commercial</span>
+<span class="k">COUNT</span><span class="w"> </span><span class="n">not_commercial</span><span class="p">:</span><span class="w"> </span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">tag</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">commercial</span>
+</pre></div>
+</div>
+</section>
+<section id="brand-mentions">
+<h3>Brand mentions<a class="headerlink" href="#brand-mentions" title="Permalink to this heading"></a></h3>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="n">label</span><span class="p">.</span><span class="n">model</span><span class="p">.</span><span class="n">entity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;bag:30montaigneleatherflap&quot;</span>
+<span class="k">AND</span><span class="w"> </span><span class="n">tag</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">commercial</span>
+<span class="k">AND</span><span class="w"> </span><span class="n">tag</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">owned_content</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="p">(</span><span class="n">tag</span><span class="p">.</span><span class="n">brand</span><span class="p">.</span><span class="n">entity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;br:750&quot;</span><span class="p">)</span>
+<span class="k">AND</span><span class="w"> </span><span class="n">panel_category</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">[</span><span class="ss">&quot;fashion&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;sport&quot;</span><span class="p">]</span>
+<span class="k">AND</span><span class="w"> </span><span class="mi">2020</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">19</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="nb">date</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">2020</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">19</span>
+
+<span class="k">COUNT</span><span class="w"> </span><span class="n">norm</span><span class="p">:</span><span class="w"> </span><span class="p">.</span><span class="n">id</span>
+<span class="k">COUNT</span><span class="w"> </span><span class="n">brand_mention</span><span class="p">:</span><span class="w"> </span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="p">(</span><span class="n">tag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">brand_mention</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="p">(</span><span class="n">brand</span><span class="p">.</span><span class="n">entity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;br:750&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="conf.html" class="btn btn-neutral float-left" title="conf.ini" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="schema.html" class="btn btn-neutral float-right" title="Schema example" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Arnaud Parant.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

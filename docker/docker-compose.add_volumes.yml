@@ -1,0 +1,7 @@
+version: '2'
+services:
+  tests:
+    volumes:
+      - ${PWD}/projects/${PROJECT}/${PROJECT}:/src/${PROJECT}
+      - ${PWD}/scripts:/scripts
+      - ${PWD}/projects/${PROJECT}/tests:/tests
