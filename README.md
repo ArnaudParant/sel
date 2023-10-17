@@ -11,7 +11,7 @@ Two first digits of SEL version match Elasticsearch version and then it's the in
 
 
 ## Full documentation
-[SEL doc](https://arnaudparant.github.io/simple_elastic_language)  
+[SEL doc](https://arnaudparant.github.io/sel)  
 [SEL Server doc](http://localhost:9000/docs) (need `make start-server`)  
 
 
