@@ -4,13 +4,13 @@ ARG PROJECT
 ENV PROJECT="${PROJECT}"
 
 
-ADD projects/sel/sel /src/sel
+ADD projects/sel/sel /sel
 ADD projects/sel/setup.py .
 ADD projects/sel/setup.cfg .
 RUN pip3 install -e .
 
 
-ADD projects/${PROJECT}/${PROJECT} /src/${PROJECT}
+ADD projects/${PROJECT}/${PROJECT} /${PROJECT}
 ADD projects/${PROJECT}/docker-entrypoint.sh .
 ADD projects/${PROJECT}/conf.ini .
 ADD projects/${PROJECT}/setup.py .

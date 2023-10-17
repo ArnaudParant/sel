@@ -3,7 +3,7 @@ FROM python:3.6
 ARG PROJECT
 ENV PROJECT="${PROJECT}"
 
-ADD projects/${PROJECT}/${PROJECT} /src/${PROJECT}
+ADD projects/${PROJECT}/${PROJECT} /${PROJECT}
 ADD projects/${PROJECT}/setup.py .
 ADD projects/${PROJECT}/setup.cfg .
 RUN pip3 install -e .
