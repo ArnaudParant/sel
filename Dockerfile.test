@@ -1,0 +1,11 @@
+ARG BUILD_TAG
+FROM sel:${BUILD_TAG}
+
+# Run pip3 install to install our packages for test purpose
+ADD setup.py .
+ADD setup.cfg .
+RUN pip3 install -e '.[test]' \
+  && rm setup.py setup.cfg
+
+ADD scripts/ /scripts
+ADD tests /tests

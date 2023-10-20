@@ -1,0 +1,7 @@
+version: '2.4'
+services:
+  tests:
+    volumes:
+      - ${PWD}/sel:/sel
+      - ${PWD}/scripts:/scripts
+      - ${PWD}/tests:/tests

@@ -60,34 +60,25 @@ curl -X POST -H "Content-Type: application/json" -d '{"query": {"field": "label"
 
   
 ## Makefile rules  
-Here `{project}` is `sel` or `sel_server`.  
   
-### docker-`{project}`
-Build a docker of the project
+### docker
+Build a SEL docker
 
-### docker-test-`{project}`
-Build a docker of the project for test purpose
+### docker-test
+Build a SEL docker for tests
 
-### lint-`{project}`
-Lint the code of the project
+### lint
+Run lint on the code
 
-### tests-`{project}`
-Run all tests of the project
+### tests
+Run all tests
 
-### upshell-`{project}`
-Up a shell into a docker test of the project.  
+### upshell
+Up a shell into a docker test.  
 Useful to run only one or few tests.
-
-### start-server  
-Start SEL Server project into a docker.  
-Accessible locally on port [9000](http://localhost:9000)  
-See server documentation locally in [/docs](http://localhost:9000/docs)  
-
-### down-server  
-Down SEL Server project
 
 ### install-sphinx
 Install Sphinx and dependencies to generate documentation
 
 ### doc
-Generate the documentation in `projects/sel/docs/build/html/`  
+Generate the documentation in `docs/build/html/`  
