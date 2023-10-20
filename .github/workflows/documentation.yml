@@ -1,6 +1,9 @@
 name: documentation
 
-on: [push, pull_request, workflow_dispatch]
+on:
+  push:
+    branches:
+      - main
 
 permissions:
   contents: write
@@ -16,12 +19,8 @@ jobs:
           pip install sphinx sphinx_rtd_theme myst_parser pyPEG2
       - name: Sphinx build
         run: |
-          sphinx-build doc _build
+          sphinx-build docs/source _build
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          publish_branch: gh-pages
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: _build/
-          force_orphan: true
+          folder: _build
