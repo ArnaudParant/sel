@@ -1,9 +1,9 @@
 # SEL
 For Simple Elastic Language offer an easy way to query ElasticSearch for every body even no-tech people and even on a big, complex and nested schema.  
   
-The project is split into two subprojects:  
+The project is split into two sub projects:  
 - SEL, which is the library  
-- SEL Server, unlock quick usage by connecting directly to ES.  
+- [SEL Server](https://github.com/ArnaudParant/sel_server), unlock quick usage by connecting directly to ES.  
 
 
 ## Versions
@@ -12,7 +12,7 @@ Two first digits of SEL version match Elasticsearch version and then it's the in
 
 ## Full documentation
 [SEL doc](https://arnaudparant.github.io/sel)  
-[SEL Server doc](http://localhost:9000/docs) (need `make start-server`)  
+[SEL Server doc](https://arnaudparant.github.io/sel_server/)  
 
 
 ## Compagny
@@ -53,32 +53,14 @@ sel.generate_query("label = bag", schema=my_index_schema)["elastic_query"]
 ```
 
 ### SEL as API (SEL Server)
-```
-curl -X POST -H "Content-Type: application/json" -d '{"query": "label = bag"}' http://localhost:9000/search/my_index
-curl -X POST -H "Content-Type: application/json" -d '{"query": {"field": "label", "value": "bag"}}' http://localhost:9000/search/my_index
-```
-
+See [SEL Server](https://github.com/ArnaudParant/sel_server) for API usage
   
 ## Makefile rules  
   
-### docker
-Build a SEL docker
-
-### docker-test
-Build a SEL docker for tests
-
-### lint
-Run lint on the code
-
-### tests
-Run all tests
-
-### upshell
-Up a shell into a docker test.  
-Useful to run only one or few tests.
-
-### install-sphinx
-Install Sphinx and dependencies to generate documentation
-
-### doc
-Generate the documentation in `docs/build/html/`  
+ - **docker** - Build SEL docker
+ - **docker-test** - Build SEL test docker
+ - **lint** - Lint the code
+ - **tests** - Run all tests
+ - **upshell** - Up a shell into the docker, useful to run only few tests.  
+ - **install-sphinx** - Install Sphinx and dependencies to generate documentation.  
+ - **doc** - Generate the documentation in `docs/build/html/`  
