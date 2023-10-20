@@ -1,5 +1,5 @@
 # SEL
-For Simple Elastic Language offer an easy way to query ElasticSearch for every body even no-tech people and even on a big, complex and nested schema.  
+Simple Elastic Language offer an easy way to query ElasticSearch for every body even no-tech people and even on a big, complex and nested schema.  
   
 The project is split into two sub projects:  
 - SEL, which is the library  
@@ -23,6 +23,10 @@ SEL was initially developed for Heuritech in 2016 and used by everybody inside t
 SEL is using index schema to generate queries.  
 Be aware it will request ES schema at any query generation.  
 
+#### How to add as dependency
+```
+sel @ git+https://github.com/ArnaudParant/sel.git
+```
 
 ### SEL as ES interface
 ```
