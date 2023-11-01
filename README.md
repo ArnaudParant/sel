@@ -1,5 +1,5 @@
 # SEL
-Simple Elastic Language offer an easy way to query ElasticSearch for every body even no-tech people and even on a big, complex and nested schema.  
+Simple Elastic Language offer an easy way to query ElasticSearch for everybody even no-tech people and even on a big, complex and nested schema.  
   
 The project is split into two sub projects:  
 - [SEL](https://github.com/ArnaudParant/sel), which is the library  

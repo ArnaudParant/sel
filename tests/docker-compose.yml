@@ -2,7 +2,7 @@ version: '2.4'
 services:
 
   tests:
-    image: simple_elastic_language_sel_test:${BUILD_TAG}
+    image: sel_test:${BUILD_TAG}
     command: bash -c "sleep infinity"
     environment:
       - "ES_HOST=http://elasticsearch"
