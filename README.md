@@ -2,7 +2,7 @@
 Simple Elastic Language offer an easy way to query ElasticSearch for every body even no-tech people and even on a big, complex and nested schema.  
   
 The project is split into two sub projects:  
-- SEL, which is the library  
+- [SEL](https://github.com/ArnaudParant/sel), which is the library  
 - [SEL Server](https://github.com/ArnaudParant/sel_server), unlock quick usage by connecting directly to ES.  
 
 
@@ -68,3 +68,4 @@ See [SEL Server](https://github.com/ArnaudParant/sel_server) for API usage
  - **upshell** - Up a shell into the docker, useful to run only few tests.  
  - **install-sphinx** - Install Sphinx and dependencies to generate documentation.  
  - **doc** - Generate the documentation in `docs/build/html/`  
+ - **clean** - Clean all `__pycache__`

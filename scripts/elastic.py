@@ -9,18 +9,16 @@ from elasticsearch.client import _normalize_hosts
 from sel import upload
 
 
-SCHEMA_FILEPATH = "/scripts/schema.json"
-
-
 def options():
     parser = argparse.ArgumentParser()
     parser.add_argument("filepath")
+    parser.add_argument("schema_filepath")
     parser.add_argument("index_name")
     parser.add_argument("--overwrite", action="store_true")
     return parser.parse_args()
 
 
-def create_index(filepath, index, overwrite=False):
+def create_index(filepath, schema_filepath, index, overwrite=False):
     elastic = elastic_connect()
 
     with open(filepath) as fd:
@@ -29,7 +27,7 @@ def create_index(filepath, index, overwrite=False):
         if overwrite is True and elastic.indices.exists(index=index):
             _delete_index(elastic, index)
 
-        _create_index(elastic, index)
+        _create_index(elastic, index, schema_filepath)
         insert(elastic, index, data)
 
 
@@ -51,16 +49,16 @@ def insert(elastic, index, data):
     logging.info("Done")
 
 
-def _create_index(elastic, index):
-    schema = load_schema()
+def _create_index(elastic, index, schema_filepath):
+    schema = load_schema(schema_filepath)
     res = elastic.indices.create(index=index, body=schema, request_timeout=60)
     if "acknowledged" not in res:
         logging.error("Index creation response:\n{res}")
         raise Exception("Failed to create index: {index_name}")
 
 
-def load_schema():
-    with open(SCHEMA_FILEPATH, "r") as fd:
+def load_schema(filepath):
+    with open(filepath, "r") as fd:
         return json.load(fd)
 
 
@@ -82,4 +80,4 @@ def elastic_connect():
 
 if __name__ == "__main__":
     args = options()
-    main(args.filepath, args.index_name, overwrite=args.overwrite)
+    create_index(args.filepath, args.schema_filepath, args.index_name, overwrite=args.overwrite)
