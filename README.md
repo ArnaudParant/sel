@@ -11,7 +11,7 @@ Two first digits of SEL version match Elasticsearch version and then it's the in
 
 
 ## Full documentation
-[SEL doc](https://arnaudparant.github.io/sel)  
+[SEL doc](https://arnaudparant.github.io/sel) - Containing [Big queries' examples](https://arnaudparant.github.io/sel/query_guide.html#big-examples) and all the query synthax  
 [SEL Server doc](https://arnaudparant.github.io/sel_server/)  
 
 
@@ -23,9 +23,9 @@ SEL was initially developed for Heuritech in 2016 and used by everybody inside t
 SEL is using index schema to generate queries.  
 Be aware it will request ES schema at any query generation.  
 
-#### How to add as dependency
+#### Add as dependency
 ```
-sel @ git+https://github.com/ArnaudParant/sel.git
+sel @ git+https://github.com/ArnaudParant/sel.git@v2.4.1
 ```
 
 ### SEL as ES interface
