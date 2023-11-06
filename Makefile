@@ -22,7 +22,8 @@ upshell:		docker-test
 	docker-compose -f tests/docker-compose.yml down
 
 install-sphinx:
-	sudo pip3 install sphinx sphinx_rtd_theme myst-parser pyPEG2
+	pip install sphinx sphinx_rtd_theme myst-parser
+	pip install -e .
 
 doc:
 	cd docs && make clean html
