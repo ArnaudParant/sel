@@ -259,6 +259,9 @@ class TestParserNFormator:
         ["aggreg: color",
          {"type": "aggreg", "field": "color"}],
 
+        ["aggreg: color graph pie",
+         {"type": "aggreg", "field": "color", "graph": "pie"}],
+
         ["aggreg: color label", None],
 
         ["aggrego: color", None],

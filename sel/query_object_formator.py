@@ -265,6 +265,7 @@ TYPE_FORMAT_MAPPING = {
     Comparator: format_string,
     Name: format_string,
     FieldPath: format_string,
+    str: format_string,
 
     Aggreg: format_aggreg,
     SubAggreg: format_subaggreg,

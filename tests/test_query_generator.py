@@ -287,6 +287,18 @@ class TestQueryGenerator:
             f"Got values: {values}\nExpected: {expected_values}"
 
 
+    @pytest.mark.parametrize(["aggreg_key", "query", "expected_graph"], [
+        ["aggreg_0", "aggreg: label graph pie", "pie"],
+        ["aggreg_0", "aggreg: label graph toto", "toto"],
+        ["aggreg_0", "aggreg: label", None],
+    ])
+    def test_aggreg_graph(self, sel, aggreg_key, query, expected_graph):
+        res = sel.search(TEST_INDEX, {"query": query})
+        graph = res["results"]["aggregations"][aggreg_key].get("graph")
+
+        assert expected_graph == graph, f"Got values: {graph}\nExpected: {expected_graph}"
+
+
     @pytest.mark.parametrize(["query", "expected"], [
         ["aggreg: date interval month",
          [{u'key_as_string': u'2016-04', u'key': 1459468800000, u'doc_count': 1}, {u'key_as_string': u'2016-05', u'key': 1462060800000, u'doc_count': 1}, {u'key_as_string': u'2016-06', u'key': 1464739200000, u'doc_count': 0}, {u'key_as_string': u'2016-07', u'key': 1467331200000, u'doc_count': 0}, {u'key_as_string': u'2016-08', u'key': 1470009600000, u'doc_count': 1}, {u'key_as_string': u'2016-09', u'key': 1472688000000, u'doc_count': 0}, {u'key_as_string': u'2016-10', u'key': 1475280000000, u'doc_count': 0}, {u'key_as_string': u'2016-11', u'key': 1477958400000, u'doc_count': 2}, {u'key_as_string': u'2016-12', u'key': 1480550400000, u'doc_count': 7}, {u'key_as_string': u'2017-01', u'key': 1483228800000, u'doc_count': 24}, {u'key_as_string': u'2017-02', u'key': 1485907200000, u'doc_count': 37}, {u'key_as_string': u'2017-03', u'key': 1488326400000, u'doc_count': 8}, {u'key_as_string': u'2017-04', u'key': 1491004800000, u'doc_count': 3}, {u'key_as_string': u'2017-05', u'key': 1493596800000, u'doc_count': 10}, {u'key_as_string': u'2017-06', u'key': 1496275200000, u'doc_count': 1}, {u'key_as_string': u'2017-07', u'key': 1498867200000, u'doc_count': 1}, {u'key_as_string': u'2017-08', u'key': 1501545600000, u'doc_count': 3}, {u'key_as_string': u'2017-09', u'key': 1504224000000, u'doc_count': 1}]],

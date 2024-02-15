@@ -19,7 +19,7 @@ class PostFormater(object):
         data["field"] = f'.{aggreg_data["field"]["str_path"]}'
 
         data = utils.set_if_exists(aggreg_data, data, ["query_field"])
-        data = utils.set_if_exists(aggreg_data["aggreg"], data, ["interval"])
+        data = utils.set_if_exists(aggreg_data["aggreg"], data, ["interval", "graph"])
 
         return data
 

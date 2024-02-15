@@ -15,6 +15,7 @@ AGGREG_PARAMETER_MAPPING = {
     "size": int,
     "under": None,
     "where": None,
+    "graph": None,
 }
 
 ##########################################################################
@@ -388,6 +389,11 @@ class AggregParameter(str):
             re.compile("where", re.IGNORECASE),
             blank,
             attr("where", [QueryElement, Error('query after "where"')])
+        ),
+        (
+            re.compile("graph", re.IGNORECASE),
+            blank,
+            attr("graph", [re.compile(r"\w+"), Error('query after "graph"')])
         )
     ]
 
