@@ -2,53 +2,53 @@
  "mappings": {
 
   "document": {
-    "dynamic": false,
+    "dynamic":"strict",
     "properties": {
 
-    "id": {"type": "string", "index": "not_analyzed"},
+    "id": {"type": "keyword"},
 
     "deleted": {"type": "boolean"},
 
-    "source": {"type": "string", "index": "not_analyzed"},
+    "source": {"type": "keyword"},
 
     "author": {"properties": {
-      "name": {"type": "string", "index": "not_analyzed"},
+      "name": {"type": "keyword"},
       "follower": {"type": "integer"}
     }},
 
     "like": {"type": "integer"},
-    "content": {"type": "string"},
+    "content": {"type": "text", "fielddata": true},
     "date": {"type": "date", "format": "yyyy-MM-dd HH:mm:ss"},
 
     "media_size": {"type": "long"},
     "media": {"type": "nested", "properties": {
 
-      "image": {"type": "string", "index": "not_analyzed"},
+      "image": {"type": "keyword"},
 
       "label_size": {"type": "long"},
       "label": {"type": "nested", "properties": {
 
-        "name": {"type": "string", "index": "not_analyzed"},
-        "entity": {"type": "string", "index": "not_analyzed"},
+        "name": {"type": "keyword"},
+        "entity": {"type": "keyword"},
         "score": {"type":"float"},
 
         "model": {"properties": {
-          "name": {"type": "string", "index": "not_analyzed"},
+          "name": {"type": "keyword"},
           "score": {"type":"float"}
         }},
 
         "color": {"type": "nested", "properties": {
-          "name": {"type": "string", "index": "not_analyzed"},
+          "name": {"type": "keyword"},
           "score": {"type":"float"}
         }},
 
         "texture": {"properties": {
-          "name": {"type": "string", "index": "not_analyzed"},
+          "name": {"type": "keyword"},
           "score": {"type":"float"}
         }},
 
         "attribute": {"type": "nested", "properties": {
-          "name": {"type": "string", "index": "not_analyzed"},
+          "name": {"type": "keyword"},
           "score": {"type":"float"}
         }}
 

@@ -3,6 +3,8 @@ import pytest
 from scripts import elastic
 
 from sel import utils
+from sel.schema_reader import SchemaError
+
 import test_utils
 
 
@@ -42,7 +44,6 @@ class TestQueryGenerator:
         ['label prefix per', 98],
         [{"field": 'label', "comparator": "prefix", "value": 'per'}, 98],
         ['label nprefix per', 2],
-        ['label.score prefix 1', 97],
     ])
     def test_simple_filter(self, sel, query, expected_total):
         try:
@@ -58,25 +59,11 @@ class TestQueryGenerator:
         ["label.exists != true", 1],
         ["not label.exists = true", 1],
         ["label.exists = false", 1],
-        ["label.missing = true", 0],
-        ["label.missing != true", 100],
-        ["label.missing = false", 100],
         ["media_size > 0", 100],
         ["media_size = 0", 0],
         ['deleted.exists = true or deleted.exists = false', 100],
     ])
     def test_function(self, sel, query, expected_total):
-        res = sel.search(TEST_INDEX, {"query": query})
-        assert res["results"]["hits"]["total"] == expected_total, \
-            f'Bad document count: {res["results"]["hits"]["total"]}, expected: {expected_total}'
-
-    @pytest.mark.parametrize(["query", "expected_total"], [
-        ["label.entity ~ '*25fffddfa61c8bc'", 69],
-        ["label.entity !~ '*25fffddfa61c8bc'", 31],
-        ["label ~ '*a*'", 98],
-        ["label ~ '*oo*'", 70],
-    ])
-    def test_regex_filter(self, sel, query, expected_total):
         res = sel.search(TEST_INDEX, {"query": query})
         assert res["results"]["hits"]["total"] == expected_total, \
             f'Bad document count: {res["results"]["hits"]["total"]}, expected: {expected_total}'
@@ -132,6 +119,10 @@ class TestQueryGenerator:
         ["'2017'", 52],
         ["not '2017'", 48],
         ["content ~ '20*'", 53],
+        ["label.entity ~ '*25fffddfa61c8bc'", 69],
+        ["label.entity !~ '*25fffddfa61c8bc'", 31],
+        ["label ~ '*a*'", 98],
+        ["label ~ '*oo*'", 70],
     ])
     def test_query_string_filter(self, sel, query, expected_total):
         res = sel.search(TEST_INDEX, {"query": query})
@@ -174,7 +165,7 @@ class TestQueryGenerator:
         [".media.label != person", True],
         [".label != person", False],
         [".content ~ Sunday", True],
-        [".content ~ Sunday", False],
+        ["content ~ Sunday", True],
         [".date > 2017", True],
         [".source = 309c34318a71a94c9050f668831e1b50", True],
         ["media.label = person where .score > 0.95", True],
@@ -193,7 +184,8 @@ class TestQueryGenerator:
         try:
             res = sel.search(TEST_INDEX, data)
             assert expected_ok is True, res.text
-        except:
+
+        except SchemaError:
             assert expected_ok is False, res.text
 
     @pytest.mark.parametrize(["query", "expected_ids"], [

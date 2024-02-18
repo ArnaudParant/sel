@@ -13,10 +13,8 @@ services:
       - overlay
 
   elasticsearch:
-    image: elasticsearch:2.4
-    command: elasticsearch -Des.nodes.discovery=false
-    environment:
-      - "ES_HEAP_SIZE=2G"
+    image: elasticsearch:5.5
+    command: elasticsearch
     healthcheck:
       test: curl -s http://localhost:9200 >/dev/null || exit 1
       interval: 30s
