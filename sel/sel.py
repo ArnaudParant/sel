@@ -210,7 +210,7 @@ class SEL:
 
         aggreg_key = list(original_query["aggregations"].keys())[0]
         part_field = base_aggreg.get("field")
-        query["aggregations"][aggreg_key]["size"] = 0
+        query["aggregations"][aggreg_key]["size"] = 999999 # Do something better !!
 
         self.logger.debug("Downloading aggregation buckets ...")
 
@@ -669,7 +669,9 @@ class SEL:
         # Structure documents by indexes
         index_documents = defaultdict(list)
         for doc in docs:
-            index_documents[doc["_index"]].append(action(doc))
+            del doc["_score"]
+            index_name = doc.pop("_index")
+            index_documents[index_name].append(action(doc))
 
         # Update documents in indexes
         count = 0

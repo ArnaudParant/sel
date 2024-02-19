@@ -550,6 +550,7 @@ class QueryGenerator:
                     raise InvalidClientInput(
                         f"Invalid sort mode: {mode}. Allowed modes: {', '.join(SORT_MODES)}"
                     )
+
                 query["mode"] = mode
 
             where = item.get("where")
@@ -877,10 +878,10 @@ def aggreg_set_default_parameter(field, aggreg, conf):
     if field["element"]["type"] == "date" and aggreg["type"] == "aggreg":
         aggreg["type"] = "histogram"
 
-    if aggreg["type"] == "histogram":
-        aggreg["size"] = aggreg.get("size", 0)
-        if field["element"]["type"] == "date" and "interval" not in aggreg:
-            aggreg["interval"] = conf["Aggregations"]["DefaultDateInterval"]
+    if aggreg["type"] == "histogram" and \
+       field["element"]["type"] == "date" and \
+       "interval" not in aggreg:
+        aggreg["interval"] = conf["Aggregations"]["DefaultDateInterval"]
 
     if "size" not in aggreg:
         aggreg["size"] = conf["Aggregations"].getint("DefaultSize")
