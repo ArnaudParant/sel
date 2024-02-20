@@ -7,7 +7,7 @@ The project is split into two sub projects:
 
 
 ## Versions
-Two first digits of SEL version match Elasticsearch version and then it's the inner SEL version, eg 2.4.1 works with ES 2.4, v1 of SEL for this version of ES
+Two first digits of SEL version match Elasticsearch version and then it's the inner SEL version, eg 5.5.1 works with ES 5.5, v1 of SEL for this version of ES
 
 
 ## Full documentation
@@ -25,7 +25,7 @@ Be aware it will request ES schema at any query generation.
 
 #### Add as dependency
 ```
-sel @ git+https://github.com/ArnaudParant/sel.git@v2.4.1
+sel @ git+https://github.com/ArnaudParant/sel.git@v5.5.1
 ```
 
 ### SEL as ES interface
