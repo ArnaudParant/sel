@@ -1,4 +1,5 @@
 import pytest
+import os
 
 from scripts import elastic
 
@@ -11,13 +12,16 @@ import test_utils
 TEST_INDEX_FILE = "/tests/data/sample_2017.json"
 TEST_SCHEMA_FILE = "/scripts/schema.json"
 TEST_INDEX = "test_index"
+ES_HOSTS = os.environ["ES_HOSTS"].split(",")
 
 
 class TestQueryGenerator:
 
     @pytest.fixture(scope="session", autouse=True)
     def init(self):
-        elastic.create_index(TEST_INDEX_FILE, TEST_SCHEMA_FILE, TEST_INDEX, overwrite=True)
+        elastic.create_index(
+            TEST_INDEX_FILE, TEST_SCHEMA_FILE, TEST_INDEX, hosts=ES_HOSTS, overwrite=True
+        )
 
 
     @pytest.mark.parametrize(["query", "expected_total"], [

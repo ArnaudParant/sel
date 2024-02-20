@@ -16,7 +16,7 @@ Two first digits of SEL version match Elasticsearch version and then it's the in
 
 
 ## Compagny
-SEL was initially developed for Heuritech in 2016 and used by everybody inside the compagny tech and no-tech people since that time to explore internal data, generate reports and analysis.
+SEL was initially developed for Heuritech in 2015 and used by everybody inside the compagny tech and no-tech people since that time to explore internal data, generate reports and analysis.
 
 
 ## Quickstart
@@ -35,7 +35,7 @@ from sel.sel import SEL
 
 es = Elasticsearch(hosts="http://elasticsearch")
 sel = SEL(es)
-sel.search("my_index", "label = bag")
+sel.search("my_index", {"query": "label = bag"})
 ```
 
 ### SEL as ES query generator
@@ -45,7 +45,7 @@ from sel.sel import SEL
 
 es = Elasticsearch(hosts="http://elasticsearch")
 sel = SEL(es)
-sel.generate_query("label = bag", index="my_index")["elastic_query"]
+sel.generate_query({"query": "label = bag"}, index="my_index")["elastic_query"]
 ```
 
 ### SEL as offline ES query generator
@@ -53,7 +53,7 @@ sel.generate_query("label = bag", index="my_index")["elastic_query"]
 from sel.sel import SEL
 
 sel = SEL(None)
-sel.generate_query("label = bag", schema=my_index_schema)["elastic_query"]
+sel.generate_query({"query": "label = bag"}, schema=my_index_schema)["elastic_query"]
 ```
 
 ### SEL as API (SEL Server)

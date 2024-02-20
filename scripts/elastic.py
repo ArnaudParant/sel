@@ -1,12 +1,12 @@
-import os
+#!/usr/bin/python3
+
 import json
 import argparse
 import logging
 import time
+from itertools import islice
 from elasticsearch import Elasticsearch
 from elasticsearch.client import _normalize_hosts
-
-from sel import upload
 
 
 def options():
@@ -15,11 +15,12 @@ def options():
     parser.add_argument("schema_filepath")
     parser.add_argument("index_name")
     parser.add_argument("--overwrite", action="store_true")
+    parser.add_argument("--hosts", nargs='+')
     return parser.parse_args()
 
 
-def create_index(filepath, schema_filepath, index, overwrite=False):
-    elastic = elastic_connect()
+def create_index(filepath, schema_filepath, index, overwrite=False, hosts=None):
+    elastic = elastic_connect(hosts=hosts)
 
     with open(filepath) as fd:
         data = loads_ndjson(fd)
@@ -42,10 +43,49 @@ def loads_ndjson(fd):
         yield json.loads(line)
 
 
+def _document_wrapper(index, documents, doc_type, id_getter, operation):
+    for doc in documents:
+
+        wrapper = {"action": {operation: {
+            "_index": index,
+            "_type": doc_type,
+            "_id": id_getter(doc)
+        }}}
+
+        if operation != "delete":
+            wrapper["source"] = doc
+
+        yield wrapper
+
+
+def _sender(elastic, bulk, operation):
+    body = [s for e in bulk for s in [e["action"], e.get("source")] if s is not None]
+    res = elastic.bulk(body=body, refresh=True)
+
+    failure = [i[operation] for i in res["items"] if "error" in i[operation]]
+    if failure:
+        raise Exception(str(failure))
+
+
+def _manager(elastic, documents, size, operation):
+
+    while True:
+        bulk = list(islice(documents, size))
+        if not bulk:
+            break
+
+        _sender(elastic, bulk, operation)
+
+
+def bulk(elastic, index, doc_type, documents, id_getter, bulk_size=100, operation="index"):
+    docs = _document_wrapper(index, documents, doc_type, id_getter, operation)
+    _manager(elastic, docs, bulk_size, operation)
+
+
 def insert(elastic, index, data):
     logging.info("Start insertion ...")
     id_getter = lambda d: d["id"]
-    upload.bulk(elastic, index, "document", data, id_getter)
+    bulk(elastic, index, "document", data, id_getter)
     logging.info("Done")
 
 
@@ -62,17 +102,13 @@ def load_schema(filepath):
         return json.load(fd)
 
 
-def elastic_connect():
+def elastic_connect(hosts=None):
     """ Create new elastic connection """
-    es_hosts = os.environ["ES_HOST"].split(",")
+    es_hosts = hosts if hosts else ["http://localhost:9200"]
     kwargs = {
         "hosts": _normalize_hosts(es_hosts),
         "retry_on_timeout": True,
-        "timeout": 30,
-        "sniff_on_start": True,
-        "sniff_on_connection_fail": True,
-        "sniff_timeout": 10,
-        "sniffer_timeout": 60,
+        "timeout": 30
     }
 
     return Elasticsearch(**kwargs)
@@ -80,4 +116,7 @@ def elastic_connect():
 
 if __name__ == "__main__":
     args = options()
-    create_index(args.filepath, args.schema_filepath, args.index_name, overwrite=args.overwrite)
+    create_index(
+        args.filepath, args.schema_filepath, args.index_name,
+        overwrite=args.overwrite, hosts=args.hosts
+    )

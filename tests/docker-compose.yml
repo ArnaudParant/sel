@@ -5,7 +5,7 @@ services:
     image: sel_test:${BUILD_TAG}
     command: bash -c "sleep infinity"
     environment:
-      - "ES_HOST=http://elasticsearch"
+      - "ES_HOSTS=http://elasticsearch"
     depends_on:
       elasticsearch:
         condition: service_healthy
