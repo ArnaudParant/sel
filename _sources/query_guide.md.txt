@@ -55,7 +55,7 @@ Used for paging, it does not impact aggregations, such:
 **Extended**
 
 Allowed keys: `_source`, `fields`, `script_fields`, `fielddata_fields`, `explain`, `highlight`, `rescore`, `version`, `indices_boost`, `min_score`.  
-See [ES Search request body](https://www.elastic.co/guide/en/elasticsearch/reference/2.4/search-request-body.html)
+See [ES Search request body](https://www.elastic.co/guide/en/elasticsearch/reference/5.5/search-request-body.html)
 
 **Examples**
 
@@ -124,7 +124,7 @@ label.entity = 'bg:model'
 
 #### Query String
 
-Query string use [ES query string format](https://www.elastic.co/guide/en/elasticsearch/reference/2.4/query-dsl-query-string-query.html)
+Query string use [ES query string format](https://www.elastic.co/guide/en/elasticsearch/reference/5.5/query-dsl-query-string-query.html)
 
 ```
 label ~ "*pant*"
@@ -133,7 +133,7 @@ label ~ "*pant*"
 
 #### Not match query string
 
-Query string use [ES query string format](https://www.elastic.co/guide/en/elasticsearch/reference/2.4/query-dsl-query-string-query.html)
+Query string use [ES query string format](https://www.elastic.co/guide/en/elasticsearch/reference/5.5/query-dsl-query-string-query.html)
 
 ```
 label !~ "*pant*"
@@ -293,7 +293,7 @@ not 2018 <= date <= 2019
 
 ### Query string
 
-Query string will match the `DefaultQueryStringFieldPath` (from `conf.ini`) with [ES query string format](https://www.elastic.co/guide/en/elasticsearch/reference/2.4/query-dsl-query-string-query.html).  
+Query string will match the `DefaultQueryStringFieldPath` (from `conf.ini`) with [ES query string format](https://www.elastic.co/guide/en/elasticsearch/reference/5.5/query-dsl-query-string-query.html).  
 
 ```
 "foam cage"
@@ -927,10 +927,10 @@ Advance interval exists, such as:
 ```sql
 <number><interval_letter>
 2d  # 2 days
-3w  # 3 weeks
+3h  # 3 hours
 ```
 
-See [Time units](https://www.elastic.co/guide/en/elasticsearch/reference/2.4/common-options.html#time-units)
+See [Time units](https://www.elastic.co/guide/en/elasticsearch/reference/5.5/common-options.html#time-units)
 
 ### Sub aggregations
 

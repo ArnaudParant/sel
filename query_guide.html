@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Queries Documentation &mdash; SEL 2.4.1  documentation</title>
+  <title>Queries Documentation &mdash; SEL 5.5.1  documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
 
@@ -34,7 +34,7 @@
           
           
           <a href="index.html" class="icon icon-home">
-            SEL 2.4.1
+            SEL 5.5.1
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -161,7 +161,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">SEL 2.4.1</a>
+          <a href="index.html">SEL 5.5.1</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -225,7 +225,7 @@ It take all your filters in the same order to make a sort on the inner <code cla
 </div>
 <p><strong>Extended</strong></p>
 <p>Allowed keys: <code class="docutils literal notranslate"><span class="pre">_source</span></code>, <code class="docutils literal notranslate"><span class="pre">fields</span></code>, <code class="docutils literal notranslate"><span class="pre">script_fields</span></code>, <code class="docutils literal notranslate"><span class="pre">fielddata_fields</span></code>, <code class="docutils literal notranslate"><span class="pre">explain</span></code>, <code class="docutils literal notranslate"><span class="pre">highlight</span></code>, <code class="docutils literal notranslate"><span class="pre">rescore</span></code>, <code class="docutils literal notranslate"><span class="pre">version</span></code>, <code class="docutils literal notranslate"><span class="pre">indices_boost</span></code>, <code class="docutils literal notranslate"><span class="pre">min_score</span></code>.<br />
-See <a class="reference external" href="https://www.elastic.co/guide/en/elasticsearch/reference/2.4/search-request-body.html">ES Search request body</a></p>
+See <a class="reference external" href="https://www.elastic.co/guide/en/elasticsearch/reference/5.5/search-request-body.html">ES Search request body</a></p>
 <p><strong>Examples</strong></p>
 <p>Query string</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
@@ -286,7 +286,7 @@ As you can see it’s possible to use dot <code class="docutils literal notransl
 </section>
 <section id="id1">
 <h4>Query String<a class="headerlink" href="#id1" title="Link to this heading"></a></h4>
-<p>Query string use <a class="reference external" href="https://www.elastic.co/guide/en/elasticsearch/reference/2.4/query-dsl-query-string-query.html">ES query string format</a></p>
+<p>Query string use <a class="reference external" href="https://www.elastic.co/guide/en/elasticsearch/reference/5.5/query-dsl-query-string-query.html">ES query string format</a></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">label</span> <span class="o">~</span> <span class="s2">&quot;*pant*&quot;</span>
 <span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="s2">&quot;comparator&quot;</span><span class="p">:</span> <span class="s2">&quot;~&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;*pant*&quot;</span><span class="p">}</span>
 </pre></div>
@@ -294,7 +294,7 @@ As you can see it’s possible to use dot <code class="docutils literal notransl
 </section>
 <section id="not-match-query-string">
 <h4>Not match query string<a class="headerlink" href="#not-match-query-string" title="Link to this heading"></a></h4>
-<p>Query string use <a class="reference external" href="https://www.elastic.co/guide/en/elasticsearch/reference/2.4/query-dsl-query-string-query.html">ES query string format</a></p>
+<p>Query string use <a class="reference external" href="https://www.elastic.co/guide/en/elasticsearch/reference/5.5/query-dsl-query-string-query.html">ES query string format</a></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>label !~ &quot;*pant*&quot;
 {&quot;field&quot;: &quot;label&quot;, &quot;comparator&quot;: &quot;!~&quot;, &quot;value&quot;: &quot;*pant*&quot;}
 </pre></div>
@@ -450,7 +450,7 @@ As you can see it’s possible to use dot <code class="docutils literal notransl
 </section>
 <section id="id6">
 <h3>Query string<a class="headerlink" href="#id6" title="Link to this heading"></a></h3>
-<p>Query string will match the <code class="docutils literal notranslate"><span class="pre">DefaultQueryStringFieldPath</span></code> (from <code class="docutils literal notranslate"><span class="pre">conf.ini</span></code>) with <a class="reference external" href="https://www.elastic.co/guide/en/elasticsearch/reference/2.4/query-dsl-query-string-query.html">ES query string format</a>.</p>
+<p>Query string will match the <code class="docutils literal notranslate"><span class="pre">DefaultQueryStringFieldPath</span></code> (from <code class="docutils literal notranslate"><span class="pre">conf.ini</span></code>) with <a class="reference external" href="https://www.elastic.co/guide/en/elasticsearch/reference/5.5/query-dsl-query-string-query.html">ES query string format</a>.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;foam cage&quot;</span>
 <span class="p">{</span><span class="s2">&quot;query_string&quot;</span><span class="p">:</span> <span class="s2">&quot;foam cage&quot;</span><span class="p">}</span>
 </pre></div>
@@ -967,10 +967,10 @@ Auto sort are made for each fields containing <code class="docutils literal notr
 <p>Advance interval exists, such as:</p>
 <div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="nb">number</span><span class="o">&gt;&lt;</span><span class="n">interval_letter</span><span class="o">&gt;</span>
 <span class="mi">2</span><span class="n">d</span><span class="w">  </span><span class="o">#</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="n">days</span>
-<span class="mi">3</span><span class="n">w</span><span class="w">  </span><span class="o">#</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="n">weeks</span>
+<span class="mi">3</span><span class="n">h</span><span class="w">  </span><span class="o">#</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="n">hours</span>
 </pre></div>
 </div>
-<p>See <a class="reference external" href="https://www.elastic.co/guide/en/elasticsearch/reference/2.4/common-options.html#time-units">Time units</a></p>
+<p>See <a class="reference external" href="https://www.elastic.co/guide/en/elasticsearch/reference/5.5/common-options.html#time-units">Time units</a></p>
 </section>
 <section id="sub-aggregations">
 <h3>Sub aggregations<a class="headerlink" href="#sub-aggregations" title="Link to this heading"></a></h3>
@@ -1165,7 +1165,7 @@ This query can be too heavy to apply at once if there is lot of data in ES or if
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2023, Arnaud Parant.</p>
+    <p>&#169; Copyright 2024, Arnaud Parant.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
