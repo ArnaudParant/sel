@@ -1,22 +1,23 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="../../">
+<html class="writer-html5" lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>sel.sel &mdash; SEL 5.5.1  documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css" />
 
   
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="../../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
-        <script src="../../_static/doctools.js?v=888ff710"></script>
-        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" /> 
@@ -100,9 +101,7 @@
 <span class="n">DEFAULT_CONF</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 
 
-<div class="viewcode-block" id="SEL">
-<a class="viewcode-back" href="../../sel.html#sel.sel.SEL">[docs]</a>
-<span class="k">class</span> <span class="nc">SEL</span><span class="p">:</span>
+<div class="viewcode-block" id="SEL"><a class="viewcode-back" href="../../sel.html#sel.sel.SEL">[docs]</a><span class="k">class</span> <span class="nc">SEL</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Simple Elastic Language make ES query easier</span>
 
@@ -137,9 +136,7 @@
         <span class="k">return</span> <span class="n">SchemaReader</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conf</span><span class="p">,</span> <span class="n">schema</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="SEL.get_schema">
-<a class="viewcode-back" href="../../sel.html#sel.sel.SEL.get_schema">[docs]</a>
-    <span class="nd">@utils</span><span class="o">.</span><span class="n">elastic_exception_detailor</span>
+<div class="viewcode-block" id="SEL.get_schema"><a class="viewcode-back" href="../../sel.html#sel.sel.SEL.get_schema">[docs]</a>    <span class="nd">@utils</span><span class="o">.</span><span class="n">elastic_exception_detailor</span>
     <span class="k">def</span> <span class="nf">get_schema</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get must recent schema of given index(es)</span>
@@ -164,10 +161,7 @@
         <span class="k">return</span> <span class="n">schemas</span><span class="p">[</span><span class="n">latest_created_index</span><span class="p">][</span><span class="s2">&quot;mappings&quot;</span><span class="p">]</span></div>
 
 
-
-<div class="viewcode-block" id="SEL.list_index">
-<a class="viewcode-back" href="../../sel.html#sel.sel.SEL.list_index">[docs]</a>
-    <span class="nd">@utils</span><span class="o">.</span><span class="n">elastic_exception_detailor</span>
+<div class="viewcode-block" id="SEL.list_index"><a class="viewcode-back" href="../../sel.html#sel.sel.SEL.list_index">[docs]</a>    <span class="nd">@utils</span><span class="o">.</span><span class="n">elastic_exception_detailor</span>
     <span class="k">def</span> <span class="nf">list_index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        List Elasticsearch indexes</span>
@@ -195,10 +189,7 @@
         <span class="k">return</span> <span class="n">meta</span><span class="o">.</span><span class="n">read_meta</span><span class="p">(</span><span class="n">response</span><span class="p">)</span></div>
 
 
-
-<div class="viewcode-block" id="SEL.scroll">
-<a class="viewcode-back" href="../../sel.html#sel.sel.SEL.scroll">[docs]</a>
-    <span class="nd">@utils</span><span class="o">.</span><span class="n">elastic_exception_detailor</span>
+<div class="viewcode-block" id="SEL.scroll"><a class="viewcode-back" href="../../sel.html#sel.sel.SEL.scroll">[docs]</a>    <span class="nd">@utils</span><span class="o">.</span><span class="n">elastic_exception_detailor</span>
     <span class="k">def</span> <span class="nf">scroll</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">cash_time</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">scroll_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Scroll over documents with a query, can get all documents of index(es).</span>
@@ -230,10 +221,7 @@
         <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;scroll_id&quot;</span><span class="p">:</span> <span class="n">scroll_id</span><span class="p">,</span> <span class="s2">&quot;documents&quot;</span><span class="p">:</span> <span class="n">documents</span><span class="p">}</span></div>
 
 
-
-<div class="viewcode-block" id="SEL.clear_scroll">
-<a class="viewcode-back" href="../../sel.html#sel.sel.SEL.clear_scroll">[docs]</a>
-    <span class="nd">@utils</span><span class="o">.</span><span class="n">elastic_exception_detailor</span>
+<div class="viewcode-block" id="SEL.clear_scroll"><a class="viewcode-back" href="../../sel.html#sel.sel.SEL.clear_scroll">[docs]</a>    <span class="nd">@utils</span><span class="o">.</span><span class="n">elastic_exception_detailor</span>
     <span class="k">def</span> <span class="nf">clear_scroll</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scroll_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Clear scroll even before the end of the cash time to free ES memory</span>
@@ -248,10 +236,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">elastic</span><span class="o">.</span><span class="n">clear_scroll</span><span class="p">(</span><span class="n">scroll_id</span><span class="o">=</span><span class="n">scroll_id</span><span class="p">)</span></div>
 
 
-
-<div class="viewcode-block" id="SEL.download_aggreg">
-<a class="viewcode-back" href="../../sel.html#sel.sel.SEL.download_aggreg">[docs]</a>
-    <span class="nd">@utils</span><span class="o">.</span><span class="n">elastic_exception_detailor</span>
+<div class="viewcode-block" id="SEL.download_aggreg"><a class="viewcode-back" href="../../sel.html#sel.sel.SEL.download_aggreg">[docs]</a>    <span class="nd">@utils</span><span class="o">.</span><span class="n">elastic_exception_detailor</span>
     <span class="k">def</span> <span class="nf">download_aggreg</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">base_aggreg</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">dict</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="nb">dict</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
@@ -314,7 +299,6 @@
             <span class="k">yield from</span> <span class="bp">self</span><span class="o">.</span><span class="n">_download_aggreg_one_partition</span><span class="p">(</span>
                 <span class="n">index</span><span class="p">,</span> <span class="n">original_query</span><span class="p">,</span> <span class="n">part</span><span class="o">=</span><span class="n">part</span><span class="p">,</span> <span class="n">part_field</span><span class="o">=</span><span class="n">part_field</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="n">interval</span>
             <span class="p">)</span></div>
-
 
 
     <span class="k">def</span> <span class="nf">_download_aggreg_one_partition</span><span class="p">(</span>
@@ -431,9 +415,7 @@
         <span class="k">return</span> <span class="n">query_obj</span>
 
 
-<div class="viewcode-block" id="SEL.generate_query">
-<a class="viewcode-back" href="../../sel.html#sel.sel.SEL.generate_query">[docs]</a>
-    <span class="nd">@utils</span><span class="o">.</span><span class="n">elastic_exception_detailor</span>
+<div class="viewcode-block" id="SEL.generate_query"><a class="viewcode-back" href="../../sel.html#sel.sel.SEL.generate_query">[docs]</a>    <span class="nd">@utils</span><span class="o">.</span><span class="n">elastic_exception_detailor</span>
     <span class="k">def</span> <span class="nf">generate_query</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">schema</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">no_deleted</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
@@ -485,10 +467,7 @@
         <span class="p">}</span></div>
 
 
-
-<div class="viewcode-block" id="SEL.search">
-<a class="viewcode-back" href="../../sel.html#sel.sel.SEL.search">[docs]</a>
-    <span class="nd">@utils</span><span class="o">.</span><span class="n">elastic_exception_detailor</span>
+<div class="viewcode-block" id="SEL.search"><a class="viewcode-back" href="../../sel.html#sel.sel.SEL.search">[docs]</a>    <span class="nd">@utils</span><span class="o">.</span><span class="n">elastic_exception_detailor</span>
     <span class="k">def</span> <span class="nf">search</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">no_deleted</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Search with SEL query</span>
@@ -546,10 +525,7 @@
         <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;results&quot;</span><span class="p">:</span> <span class="n">results</span><span class="p">,</span> <span class="s2">&quot;warnings&quot;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">warns</span><span class="p">))}</span></div>
 
 
-
-<div class="viewcode-block" id="SEL.get_one_document">
-<a class="viewcode-back" href="../../sel.html#sel.sel.SEL.get_one_document">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_one_document</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">doc_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<div class="viewcode-block" id="SEL.get_one_document"><a class="viewcode-back" href="../../sel.html#sel.sel.SEL.get_one_document">[docs]</a>    <span class="k">def</span> <span class="nf">get_one_document</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">doc_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get one document of an index</span>
 
@@ -581,14 +557,11 @@
         <span class="k">return</span> <span class="n">hits</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></div>
 
 
-
 <span class="c1">##########################################################################</span>
 <span class="c1"># FIELD FUNCTIONS</span>
 <span class="c1">##########################################################################</span>
 
-<div class="viewcode-block" id="SEL.list_fields">
-<a class="viewcode-back" href="../../sel.html#sel.sel.SEL.list_fields">[docs]</a>
-    <span class="nd">@utils</span><span class="o">.</span><span class="n">elastic_exception_detailor</span>
+<div class="viewcode-block" id="SEL.list_fields"><a class="viewcode-back" href="../../sel.html#sel.sel.SEL.list_fields">[docs]</a>    <span class="nd">@utils</span><span class="o">.</span><span class="n">elastic_exception_detailor</span>
     <span class="k">def</span> <span class="nf">list_fields</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        List all fields of an index</span>
@@ -624,10 +597,7 @@
         <span class="k">return</span> <span class="n">reader</span><span class="o">.</span><span class="n">list_field</span><span class="p">()</span></div>
 
 
-
-<div class="viewcode-block" id="SEL.search_field">
-<a class="viewcode-back" href="../../sel.html#sel.sel.SEL.search_field">[docs]</a>
-    <span class="nd">@utils</span><span class="o">.</span><span class="n">elastic_exception_detailor</span>
+<div class="viewcode-block" id="SEL.search_field"><a class="viewcode-back" href="../../sel.html#sel.sel.SEL.search_field">[docs]</a>    <span class="nd">@utils</span><span class="o">.</span><span class="n">elastic_exception_detailor</span>
     <span class="k">def</span> <span class="nf">search_field</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">field_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Search for a field into an index</span>
@@ -661,10 +631,7 @@
         <span class="k">return</span> <span class="n">reader</span><span class="o">.</span><span class="n">search_field</span><span class="p">(</span><span class="n">field_path</span><span class="p">)</span></div>
 
 
-
-<div class="viewcode-block" id="SEL.subfields">
-<a class="viewcode-back" href="../../sel.html#sel.sel.SEL.subfields">[docs]</a>
-    <span class="nd">@utils</span><span class="o">.</span><span class="n">elastic_exception_detailor</span>
+<div class="viewcode-block" id="SEL.subfields"><a class="viewcode-back" href="../../sel.html#sel.sel.SEL.subfields">[docs]</a>    <span class="nd">@utils</span><span class="o">.</span><span class="n">elastic_exception_detailor</span>
     <span class="k">def</span> <span class="nf">subfields</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">fields_path</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">no_empty</span><span class="o">=</span><span class="kc">True</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="nb">dict</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
@@ -695,7 +662,6 @@
                 <span class="n">subfields</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__filter_no_empty_subfields</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">field_path</span><span class="p">,</span> <span class="n">subfields</span><span class="p">)</span>
 
             <span class="k">yield</span> <span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="n">field_path</span><span class="p">,</span> <span class="s2">&quot;subfields&quot;</span><span class="p">:</span> <span class="n">subfields</span><span class="p">}</span></div>
-
 
 
     <span class="k">def</span> <span class="nf">__filter_no_empty_subfields</span><span class="p">(</span>
@@ -818,9 +784,7 @@
         <span class="k">return</span> <span class="n">query</span>
 
 
-<div class="viewcode-block" id="SEL.delete_documents">
-<a class="viewcode-back" href="../../sel.html#sel.sel.SEL.delete_documents">[docs]</a>
-    <span class="nd">@utils</span><span class="o">.</span><span class="n">elastic_exception_detailor</span>
+<div class="viewcode-block" id="SEL.delete_documents"><a class="viewcode-back" href="../../sel.html#sel.sel.SEL.delete_documents">[docs]</a>    <span class="nd">@utils</span><span class="o">.</span><span class="n">elastic_exception_detailor</span>
     <span class="k">def</span> <span class="nf">delete_documents</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">undelete</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">deleted_info</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
@@ -846,7 +810,6 @@
         <span class="n">query</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_delete_query_to_query</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">query</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__delete_documents</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">query</span><span class="p">,</span> <span class="n">action_id</span><span class="p">,</span> <span class="n">deleted_info</span><span class="o">=</span><span class="n">deleted_info</span><span class="p">)</span></div>
-
 
 
 <span class="c1">##########################################################################</span>
@@ -881,9 +844,7 @@
         <span class="k">return</span> <span class="n">count</span>
 
 
-<div class="viewcode-block" id="SEL.really_delete_documents">
-<a class="viewcode-back" href="../../sel.html#sel.sel.SEL.really_delete_documents">[docs]</a>
-    <span class="nd">@utils</span><span class="o">.</span><span class="n">elastic_exception_detailor</span>
+<div class="viewcode-block" id="SEL.really_delete_documents"><a class="viewcode-back" href="../../sel.html#sel.sel.SEL.really_delete_documents">[docs]</a>    <span class="nd">@utils</span><span class="o">.</span><span class="n">elastic_exception_detailor</span>
     <span class="k">def</span> <span class="nf">really_delete_documents</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Really delete documents (not just flag them) from a SEL query</span>
@@ -904,9 +865,7 @@
 <span class="sd">            0</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">query</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_delete_query_to_query</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">query</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__really_delete_documents</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">query</span><span class="p">)</span></div>
-</div>
-
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__really_delete_documents</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">query</span><span class="p">)</span></div></div>
 </pre></div>
 
            </div>

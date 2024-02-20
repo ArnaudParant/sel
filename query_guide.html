@@ -1,23 +1,24 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="./">
+<html class="writer-html5" lang="en">
 <head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Queries Documentation &mdash; SEL 5.5.1  documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
 
   
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="_static/jquery.js?v=5d32c60e"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=5929fcd5"></script>
-        <script src="_static/doctools.js?v=888ff710"></script>
-        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -180,16 +181,16 @@
            <div itemprop="articleBody">
              
   <section id="queries-documentation">
-<h1>Queries Documentation<a class="headerlink" href="#queries-documentation" title="Link to this heading"></a></h1>
+<h1>Queries Documentation<a class="headerlink" href="#queries-documentation" title="Permalink to this heading"></a></h1>
 <section id="multiple-schema-querying">
-<h2>Multiple schema querying<a class="headerlink" href="#multiple-schema-querying" title="Link to this heading"></a></h2>
+<h2>Multiple schema querying<a class="headerlink" href="#multiple-schema-querying" title="Permalink to this heading"></a></h2>
 <p>Elasticsearch and SEL support to store and query multiple schema. You can even query several indexes in the same time with different schemas, basically it’s how works wildcard <code class="docutils literal notranslate"><span class="pre">foo_*</span></code>.</p>
 <p>By default SEL will take last inserted schema to build the query. It will only be an issue if you have the same field with two different types or more into schemas.</p>
 </section>
 <section id="queries-structure">
-<h2>Queries’ structure<a class="headerlink" href="#queries-structure" title="Link to this heading"></a></h2>
+<h2>Queries’ structure<a class="headerlink" href="#queries-structure" title="Permalink to this heading"></a></h2>
 <section id="query-string">
-<h3>Query string<a class="headerlink" href="#query-string" title="Link to this heading"></a></h3>
+<h3>Query string<a class="headerlink" href="#query-string" title="Permalink to this heading"></a></h3>
 <p>Queries string are composted of three parts: filters, aggregations and sorts, ordered as bellow:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="n">filters</span><span class="p">}</span> <span class="p">{</span><span class="n">aggregations</span><span class="p">}</span> <span class="p">{</span><span class="n">sorts</span><span class="p">}</span>
 </pre></div>
@@ -199,13 +200,13 @@
 <p>Sort query order matter and it’s apply in the same order into Elasticsearch. The first sort is applied, and, on equals values, according on this sort, the second sort is applied, etc.</p>
 </section>
 <section id="auto-sort">
-<h3>Auto sort<a class="headerlink" href="#auto-sort" title="Link to this heading"></a></h3>
+<h3>Auto sort<a class="headerlink" href="#auto-sort" title="Permalink to this heading"></a></h3>
 <p>By default there is an auto sort system in SEL, see <code class="docutils literal notranslate"><span class="pre">conf.ini</span></code> to disable it.<br />
 It take all your filters in the same order to make a sort on the inner <code class="docutils literal notranslate"><span class="pre">DefaultObjectSortField</span></code> field (<code class="docutils literal notranslate"><span class="pre">conf.ini</span></code>), with the original query as filter <code class="docutils literal notranslate"><span class="pre">where</span></code>.</p>
 <p>Those generated sorts are put after sorts you have set into your query.</p>
 </section>
 <section id="object">
-<h3>Object<a class="headerlink" href="#object" title="Link to this heading"></a></h3>
+<h3>Object<a class="headerlink" href="#object" title="Permalink to this heading"></a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="s2">&quot;query&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">Optional</span><span class="p">)</span> <span class="n">String</span> <span class="ow">or</span> <span class="n">Object</span><span class="p">,</span>
   <span class="s2">&quot;aggregations&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">Optional</span><span class="p">)</span> <span class="n">Object</span> <span class="o">-</span> <span class="n">For</span> <span class="nb">object</span> <span class="n">query</span> <span class="n">only</span><span class="p">,</span>
@@ -246,7 +247,7 @@ See <a class="reference external" href="https://www.elastic.co/guide/en/elastics
 </section>
 </section>
 <section id="field-path">
-<h2>Field path<a class="headerlink" href="#field-path" title="Link to this heading"></a></h2>
+<h2>Field path<a class="headerlink" href="#field-path" title="Permalink to this heading"></a></h2>
 <p>To simplify queries, SEL allow to use short path for field path, if it’s ambiguous or if it does not found the field, it will raise an error.</p>
 <p>If you have this field path into your schema for eg. <code class="docutils literal notranslate"><span class="pre">media.label.id</span></code>, can use directly <code class="docutils literal notranslate"><span class="pre">id</span></code>.<br />
 But if there are other fields <code class="docutils literal notranslate"><span class="pre">id</span></code> into your schema, it will raise an error and you will need to specify which one you would like to use.</p>
@@ -254,12 +255,12 @@ But if there are other fields <code class="docutils literal notranslate"><span c
 As you can see it’s possible to use dot <code class="docutils literal notranslate"><span class="pre">.</span></code> at the beginning to specify that it’s at the root level.</p>
 </section>
 <section id="filters">
-<h2>Filters<a class="headerlink" href="#filters" title="Link to this heading"></a></h2>
+<h2>Filters<a class="headerlink" href="#filters" title="Permalink to this heading"></a></h2>
 <p>🗒️ <strong>Note</strong>: All examples bellow refer to <code class="docutils literal notranslate"><span class="pre">Schema</span> <span class="pre">example</span></code>.</p>
 <section id="string-comparison">
-<h3>String comparison<a class="headerlink" href="#string-comparison" title="Link to this heading"></a></h3>
+<h3>String comparison<a class="headerlink" href="#string-comparison" title="Permalink to this heading"></a></h3>
 <section id="equals">
-<h4>Equals<a class="headerlink" href="#equals" title="Link to this heading"></a></h4>
+<h4>Equals<a class="headerlink" href="#equals" title="Permalink to this heading"></a></h4>
 <p>🗒️ <strong>Note</strong>: The default comparator is <code class="docutils literal notranslate"><span class="pre">=</span></code></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">label</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">blue</span>
 <span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label.color&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;blue&quot;</span><span class="p">}</span>
@@ -268,14 +269,14 @@ As you can see it’s possible to use dot <code class="docutils literal notransl
 </div>
 </section>
 <section id="not-equals">
-<h4>Not Equals<a class="headerlink" href="#not-equals" title="Link to this heading"></a></h4>
+<h4>Not Equals<a class="headerlink" href="#not-equals" title="Permalink to this heading"></a></h4>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">label</span><span class="o">.</span><span class="n">color</span> <span class="o">!=</span> <span class="n">blue</span>
 <span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label.color&quot;</span><span class="p">,</span> <span class="s2">&quot;comparator&quot;</span><span class="p">:</span> <span class="s2">&quot;!=&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;blue&quot;</span><span class="p">}</span>
 </pre></div>
 </div>
 </section>
 <section id="spaces-and-special-characters">
-<h4>Spaces and Special characters<a class="headerlink" href="#spaces-and-special-characters" title="Link to this heading"></a></h4>
+<h4>Spaces and Special characters<a class="headerlink" href="#spaces-and-special-characters" title="Permalink to this heading"></a></h4>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">label</span><span class="o">.</span><span class="n">brand</span> <span class="o">=</span> <span class="s2">&quot;foo bar&quot;</span>
 <span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label.brand&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;foo bar&quot;</span><span class="p">}</span>
 
@@ -285,7 +286,7 @@ As you can see it’s possible to use dot <code class="docutils literal notransl
 </div>
 </section>
 <section id="id1">
-<h4>Query String<a class="headerlink" href="#id1" title="Link to this heading"></a></h4>
+<h4>Query String<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h4>
 <p>Query string use <a class="reference external" href="https://www.elastic.co/guide/en/elasticsearch/reference/5.5/query-dsl-query-string-query.html">ES query string format</a></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">label</span> <span class="o">~</span> <span class="s2">&quot;*pant*&quot;</span>
 <span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="s2">&quot;comparator&quot;</span><span class="p">:</span> <span class="s2">&quot;~&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;*pant*&quot;</span><span class="p">}</span>
@@ -293,7 +294,7 @@ As you can see it’s possible to use dot <code class="docutils literal notransl
 </div>
 </section>
 <section id="not-match-query-string">
-<h4>Not match query string<a class="headerlink" href="#not-match-query-string" title="Link to this heading"></a></h4>
+<h4>Not match query string<a class="headerlink" href="#not-match-query-string" title="Permalink to this heading"></a></h4>
 <p>Query string use <a class="reference external" href="https://www.elastic.co/guide/en/elasticsearch/reference/5.5/query-dsl-query-string-query.html">ES query string format</a></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>label !~ &quot;*pant*&quot;
 {&quot;field&quot;: &quot;label&quot;, &quot;comparator&quot;: &quot;!~&quot;, &quot;value&quot;: &quot;*pant*&quot;}
@@ -301,14 +302,14 @@ As you can see it’s possible to use dot <code class="docutils literal notransl
 </div>
 </section>
 <section id="prefix">
-<h4>Prefix<a class="headerlink" href="#prefix" title="Link to this heading"></a></h4>
+<h4>Prefix<a class="headerlink" href="#prefix" title="Permalink to this heading"></a></h4>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">label</span> <span class="n">prefix</span> <span class="n">h</span>
 <span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="s2">&quot;comparator&quot;</span><span class="p">:</span> <span class="s2">&quot;prefix&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;h&quot;</span><span class="p">}</span>
 </pre></div>
 </div>
 </section>
 <section id="not-prefix">
-<h4>Not prefix<a class="headerlink" href="#not-prefix" title="Link to this heading"></a></h4>
+<h4>Not prefix<a class="headerlink" href="#not-prefix" title="Permalink to this heading"></a></h4>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">label</span> <span class="n">nprefix</span> <span class="n">h</span>
 <span class="n">label</span> <span class="ow">not</span> <span class="n">prefix</span> <span class="n">h</span>
 <span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="s2">&quot;comparator&quot;</span><span class="p">:</span> <span class="s2">&quot;nprefix&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;h&quot;</span><span class="p">}</span>
@@ -316,14 +317,14 @@ As you can see it’s possible to use dot <code class="docutils literal notransl
 </div>
 </section>
 <section id="in">
-<h4>In<a class="headerlink" href="#in" title="Link to this heading"></a></h4>
+<h4>In<a class="headerlink" href="#in" title="Permalink to this heading"></a></h4>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">label</span> <span class="ow">in</span> <span class="p">[</span><span class="n">human</span><span class="p">,</span> <span class="n">person</span><span class="p">]</span>
 <span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="s2">&quot;comparator&quot;</span><span class="p">:</span> <span class="s2">&quot;in&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;person&quot;</span><span class="p">]}</span>
 </pre></div>
 </div>
 </section>
 <section id="not-in">
-<h4>Not in<a class="headerlink" href="#not-in" title="Link to this heading"></a></h4>
+<h4>Not in<a class="headerlink" href="#not-in" title="Permalink to this heading"></a></h4>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">label</span> <span class="n">nin</span> <span class="p">[</span><span class="n">human</span><span class="p">,</span> <span class="n">person</span><span class="p">]</span>
 <span class="n">label</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="n">human</span><span class="p">,</span> <span class="n">person</span><span class="p">]</span>
 <span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="s2">&quot;comparator&quot;</span><span class="p">:</span> <span class="s2">&quot;nin&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;person&quot;</span><span class="p">]}</span>
@@ -332,9 +333,9 @@ As you can see it’s possible to use dot <code class="docutils literal notransl
 </section>
 </section>
 <section id="numerical-comparison">
-<h3>Numerical comparison<a class="headerlink" href="#numerical-comparison" title="Link to this heading"></a></h3>
+<h3>Numerical comparison<a class="headerlink" href="#numerical-comparison" title="Permalink to this heading"></a></h3>
 <section id="id2">
-<h4>Equals<a class="headerlink" href="#id2" title="Link to this heading"></a></h4>
+<h4>Equals<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h4>
 <p>🗒️ <strong>Note</strong>: The default comparator is <code class="docutils literal notranslate"><span class="pre">=</span></code></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">label</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">score</span> <span class="o">=</span> <span class="mf">0.8</span>
 <span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label.model.score&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="mf">0.8</span><span class="p">}</span>
@@ -343,42 +344,42 @@ As you can see it’s possible to use dot <code class="docutils literal notransl
 </div>
 </section>
 <section id="id3">
-<h4>Not Equals<a class="headerlink" href="#id3" title="Link to this heading"></a></h4>
+<h4>Not Equals<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h4>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">label</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">score</span> <span class="o">!=</span> <span class="mf">0.8</span>
 <span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label.model.score&quot;</span><span class="p">,</span> <span class="s2">&quot;comparator&quot;</span><span class="p">:</span> <span class="s2">&quot;!=&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="mf">0.8</span><span class="p">}</span>
 </pre></div>
 </div>
 </section>
 <section id="greater-than-or-equals">
-<h4>Greater than or Equals<a class="headerlink" href="#greater-than-or-equals" title="Link to this heading"></a></h4>
+<h4>Greater than or Equals<a class="headerlink" href="#greater-than-or-equals" title="Permalink to this heading"></a></h4>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">label</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">score</span> <span class="o">&gt;=</span> <span class="mf">0.8</span>
 <span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label.model.score&quot;</span><span class="p">,</span> <span class="s2">&quot;comparator&quot;</span><span class="p">:</span> <span class="s2">&quot;&gt;=&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="mf">0.8</span><span class="p">}</span>
 </pre></div>
 </div>
 </section>
 <section id="greater-than">
-<h4>Greater than<a class="headerlink" href="#greater-than" title="Link to this heading"></a></h4>
+<h4>Greater than<a class="headerlink" href="#greater-than" title="Permalink to this heading"></a></h4>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">label</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">score</span> <span class="o">&gt;</span> <span class="mf">0.8</span>
 <span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label.model.score&quot;</span><span class="p">,</span> <span class="s2">&quot;comparator&quot;</span><span class="p">:</span> <span class="s2">&quot;&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="mf">0.8</span><span class="p">}</span>
 </pre></div>
 </div>
 </section>
 <section id="less-than-or-equals">
-<h4>Less than or Equals<a class="headerlink" href="#less-than-or-equals" title="Link to this heading"></a></h4>
+<h4>Less than or Equals<a class="headerlink" href="#less-than-or-equals" title="Permalink to this heading"></a></h4>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">label</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">score</span> <span class="o">&lt;=</span> <span class="mf">0.8</span>
 <span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label.model.score&quot;</span><span class="p">,</span> <span class="s2">&quot;comparator&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;=&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="mf">0.8</span><span class="p">}</span>
 </pre></div>
 </div>
 </section>
 <section id="less-than">
-<h4>Less than<a class="headerlink" href="#less-than" title="Link to this heading"></a></h4>
+<h4>Less than<a class="headerlink" href="#less-than" title="Permalink to this heading"></a></h4>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">label</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">score</span> <span class="o">&lt;</span> <span class="mf">0.8</span>
 <span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label.model.score&quot;</span><span class="p">,</span> <span class="s2">&quot;comparator&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="mf">0.8</span><span class="p">}</span>
 </pre></div>
 </div>
 </section>
 <section id="range">
-<h4>Range<a class="headerlink" href="#range" title="Link to this heading"></a></h4>
+<h4>Range<a class="headerlink" href="#range" title="Permalink to this heading"></a></h4>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">label</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">score</span> <span class="nb">range</span> <span class="p">(</span><span class="o">&gt;</span> <span class="mf">0.2</span><span class="p">,</span> <span class="o">&lt;</span> <span class="mf">0.8</span><span class="p">)</span>
 <span class="mf">0.2</span> <span class="o">&lt;</span> <span class="n">label</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">score</span> <span class="o">&lt;</span> <span class="mf">0.8</span>
 
@@ -387,7 +388,7 @@ As you can see it’s possible to use dot <code class="docutils literal notransl
 </div>
 </section>
 <section id="not-in-range">
-<h4>Not in range<a class="headerlink" href="#not-in-range" title="Link to this heading"></a></h4>
+<h4>Not in range<a class="headerlink" href="#not-in-range" title="Permalink to this heading"></a></h4>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">label</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">score</span> <span class="n">nrange</span> <span class="p">(</span><span class="o">&gt;</span> <span class="mf">0.2</span><span class="p">,</span> <span class="o">&lt;</span> <span class="mf">0.8</span><span class="p">)</span>
 <span class="n">label</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">score</span> <span class="ow">not</span> <span class="nb">range</span> <span class="p">(</span><span class="o">&gt;</span> <span class="mf">0.2</span><span class="p">,</span> <span class="o">&lt;</span> <span class="mf">0.8</span><span class="p">)</span>
 <span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label.model.score&quot;</span><span class="p">,</span> <span class="s2">&quot;comparator&quot;</span><span class="p">:</span> <span class="s2">&quot;nrange&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;&gt;&quot;</span><span class="p">:</span> <span class="mf">0.2</span><span class="p">,</span> <span class="s2">&quot;&lt;&quot;</span><span class="p">:</span> <span class="mf">0.8</span><span class="p">}}</span>
@@ -399,9 +400,9 @@ As you can see it’s possible to use dot <code class="docutils literal notransl
 </section>
 </section>
 <section id="date-comparison">
-<h3>Date comparison<a class="headerlink" href="#date-comparison" title="Link to this heading"></a></h3>
+<h3>Date comparison<a class="headerlink" href="#date-comparison" title="Permalink to this heading"></a></h3>
 <section id="date-formats">
-<h4>Date formats<a class="headerlink" href="#date-formats" title="Link to this heading"></a></h4>
+<h4>Date formats<a class="headerlink" href="#date-formats" title="Permalink to this heading"></a></h4>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">date</span> <span class="o">&gt;=</span> <span class="mi">2014</span>
 <span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="s2">&quot;comparator&quot;</span><span class="p">:</span> <span class="s2">&quot;&gt;=&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;2014&quot;</span><span class="p">}</span>
 </pre></div>
@@ -428,7 +429,7 @@ As you can see it’s possible to use dot <code class="docutils literal notransl
 </div>
 </section>
 <section id="id4">
-<h4>Range<a class="headerlink" href="#id4" title="Link to this heading"></a></h4>
+<h4>Range<a class="headerlink" href="#id4" title="Permalink to this heading"></a></h4>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">date</span> <span class="nb">range</span> <span class="p">(</span><span class="o">&gt;=</span> <span class="mi">2018</span><span class="p">,</span> <span class="o">&lt;=</span> <span class="mi">2019</span><span class="p">)</span>
 <span class="mi">2018</span> <span class="o">&lt;=</span> <span class="n">date</span> <span class="o">&lt;=</span> <span class="mi">2019</span>
 
@@ -437,7 +438,7 @@ As you can see it’s possible to use dot <code class="docutils literal notransl
 </div>
 </section>
 <section id="id5">
-<h4>Not in range<a class="headerlink" href="#id5" title="Link to this heading"></a></h4>
+<h4>Not in range<a class="headerlink" href="#id5" title="Permalink to this heading"></a></h4>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">date</span> <span class="n">nrange</span> <span class="p">(</span><span class="o">&gt;=</span> <span class="mi">2018</span><span class="p">,</span> <span class="o">&lt;=</span> <span class="mi">2019</span><span class="p">)</span>
 <span class="n">date</span> <span class="ow">not</span> <span class="nb">range</span> <span class="p">(</span><span class="o">&gt;=</span> <span class="mi">2018</span><span class="p">,</span> <span class="o">&lt;=</span> <span class="mi">2019</span><span class="p">)</span>
 <span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="s2">&quot;comparator&quot;</span><span class="p">:</span> <span class="s2">&quot;nrange&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;&gt;=&quot;</span><span class="p">:</span> <span class="s2">&quot;2018&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;=&quot;</span><span class="p">:</span> <span class="s2">&quot;2019&quot;</span><span class="p">}}</span>
@@ -449,7 +450,7 @@ As you can see it’s possible to use dot <code class="docutils literal notransl
 </section>
 </section>
 <section id="id6">
-<h3>Query string<a class="headerlink" href="#id6" title="Link to this heading"></a></h3>
+<h3>Query string<a class="headerlink" href="#id6" title="Permalink to this heading"></a></h3>
 <p>Query string will match the <code class="docutils literal notranslate"><span class="pre">DefaultQueryStringFieldPath</span></code> (from <code class="docutils literal notranslate"><span class="pre">conf.ini</span></code>) with <a class="reference external" href="https://www.elastic.co/guide/en/elasticsearch/reference/5.5/query-dsl-query-string-query.html">ES query string format</a>.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;foam cage&quot;</span>
 <span class="p">{</span><span class="s2">&quot;query_string&quot;</span><span class="p">:</span> <span class="s2">&quot;foam cage&quot;</span><span class="p">}</span>
@@ -461,7 +462,7 @@ As you can see it’s possible to use dot <code class="docutils literal notransl
 </pre></div>
 </div>
 <section id="and-or">
-<h4>AND / OR<a class="headerlink" href="#and-or" title="Link to this heading"></a></h4>
+<h4>AND / OR<a class="headerlink" href="#and-or" title="Permalink to this heading"></a></h4>
 <p>By default, query string use OR operator</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;foam OR cage&quot;</span>
 <span class="p">{</span><span class="s2">&quot;query_string&quot;</span><span class="p">:</span> <span class="s2">&quot;foam OR cage&quot;</span><span class="p">}</span>
@@ -474,14 +475,14 @@ As you can see it’s possible to use dot <code class="docutils literal notransl
 </div>
 </section>
 <section id="grouping">
-<h4>Grouping<a class="headerlink" href="#grouping" title="Link to this heading"></a></h4>
+<h4>Grouping<a class="headerlink" href="#grouping" title="Permalink to this heading"></a></h4>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;(foam AND cage) OR (all AND blue)&quot;</span>
 <span class="p">{</span><span class="nt">&quot;query_string&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;foam OR cage&quot;</span><span class="p">}</span>
 </pre></div>
 </div>
 </section>
 <section id="wildcards">
-<h4>Wildcards<a class="headerlink" href="#wildcards" title="Link to this heading"></a></h4>
+<h4>Wildcards<a class="headerlink" href="#wildcards" title="Permalink to this heading"></a></h4>
 <p>Use <code class="docutils literal notranslate"><span class="pre">?</span></code> to replace a single character, <code class="docutils literal notranslate"><span class="pre">*</span></code> to replace zero or more characters.</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;foa?&quot;</span>
 <span class="p">{</span><span class="nt">&quot;query_string&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;foa?&quot;</span><span class="p">}</span>
@@ -493,7 +494,7 @@ As you can see it’s possible to use dot <code class="docutils literal notransl
 </div>
 </section>
 <section id="regular-expressions">
-<h4>Regular expressions<a class="headerlink" href="#regular-expressions" title="Link to this heading"></a></h4>
+<h4>Regular expressions<a class="headerlink" href="#regular-expressions" title="Permalink to this heading"></a></h4>
 <p>Regular expression patterns can be embedded in the query string by wrapping them in forward-slashes (<code class="docutils literal notranslate"><span class="pre">&quot;/&quot;</span></code>)</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;/joh?n(ath[oa]n)/&quot;</span>
 <span class="p">{</span><span class="nt">&quot;query_string&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/joh?n(ath[oa]n)/&quot;</span><span class="p">}</span>
@@ -501,7 +502,7 @@ As you can see it’s possible to use dot <code class="docutils literal notransl
 </div>
 </section>
 <section id="fuzziness">
-<h4>Fuzziness<a class="headerlink" href="#fuzziness" title="Link to this heading"></a></h4>
+<h4>Fuzziness<a class="headerlink" href="#fuzziness" title="Permalink to this heading"></a></h4>
 <p>We can search for terms that are similar to, but not exactly like our search terms, using the “fuzzy” operator</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;quikc~&quot;</span>
 <span class="p">{</span><span class="nt">&quot;query_string&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;quikc~&quot;</span><span class="p">}</span>
@@ -514,7 +515,7 @@ As you can see it’s possible to use dot <code class="docutils literal notransl
 </div>
 </section>
 <section id="exact-match">
-<h4>Exact match<a class="headerlink" href="#exact-match" title="Link to this heading"></a></h4>
+<h4>Exact match<a class="headerlink" href="#exact-match" title="Permalink to this heading"></a></h4>
 <p>It’s also possible to do exact match query with double quote.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;&quot;foam cage&quot;&#39;</span>
 <span class="p">{</span><span class="s2">&quot;query_string&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="se">\&quot;</span><span class="s2">foam cage</span><span class="se">\&quot;</span><span class="s2">&quot;</span><span class="p">}</span>
@@ -522,7 +523,7 @@ As you can see it’s possible to use dot <code class="docutils literal notransl
 </div>
 </section>
 <section id="proximity-search">
-<h4>Proximity search<a class="headerlink" href="#proximity-search" title="Link to this heading"></a></h4>
+<h4>Proximity search<a class="headerlink" href="#proximity-search" title="Permalink to this heading"></a></h4>
 <p>While a phrase query (eg <code class="docutils literal notranslate"><span class="pre">&quot;john</span> <span class="pre">smith&quot;</span></code>) expects all of the terms in exactly the same order, a proximity query allows the specified words to be further apart or in a different order. In the same way that fuzzy queries can specify a maximum edit distance for characters in a word, a proximity search allows us to specify a maximum edit distance of words in a phrase:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;&quot;foam cage&quot;~3&#39;</span>
 <span class="p">{</span><span class="s2">&quot;query_string&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="se">\&quot;</span><span class="s2">foam cage</span><span class="se">\&quot;</span><span class="s2">~3&quot;</span><span class="p">}</span>
@@ -530,7 +531,7 @@ As you can see it’s possible to use dot <code class="docutils literal notransl
 </div>
 </section>
 <section id="boosting">
-<h4>Boosting<a class="headerlink" href="#boosting" title="Link to this heading"></a></h4>
+<h4>Boosting<a class="headerlink" href="#boosting" title="Permalink to this heading"></a></h4>
 <p>Use the boost operator <code class="docutils literal notranslate"><span class="pre">^</span></code> to make one term more relevant than another. For instance, if we want to find all documents about foxes, but we are especially interested in quick foxes:</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;quick^2 fox&quot;</span>
 <span class="p">{</span><span class="nt">&quot;query_string&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;quick^2 fox&quot;</span><span class="p">}</span>
@@ -547,7 +548,7 @@ As you can see it’s possible to use dot <code class="docutils literal notransl
 </div>
 </section>
 <section id="boolean-operators">
-<h4>Boolean operators<a class="headerlink" href="#boolean-operators" title="Link to this heading"></a></h4>
+<h4>Boolean operators<a class="headerlink" href="#boolean-operators" title="Permalink to this heading"></a></h4>
 <p>By default, all terms are optional, as long as one term matches. A search for <code class="docutils literal notranslate"><span class="pre">foo</span> <span class="pre">bar</span> <span class="pre">baz</span></code> will find any document that contains one or more of <code class="docutils literal notranslate"><span class="pre">foo</span></code> or <code class="docutils literal notranslate"><span class="pre">bar</span></code> or <code class="docutils literal notranslate"><span class="pre">baz</span></code>. There are also boolean operators which can be used in the query string itself to provide more control.</p>
 <p>The preferred operators are <code class="docutils literal notranslate"><span class="pre">+</span></code> (this term <strong>must</strong> be present) and <code class="docutils literal notranslate"><span class="pre">-</span></code> (this term <strong>must not</strong> be present). All other terms are optional. For example, this query:</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;quick brown +fox -news&quot;</span>
@@ -565,9 +566,9 @@ As you can see it’s possible to use dot <code class="docutils literal notransl
 </section>
 </section>
 <section id="functions">
-<h3>Functions<a class="headerlink" href="#functions" title="Link to this heading"></a></h3>
+<h3>Functions<a class="headerlink" href="#functions" title="Permalink to this heading"></a></h3>
 <section id="exists">
-<h4>Exists<a class="headerlink" href="#exists" title="Link to this heading"></a></h4>
+<h4>Exists<a class="headerlink" href="#exists" title="Permalink to this heading"></a></h4>
 <p>Returns documents that contain at least one value for <code class="docutils literal notranslate"><span class="pre">author.id</span></code>.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">author</span><span class="o">.</span><span class="n">id</span><span class="o">.</span><span class="n">exists</span> <span class="o">=</span> <span class="n">true</span>
 <span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;author.id.exists&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">}</span>
@@ -575,7 +576,7 @@ As you can see it’s possible to use dot <code class="docutils literal notransl
 </div>
 </section>
 <section id="missing">
-<h4>Missing<a class="headerlink" href="#missing" title="Link to this heading"></a></h4>
+<h4>Missing<a class="headerlink" href="#missing" title="Permalink to this heading"></a></h4>
 <p>Returns documents that only have null values or not any value for this field.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">label</span><span class="o">.</span><span class="n">color</span><span class="o">.</span><span class="n">missing</span> <span class="o">=</span> <span class="n">true</span>
 <span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label.color.missing&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">}</span>
@@ -584,7 +585,7 @@ As you can see it’s possible to use dot <code class="docutils literal notransl
 </section>
 </section>
 <section id="not">
-<h3>Not<a class="headerlink" href="#not" title="Link to this heading"></a></h3>
+<h3>Not<a class="headerlink" href="#not" title="Permalink to this heading"></a></h3>
 <p>We can use <code class="docutils literal notranslate"><span class="pre">not</span></code> keyword to not match a query.<br />
 It can be very useful on complexe queries.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ow">not</span> <span class="n">label</span> <span class="o">=</span> <span class="n">bag</span>
@@ -604,10 +605,10 @@ It can be very useful on complexe queries.</p>
 </div>
 </section>
 <section id="combinations">
-<h3>Combinations<a class="headerlink" href="#combinations" title="Link to this heading"></a></h3>
+<h3>Combinations<a class="headerlink" href="#combinations" title="Permalink to this heading"></a></h3>
 <p>Filters can not be just separated by spaces, it need a combination instruction.</p>
 <section id="and-combination">
-<h4>And combination<a class="headerlink" href="#and-combination" title="Link to this heading"></a></h4>
+<h4>And combination<a class="headerlink" href="#and-combination" title="Permalink to this heading"></a></h4>
 <p>⚠️  <strong>Warning</strong>: This query return an image containing bag and something in red.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">label</span> <span class="o">=</span> <span class="n">bag</span> <span class="ow">and</span> <span class="n">label</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">red</span>
 
@@ -619,7 +620,7 @@ It can be very useful on complexe queries.</p>
 </div>
 </section>
 <section id="or-combination">
-<h4>Or combination<a class="headerlink" href="#or-combination" title="Link to this heading"></a></h4>
+<h4>Or combination<a class="headerlink" href="#or-combination" title="Permalink to this heading"></a></h4>
 <p>🗒️  <strong>Note</strong>: And combination is <strong>priority</strong>, thus brackets is not necessary.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">label</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">blue</span> <span class="ow">and</span> <span class="n">label</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">green</span><span class="p">)</span> <span class="ow">or</span> <span class="n">label</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">yellow</span>
 
@@ -636,7 +637,7 @@ It can be very useful on complexe queries.</p>
 </div>
 </section>
 <section id="where-combination">
-<h4>Where combination<a class="headerlink" href="#where-combination" title="Link to this heading"></a></h4>
+<h4>Where combination<a class="headerlink" href="#where-combination" title="Permalink to this heading"></a></h4>
 <p>The <code class="docutils literal notranslate"><span class="pre">where</span></code> combination is different of the <code class="docutils literal notranslate"><span class="pre">and</span></code> combination.</p>
 <p>The where syntax allow to make a filter on a specific item of a list, instead of the whole document.</p>
 <p>For example the following query return all documents with a bag and something in red, which is not necessary the bag.</p>
@@ -673,7 +674,7 @@ It can be very useful on complexe queries.</p>
 <p>Here texture is a simple <code class="docutils literal notranslate"><span class="pre">object</span></code>, then the deeper nested field is label, then the both query will apply on label level.</p>
 </section>
 <section id="context-syntax">
-<h4>Context syntax<a class="headerlink" href="#context-syntax" title="Link to this heading"></a></h4>
+<h4>Context syntax<a class="headerlink" href="#context-syntax" title="Permalink to this heading"></a></h4>
 <p>The <code class="docutils literal notranslate"><span class="pre">context</span></code> syntax works in the same way than <code class="docutils literal notranslate"><span class="pre">where</span></code> syntax but allow a better control on the nested level. Basically you can chose the nested level instead of let SEL decide for you.</p>
 <p>💡 <strong>Note</strong>: You can do an infinite number of <code class="docutils literal notranslate"><span class="pre">where</span></code> inside a <code class="docutils literal notranslate"><span class="pre">where</span></code>, there is no depth limit.</p>
 <p>For example if we want to select bag or leather of red color.</p>
@@ -704,7 +705,7 @@ It can be very useful on complexe queries.</p>
 </section>
 </section>
 <section id="sorts">
-<h2>Sorts<a class="headerlink" href="#sorts" title="Link to this heading"></a></h2>
+<h2>Sorts<a class="headerlink" href="#sorts" title="Permalink to this heading"></a></h2>
 <p>🗒️ <strong>Note</strong>: All examples bellow refer to <code class="docutils literal notranslate"><span class="pre">Schema</span> <span class="pre">example</span></code>.</p>
 <p>Must be placed at the end of the query string. Numerous sorts can be put, the order is important, from left to right.</p>
 <p>For query object, use the key <code class="docutils literal notranslate"><span class="pre">&quot;sort&quot;</span></code> as a list.</p>
@@ -715,7 +716,7 @@ It can be very useful on complexe queries.</p>
 </pre></div>
 </div>
 <section id="id7">
-<h3>Auto sort<a class="headerlink" href="#id7" title="Link to this heading"></a></h3>
+<h3>Auto sort<a class="headerlink" href="#id7" title="Permalink to this heading"></a></h3>
 <p>By default there is an auto sort system in SEL, see <code class="docutils literal notranslate"><span class="pre">conf.ini</span></code> to disable it.<br />
 Auto sort are made for each fields containing <code class="docutils literal notranslate"><span class="pre">DefaultObjectSortField</span></code>, such as:</p>
 <div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bag</span><span class="w"> </span><span class="o">#</span><span class="w"> </span><span class="n">generate</span><span class="w"> </span><span class="n">following</span><span class="w"> </span><span class="n">sorts</span>
@@ -725,14 +726,14 @@ Auto sort are made for each fields containing <code class="docutils literal notr
 <p>🗒️  <strong>Note</strong>: Your own sorts are put before auto sorts.</p>
 </section>
 <section id="special-values">
-<h3>Special values<a class="headerlink" href="#special-values" title="Link to this heading"></a></h3>
+<h3>Special values<a class="headerlink" href="#special-values" title="Permalink to this heading"></a></h3>
 <p>Disabled auto sort: <code class="docutils literal notranslate"><span class="pre">sort:</span> <span class="pre">null</span></code></p>
 <p>Enable auto sort: <code class="docutils literal notranslate"><span class="pre">sort:</span> <span class="pre">auto</span></code></p>
 <p>Random sort: <code class="docutils literal notranslate"><span class="pre">sort:</span> <span class="pre">random</span></code></p>
 <p>💡 <strong>Note</strong>: A special integer parameter “seed” can control the random: <code class="docutils literal notranslate"><span class="pre">sort:</span> <span class="pre">random</span> <span class="pre">seed</span> <span class="pre">1</span></code></p>
 </section>
 <section id="order">
-<h3>Order<a class="headerlink" href="#order" title="Link to this heading"></a></h3>
+<h3>Order<a class="headerlink" href="#order" title="Permalink to this heading"></a></h3>
 <p>Sort in descending order.</p>
 <p>🗒️  <strong>Note</strong>: It’s the default order, you don’t have to specify it.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sort</span><span class="p">:</span> <span class="n">label</span>
@@ -749,7 +750,7 @@ Auto sort are made for each fields containing <code class="docutils literal notr
 </div>
 </section>
 <section id="mode">
-<h3>Mode<a class="headerlink" href="#mode" title="Link to this heading"></a></h3>
+<h3>Mode<a class="headerlink" href="#mode" title="Permalink to this heading"></a></h3>
 <p>The mode allow to control the manner to build the score for a single document / if there is numerous score present in a single document.</p>
 <p>Sort by average of values</p>
 <p>🗒️  <strong>Note</strong>: It’s the default order, you don’t have to specify it.</p>
@@ -779,7 +780,7 @@ Auto sort are made for each fields containing <code class="docutils literal notr
 </div>
 </section>
 <section id="where-filters">
-<h3>Where filters<a class="headerlink" href="#where-filters" title="Link to this heading"></a></h3>
+<h3>Where filters<a class="headerlink" href="#where-filters" title="Permalink to this heading"></a></h3>
 <p>Apply filter on sort.</p>
 <p>💡 <strong>Note</strong>: The whole filter syntax is available here.</p>
 <p>Get best bag first.</p>
@@ -788,7 +789,7 @@ Auto sort are made for each fields containing <code class="docutils literal notr
 </pre></div>
 </div>
 <section id="under">
-<h4>Under<a class="headerlink" href="#under" title="Link to this heading"></a></h4>
+<h4>Under<a class="headerlink" href="#under" title="Permalink to this heading"></a></h4>
 <p>Under syntax is used to apply given nested context for the <code class="docutils literal notranslate"><span class="pre">where</span></code> filter.</p>
 <p>Get best bags’ attribute first.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sort</span><span class="p">:</span> <span class="n">label</span><span class="o">.</span><span class="n">attribute</span> <span class="n">under</span> <span class="n">label</span> <span class="n">where</span> <span class="p">(</span><span class="n">label</span> <span class="o">=</span> <span class="n">bag</span><span class="p">)</span>
@@ -805,11 +806,11 @@ Auto sort are made for each fields containing <code class="docutils literal notr
 </section>
 </section>
 <section id="aggregations">
-<h2>Aggregations<a class="headerlink" href="#aggregations" title="Link to this heading"></a></h2>
+<h2>Aggregations<a class="headerlink" href="#aggregations" title="Permalink to this heading"></a></h2>
 <p>🗒️ <strong>Note</strong>: All examples bellow refer to <code class="docutils literal notranslate"><span class="pre">Schema</span> <span class="pre">example</span></code>.</p>
 <p>Aggregations must be at the end of the query string.</p>
 <section id="query-object">
-<h3>Query object<a class="headerlink" href="#query-object" title="Link to this heading"></a></h3>
+<h3>Query object<a class="headerlink" href="#query-object" title="Permalink to this heading"></a></h3>
 <p>In query object keys are used to find back your aggregations in returned results, it’s useful if you are doing numerous aggregations in a single query.</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="nt">&quot;aggregations&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="nt">&quot;my_first_aggreg&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;field&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;label&quot;</span><span class="p">},</span>
@@ -837,7 +838,7 @@ Auto sort are made for each fields containing <code class="docutils literal notr
 </div>
 </section>
 <section id="aggregation-types">
-<h3>Aggregation types<a class="headerlink" href="#aggregation-types" title="Link to this heading"></a></h3>
+<h3>Aggregation types<a class="headerlink" href="#aggregation-types" title="Permalink to this heading"></a></h3>
 <p>Aggreg type is how you want to aggregate values.</p>
 <ul class="simple">
 <li><p><strong>aggreg</strong>: Return all existing values, and it’s number of occurrence.</p></li>
@@ -878,7 +879,7 @@ Auto sort are made for each fields containing <code class="docutils literal notr
 </div>
 </section>
 <section id="named-aggregations">
-<h3>Named aggregations<a class="headerlink" href="#named-aggregations" title="Link to this heading"></a></h3>
+<h3>Named aggregations<a class="headerlink" href="#named-aggregations" title="Permalink to this heading"></a></h3>
 <p>You can named to your aggregations in queries, which is useful when you are doing numerous aggregations in the same query.</p>
 <div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="n">aggreg</span><span class="w"> </span><span class="n">bag_texture</span><span class="p">:</span><span class="w"> </span><span class="n">label</span><span class="p">.</span><span class="n">texture</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bag</span>
 <span class="n">aggreg</span><span class="w"> </span><span class="n">shoes_texture</span><span class="p">:</span><span class="w"> </span><span class="n">label</span><span class="p">.</span><span class="n">texture</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">shoes</span>
@@ -898,7 +899,7 @@ Auto sort are made for each fields containing <code class="docutils literal notr
 </div>
 </section>
 <section id="id8">
-<h3>Where filters<a class="headerlink" href="#id8" title="Link to this heading"></a></h3>
+<h3>Where filters<a class="headerlink" href="#id8" title="Permalink to this heading"></a></h3>
 <p>Filter aggregations with a query.</p>
 <p>💡 <strong>Note</strong>: The whole filter syntax is available here.</p>
 <p>⚠️  <strong>Warning</strong>: Apply the filter on the nested context of the aggregated field, use <code class="docutils literal notranslate"><span class="pre">under</span></code> to change the nested field.</p>
@@ -922,7 +923,7 @@ Auto sort are made for each fields containing <code class="docutils literal notr
 </pre></div>
 </div>
 <section id="id9">
-<h4>Under<a class="headerlink" href="#id9" title="Link to this heading"></a></h4>
+<h4>Under<a class="headerlink" href="#id9" title="Permalink to this heading"></a></h4>
 <p>Specify the nested level on which the filter (where keyword) will be applied.</p>
 <p>Get attributes of skirt.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">aggreg</span><span class="p">:</span> <span class="n">attribute</span> <span class="n">under</span> <span class="n">label</span> <span class="n">where</span> <span class="n">label</span> <span class="o">=</span> <span class="n">skirt</span>
@@ -937,7 +938,7 @@ Auto sort are made for each fields containing <code class="docutils literal notr
 </section>
 </section>
 <section id="limit-size">
-<h3>Limit size<a class="headerlink" href="#limit-size" title="Link to this heading"></a></h3>
+<h3>Limit size<a class="headerlink" href="#limit-size" title="Permalink to this heading"></a></h3>
 <p>Select the number of top results.</p>
 <p>🗒️  <strong>Note</strong>: Default is <code class="docutils literal notranslate"><span class="pre">Aggregations.DefaultSize</span></code> in <code class="docutils literal notranslate"><span class="pre">conf.ini</span></code>. A warning will be send if there is more values.
 🗒️  <strong>Note</strong>: For histogram the default size is 0.</p>
@@ -952,7 +953,7 @@ Auto sort are made for each fields containing <code class="docutils literal notr
 </div>
 </section>
 <section id="histogram-interval">
-<h3>Histogram interval<a class="headerlink" href="#histogram-interval" title="Link to this heading"></a></h3>
+<h3>Histogram interval<a class="headerlink" href="#histogram-interval" title="Permalink to this heading"></a></h3>
 <p>Select the date aggregation interval for numerical or date type.</p>
 <p>🗒️  <strong>Note</strong>: Default is <code class="docutils literal notranslate"><span class="pre">Aggregations.DefaultDateInterval</span></code> in <code class="docutils literal notranslate"><span class="pre">conf.ini</span></code>.</p>
 <p>Available expressions for interval: year, quarter, month, week, day, hour, minute, second</p>
@@ -973,7 +974,7 @@ Auto sort are made for each fields containing <code class="docutils literal notr
 <p>See <a class="reference external" href="https://www.elastic.co/guide/en/elasticsearch/reference/5.5/common-options.html#time-units">Time units</a></p>
 </section>
 <section id="sub-aggregations">
-<h3>Sub aggregations<a class="headerlink" href="#sub-aggregations" title="Link to this heading"></a></h3>
+<h3>Sub aggregations<a class="headerlink" href="#sub-aggregations" title="Permalink to this heading"></a></h3>
 <p>Will proceed an aggregation under each bucket of the parent aggregation.</p>
 <p>Sub aggregations are named and several sub aggregations can be done on the same parent aggregation.</p>
 <p>For example to get all color values of each labels:</p>
@@ -1034,10 +1035,10 @@ Auto sort are made for each fields containing <code class="docutils literal notr
 </section>
 </section>
 <section id="big-examples">
-<h2>Big Examples<a class="headerlink" href="#big-examples" title="Link to this heading"></a></h2>
+<h2>Big Examples<a class="headerlink" href="#big-examples" title="Permalink to this heading"></a></h2>
 <p>🗒️ <strong>Note</strong>: All examples bellow refer to <code class="docutils literal notranslate"><span class="pre">Schema</span> <span class="pre">example</span></code>.</p>
 <section id="trend-moodboard">
-<h3>Trend moodboard<a class="headerlink" href="#trend-moodboard" title="Link to this heading"></a></h3>
+<h3>Trend moodboard<a class="headerlink" href="#trend-moodboard" title="Permalink to this heading"></a></h3>
 <div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="n">trend</span><span class="p">.</span><span class="n">entity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;pants:women:denim:straight&quot;</span>
 <span class="k">AND</span><span class="w"> </span><span class="p">.</span><span class="n">author</span><span class="p">.</span><span class="n">geozone</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">eu</span>
 <span class="k">AND</span><span class="w"> </span><span class="mi">2021</span><span class="o">-</span><span class="mi">07</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="nb">date</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">2021</span><span class="o">-</span><span class="mi">12</span>
@@ -1047,7 +1048,7 @@ Auto sort are made for each fields containing <code class="docutils literal notr
 </div>
 </section>
 <section id="fetch-all-trend-signals">
-<h3>Fetch all trend signals<a class="headerlink" href="#fetch-all-trend-signals" title="Link to this heading"></a></h3>
+<h3>Fetch all trend signals<a class="headerlink" href="#fetch-all-trend-signals" title="Permalink to this heading"></a></h3>
 <div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="n">label</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="p">(</span>
 <span class="w">   </span><span class="n">gender</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">female</span>
 <span class="w">   </span><span class="k">AND</span><span class="w"> </span><span class="n">label</span><span class="p">.</span><span class="n">trend</span><span class="p">.</span><span class="n">entity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;pattern:plain&quot;</span>
@@ -1072,7 +1073,7 @@ Finally each subaggreg will return a specific timeserie used for trend metrics a
 This query can be too heavy to apply at once if there is lot of data in ES or if the cluster has not enought computation power and results to timeout. In that case the best is to apply each subaggreg query one by one.</p>
 </section>
 <section id="key-metrics">
-<h3>Key Metrics<a class="headerlink" href="#key-metrics" title="Link to this heading"></a></h3>
+<h3>Key Metrics<a class="headerlink" href="#key-metrics" title="Permalink to this heading"></a></h3>
 <div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="n">label</span><span class="p">.</span><span class="n">model</span><span class="p">.</span><span class="n">entity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;bag:30montaigneleatherflap&quot;</span>
 <span class="k">AND</span><span class="w"> </span><span class="n">panel_category</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">[</span><span class="ss">&quot;fashion&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;sport&quot;</span><span class="p">]</span>
 <span class="k">AND</span><span class="w"> </span><span class="n">tag</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">commercial</span>
@@ -1086,7 +1087,7 @@ This query can be too heavy to apply at once if there is lot of data in ES or if
 </div>
 </section>
 <section id="evolution-chart">
-<h3>Evolution chart<a class="headerlink" href="#evolution-chart" title="Link to this heading"></a></h3>
+<h3>Evolution chart<a class="headerlink" href="#evolution-chart" title="Permalink to this heading"></a></h3>
 <div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="n">panel_category</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">[</span><span class="ss">&quot;fashion&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;sport&quot;</span><span class="p">]</span>
 <span class="k">AND</span><span class="w"> </span><span class="n">tag</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">commercial</span>
 <span class="k">AND</span><span class="w"> </span><span class="n">tag</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">owned_content</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="p">(</span><span class="n">tag</span><span class="p">.</span><span class="n">brand</span><span class="p">.</span><span class="n">entity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;br:750&quot;</span><span class="p">)</span>
@@ -1098,7 +1099,7 @@ This query can be too heavy to apply at once if there is lot of data in ES or if
 </div>
 </section>
 <section id="evolution-of-audience-breakdown">
-<h3>Evolution of audience breakdown<a class="headerlink" href="#evolution-of-audience-breakdown" title="Link to this heading"></a></h3>
+<h3>Evolution of audience breakdown<a class="headerlink" href="#evolution-of-audience-breakdown" title="Permalink to this heading"></a></h3>
 <div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="n">label</span><span class="p">.</span><span class="n">model</span><span class="p">.</span><span class="n">entity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;bag:30montaigneleatherflap&quot;</span>
 <span class="k">AND</span><span class="w"> </span><span class="n">panel_category</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">[</span><span class="ss">&quot;fashion&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;sport&quot;</span><span class="p">]</span>
 <span class="k">AND</span><span class="w"> </span><span class="n">tag</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">commercial</span>
@@ -1113,7 +1114,7 @@ This query can be too heavy to apply at once if there is lot of data in ES or if
 </div>
 </section>
 <section id="geographical-breakdown">
-<h3>Geographical breakdown<a class="headerlink" href="#geographical-breakdown" title="Link to this heading"></a></h3>
+<h3>Geographical breakdown<a class="headerlink" href="#geographical-breakdown" title="Permalink to this heading"></a></h3>
 <div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="n">label</span><span class="p">.</span><span class="n">model</span><span class="p">.</span><span class="n">entity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;bag:30montaigneleatherflap&quot;</span>
 <span class="k">AND</span><span class="w"> </span><span class="n">panel_category</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">[</span><span class="ss">&quot;fashion&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;sport&quot;</span><span class="p">]</span>
 <span class="k">AND</span><span class="w"> </span><span class="n">tag</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">commercial</span>
@@ -1126,7 +1127,7 @@ This query can be too heavy to apply at once if there is lot of data in ES or if
 </div>
 </section>
 <section id="commercial-content">
-<h3>Commercial content<a class="headerlink" href="#commercial-content" title="Link to this heading"></a></h3>
+<h3>Commercial content<a class="headerlink" href="#commercial-content" title="Permalink to this heading"></a></h3>
 <div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="n">label</span><span class="p">.</span><span class="n">model</span><span class="p">.</span><span class="n">entity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;bag:30montaigneleatherflap&quot;</span>
 <span class="k">AND</span><span class="w"> </span><span class="n">panel_category</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">[</span><span class="ss">&quot;fashion&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;sport&quot;</span><span class="p">]</span>
 <span class="k">AND</span><span class="w"> </span><span class="n">tag</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">owned_content</span>
@@ -1139,7 +1140,7 @@ This query can be too heavy to apply at once if there is lot of data in ES or if
 </div>
 </section>
 <section id="brand-mentions">
-<h3>Brand mentions<a class="headerlink" href="#brand-mentions" title="Link to this heading"></a></h3>
+<h3>Brand mentions<a class="headerlink" href="#brand-mentions" title="Permalink to this heading"></a></h3>
 <div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="n">label</span><span class="p">.</span><span class="n">model</span><span class="p">.</span><span class="n">entity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;bag:30montaigneleatherflap&quot;</span>
 <span class="k">AND</span><span class="w"> </span><span class="n">tag</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">commercial</span>
 <span class="k">AND</span><span class="w"> </span><span class="n">tag</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">owned_content</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="p">(</span><span class="n">tag</span><span class="p">.</span><span class="n">brand</span><span class="p">.</span><span class="n">entity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;br:750&quot;</span><span class="p">)</span>
