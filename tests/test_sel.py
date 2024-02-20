@@ -69,7 +69,7 @@ class TestSEL:
             return sorted(aggreg, key=lambda o: o["doc_count"], reverse=True)
 
         aggreg_key = list(query["aggregations"].keys())[0]
-        query["aggregations"][aggreg_key]["size"] = 0
+        query["aggregations"][aggreg_key]["size"] = 9999
         base_aggreg = {"field": "date", "interval": "week"}
 
         res = sel.search(TEST_INDEX, query)

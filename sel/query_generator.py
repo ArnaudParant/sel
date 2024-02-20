@@ -62,21 +62,6 @@ class QueryGenerator:
         return query
 
 
-    def format_query_missing(self, nested, field, query):
-        """
-        Build missing function query
-        """
-        value = to_boolean(field["str_path"], query["value"])
-        query["comparator"] = query.get("comparator", "=")
-
-        if query["comparator"] != "=":
-            raise InvalidClientInput(f"missing: '{field['str_path']}' may only use comparator = or !=")
-        query = format_nested_query(nested, {"missing": {"field": field["str_path"]}})
-        if value == False:
-            query = {"bool": {"must_not": [query]}}
-        return query
-
-
     def format_query_filter(self, warns, group_nested, item):
         """
         Warning: Modify warns without returning it
@@ -88,8 +73,6 @@ class QueryGenerator:
 
         if field["function"] == "exists":
             return field["str_path"], self.format_query_exists(nested, field, item)
-        elif field["function"] == "missing":
-            return field["str_path"], self.format_query_missing(nested, field, item)
 
         if item["comparator"] == "in" and not isinstance(value, list):
             raise InvalidClientInput("Value of in or nin comparator MUST be a list")
@@ -106,8 +89,8 @@ class QueryGenerator:
             return field["str_path"], format_nested_query(nested, {"term": {field["str_path"]: value}})
 
         elif item["comparator"] == "~":
-            if field_type != "string":
-                raise InvalidClientInput(f"'{field['str_path']}' Only string field may use such comparator ~ or !~")
+            if field_type not in ["keyword", "text"]:
+                raise InvalidClientInput(f"'{field['str_path']}' Only keyword and text fields may use such comparator ~ or !~")
             return field["str_path"], format_nested_query(nested, self.format_query_string(group_nested, item, path=field["str_path"]))
 
         elif item["comparator"] == "in":
@@ -548,6 +531,10 @@ class QueryGenerator:
         for item in sorts:
             self.logger.debug("sort: %s" % json.dumps(item))
 
+            query = {
+                "order": item.get("order", "desc").lower(),
+            }
+
             field = self.schema_reader.get_field_info(
                 item["field"],
                 sub_properties=sub_properties
@@ -556,16 +543,16 @@ class QueryGenerator:
             if "seed" in item:
                 raise InvalidClientInput(f"Invalid seed field for standart sort.\Item: {json.dumps(item)}")
 
-            mode = item.get("mode", "avg").lower()
-            if mode not in SORT_MODES:
-                raise InvalidClientInput(
-                    f"Invalid sort mode: {mode}. Allow modes: {', '.join(SORT_MODES)}"
-                )
+            if item.get("mode"):
 
-            query = {
-                "order": item.get("order", "desc").lower(),
-                "mode": mode
-            }
+                mode = item["mode"].lower()
+                if mode not in SORT_MODES:
+                    raise InvalidClientInput(
+                        f"Invalid sort mode: {mode}. Allowed modes: {', '.join(SORT_MODES)}"
+                    )
+
+                query["mode"] = mode
+
             where = item.get("where")
             item_warns = []
 
@@ -574,7 +561,9 @@ class QueryGenerator:
             if item.get("under", ".") != ".":
                 under_nested = self.schema_reader.get_field_info(item["under"]).get("str_nested")
 
-            query["nested_path"] = under_nested if under_nested else field.get("str_nested")
+            nested_path = under_nested if under_nested else field.get("str_nested")
+            if nested_path:
+                query["nested_path"] = nested_path
 
             # if under is setted and different of the nested context
             if item.get("under") and under_nested != field.get("str_nested"):
@@ -596,7 +585,8 @@ class QueryGenerator:
             if not item.get("auto_sort"):
                 warns += item_warns
 
-            query["nested_filter"] = where_query
+            if where_query:
+                query["nested_filter"] = where_query
 
             sorts_queries.append({field["str_path"]: query})
 
@@ -888,10 +878,10 @@ def aggreg_set_default_parameter(field, aggreg, conf):
     if field["element"]["type"] == "date" and aggreg["type"] == "aggreg":
         aggreg["type"] = "histogram"
 
-    if aggreg["type"] == "histogram":
-        aggreg["size"] = aggreg.get("size", 0)
-        if field["element"]["type"] == "date" and "interval" not in aggreg:
-            aggreg["interval"] = conf["Aggregations"]["DefaultDateInterval"]
+    if aggreg["type"] == "histogram" and \
+       field["element"]["type"] == "date" and \
+       "interval" not in aggreg:
+        aggreg["interval"] = conf["Aggregations"]["DefaultDateInterval"]
 
     if "size" not in aggreg:
         aggreg["size"] = conf["Aggregations"].getint("DefaultSize")

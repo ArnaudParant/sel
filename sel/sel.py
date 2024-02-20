@@ -210,7 +210,7 @@ class SEL:
 
         aggreg_key = list(original_query["aggregations"].keys())[0]
         part_field = base_aggreg.get("field")
-        query["aggregations"][aggreg_key]["size"] = 0
+        query["aggregations"][aggreg_key]["size"] = 999999 # Do something better !!
 
         self.logger.debug("Downloading aggregation buckets ...")
 
@@ -358,7 +358,7 @@ class SEL:
             > sel.generate_query(query, index="foo", no_deleted=False)
             {
                'warns': [],
-               'elastic_query': {'query': {'term': {'id': '93428yr9'}}, 'sort': [{'id': {'order': 'desc', 'mode': 'avg', 'nested_path': None}}]},
+               'elastic_query': {'query': {'term': {'id': '93428yr9'}}, 'sort': [{'id': {'order': 'desc', 'mode': 'avg'}}]},
                'internal_query': {'query': {'field': '.id', 'value': '93428yr9'}},
                'query_data': {}
             }
@@ -435,8 +435,8 @@ class SEL:
             index=index,
             body=query_obj["elastic_query"],
             doc_type=self.conf["Elasticsearch"]["DocType"],
-            _source=True,
-            analyze_wildcard=True
+            _source=True
+            #analyze_wildcard=True  # Does not exists in 5.x ?
         )
 
         results = self.PostFormater(warns, query_obj["query_data"], response)
@@ -544,7 +544,7 @@ class SEL:
                   'score': 1.0,
                   'short_path': ['author', 'id'],
                   'str_short_path': '.author.id',
-                  'accept_function': ['exists', 'missing']
+                  'accept_function': ['exists']
                },
                ...
             ]
@@ -669,7 +669,9 @@ class SEL:
         # Structure documents by indexes
         index_documents = defaultdict(list)
         for doc in docs:
-            index_documents[doc["_index"]].append(action(doc))
+            del doc["_score"]
+            index_name = doc.pop("_index")
+            index_documents[index_name].append(action(doc))
 
         # Update documents in indexes
         count = 0

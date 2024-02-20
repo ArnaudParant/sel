@@ -6,7 +6,7 @@ from . import meta
 from .utils import InternalServerError, InvalidClientInput
 
 
-ALLOWED_FUNCTIONS = ["exists", "missing"]
+ALLOWED_FUNCTIONS = ["exists"]
 
 
 class SchemaError(Exception):
@@ -390,7 +390,7 @@ class SchemaReader:
         field["str_short_path"] = str_prefix + path_to_string(short_path)
 
         path = field["path"]
-        field["accept_function"] = ["exists", "missing"]
+        field["accept_function"] = ["exists"]
 
         return field
 
