@@ -15,7 +15,7 @@ sys.path.insert(0, os.path.abspath('../..'))
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'SEL 5.5.1'
+project = 'SEL 6.8.1'
 copyright = '2024, Arnaud Parant'
 author = 'Arnaud Parant'
 

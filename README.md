@@ -7,7 +7,7 @@ The project is split into two sub projects:
 
 
 ## Versions
-Two first digits of SEL version match Elasticsearch version and then it's the inner SEL version, eg 5.5.1 works with ES 5.5, v1 of SEL for this version of ES
+Two first digits of SEL version match Elasticsearch version and then it's the inner SEL version, eg 6.8.1 works with ES 6.8, v1 of SEL for this version of ES
 
 
 ## Full documentation
@@ -16,7 +16,7 @@ Two first digits of SEL version match Elasticsearch version and then it's the in
 
 
 ## Compagny
-SEL was initially developed for Heuritech in 2015 and used by everybody inside the compagny tech and no-tech people since that time to explore internal data, generate reports and analysis.
+SEL was initially developed for Heuritech in 2016 and used by everybody inside the compagny tech and no-tech people since that time to explore internal data, generate reports and analysis.
 
 
 ## Quickstart
@@ -25,7 +25,7 @@ Be aware it will request ES schema at any query generation.
 
 #### Add as dependency
 ```
-sel @ git+https://github.com/ArnaudParant/sel.git@v5.5.1
+sel @ git+https://github.com/ArnaudParant/sel.git@v6.8.1
 ```
 
 ### SEL as ES interface
@@ -69,3 +69,15 @@ See [SEL Server](https://github.com/ArnaudParant/sel_server) for API usage
  - **install-sphinx** - Install Sphinx and dependencies to generate documentation.  
  - **doc** - Generate the documentation in `docs/build/html/`  
  - **clean** - Clean all `__pycache__`
+
+
+## Known issue
+
+```
+[1]: max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]
+```
+
+Execute the following command
+```
+sysctl -w vm.max_map_count=262144
+```
