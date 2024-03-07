@@ -71,8 +71,13 @@ See [SEL Server](https://github.com/ArnaudParant/sel_server) for API usage
  - **clean** - Clean all `__pycache__`
 
 
-## Known issue
+## Known issues
 
+### Elasticsearch
+
+#### Max virtual memory
+
+Fail to start with the following error
 ```
 [1]: max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]
 ```
@@ -80,4 +85,16 @@ See [SEL Server](https://github.com/ArnaudParant/sel_server) for API usage
 Execute the following command
 ```
 sysctl -w vm.max_map_count=262144
+```
+
+#### AccessDeniedException
+
+Fail to start with the following error
+```
+Caused by: java.nio.file.AccessDeniedException: /usr/share/elasticsearch/data/nodes
+```
+
+Execute the following command
+```
+chown -R 1000:root /usr/share/elasticsearch/data
 ```
