@@ -1,12 +1,11 @@
 from itertools import islice
 
 
-def _document_wrapper(index, documents, doc_type, id_getter, operation):
+def _document_wrapper(index, documents, id_getter, operation):
     for doc in documents:
 
         wrapper = {"action": {operation: {
             "_index": index,
-            "_type": doc_type,
             "_id": id_getter(doc)
         }}}
 
@@ -35,6 +34,6 @@ def _manager(elastic, documents, size, operation):
         _sender(elastic, bulk, operation)
 
 
-def bulk(elastic, index, doc_type, documents, id_getter, bulk_size=100, operation="index"):
-    docs = _document_wrapper(index, documents, doc_type, id_getter, operation)
+def bulk(elastic, index, documents, id_getter, bulk_size=100, operation="index"):
+    docs = _document_wrapper(index, documents, id_getter, operation)
     _manager(elastic, docs, bulk_size, operation)

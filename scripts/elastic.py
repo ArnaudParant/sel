@@ -43,12 +43,11 @@ def loads_ndjson(fd):
         yield json.loads(line)
 
 
-def _document_wrapper(index, documents, doc_type, id_getter, operation):
+def _document_wrapper(index, documents, id_getter, operation):
     for doc in documents:
 
         wrapper = {"action": {operation: {
             "_index": index,
-            "_type": doc_type,
             "_id": id_getter(doc)
         }}}
 
@@ -77,15 +76,15 @@ def _manager(elastic, documents, size, operation):
         _sender(elastic, bulk, operation)
 
 
-def bulk(elastic, index, doc_type, documents, id_getter, bulk_size=100, operation="index"):
-    docs = _document_wrapper(index, documents, doc_type, id_getter, operation)
+def bulk(elastic, index, documents, id_getter, bulk_size=100, operation="index"):
+    docs = _document_wrapper(index, documents, id_getter, operation)
     _manager(elastic, docs, bulk_size, operation)
 
 
 def insert(elastic, index, data):
     logging.info("Start insertion ...")
     id_getter = lambda d: d["id"]
-    bulk(elastic, index, "document", data, id_getter)
+    bulk(elastic, index, data, id_getter)
     logging.info("Done")
 
 

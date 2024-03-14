@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to Simple Elastic Language's documentation v6.8.1 !
+Welcome to Simple Elastic Language's documentation v7.17.1 !
 ===========================================================
 
 .. toctree::

@@ -7,7 +7,7 @@ The project is split into two sub projects:
 
 
 ## Versions
-Two first digits of SEL version match Elasticsearch version and then it's the inner SEL version, eg 6.8.1 works with ES 6.8, v1 of SEL for this version of ES
+Two first digits of SEL version match Elasticsearch version and then it's the inner SEL version, eg 7.17.1 works with ES 7.17, v1 of SEL for this version of ES
 
 
 ## Full documentation
@@ -25,7 +25,7 @@ Be aware it will request ES schema at any query generation.
 
 #### Add as dependency
 ```
-sel @ git+https://github.com/ArnaudParant/sel.git@v6.8.1
+sel @ git+https://github.com/ArnaudParant/sel.git@v7.17.1
 ```
 
 ### SEL as ES interface
@@ -71,8 +71,13 @@ See [SEL Server](https://github.com/ArnaudParant/sel_server) for API usage
  - **clean** - Clean all `__pycache__`
 
 
-## Known issue
+## Known issues
 
+### Elasticsearch
+
+#### Max virtual memory
+
+Fail to start with the following error
 ```
 [1]: max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]
 ```
@@ -80,4 +85,16 @@ See [SEL Server](https://github.com/ArnaudParant/sel_server) for API usage
 Execute the following command
 ```
 sysctl -w vm.max_map_count=262144
+```
+
+#### AccessDeniedException
+
+Fail to start with the following error
+```
+Caused by: java.nio.file.AccessDeniedException: /usr/share/elasticsearch/data/nodes
+```
+
+Execute the following command
+```
+chown -R 1000:root /usr/share/elasticsearch/data
 ```

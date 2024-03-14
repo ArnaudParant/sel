@@ -1,7 +1,6 @@
 {
  "mappings": {
 
-  "document": {
     "dynamic": false,
 
     "properties": {
@@ -55,5 +54,5 @@
 
       }}
     }}
-  }}
+  }
 }}
