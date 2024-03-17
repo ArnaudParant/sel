@@ -13,16 +13,15 @@ lint:			docker-test
 
 tests:			docker-test
 	docker-compose -f tests/docker-compose.yml up -d
-	docker-compose -f tests/docker-compose.yml exec elasticsearch curl -X PUT "http://elastic:changeme@localhost:9200/_security/role/all" -H "Content-Type: application/json" -d '{"cluster": ["monitor", "manage", "all"], "indices": [{"names": ["*"], "privileges": ["read","write"]}]}'
 	docker-compose -f tests/docker-compose.yml exec tests pytest --cov=sel -vvx tests
-	docker-compose -f tests/docker-compose.yml down
-
-down-tests:
 	docker-compose -f tests/docker-compose.yml down
 
 upshell:		docker-test
 	docker-compose -f tests/docker-compose.yml -f tests/docker-compose.add_volumes.yml up -d
 	docker-compose -f tests/docker-compose.yml -f tests/docker-compose.add_volumes.yml exec tests bash
+	docker-compose -f tests/docker-compose.yml down
+
+down-tests:
 	docker-compose -f tests/docker-compose.yml down
 
 install-sphinx:

@@ -66,6 +66,7 @@ See [SEL Server](https://github.com/ArnaudParant/sel_server) for API usage
  - **lint** - Lint the code
  - **tests** - Run all tests
  - **upshell** - Up a shell into the docker, useful to run only few tests.  
+ - **down-tests** - Down tests, in case of failed tests
  - **install-sphinx** - Install Sphinx and dependencies to generate documentation.  
  - **doc** - Generate the documentation in `docs/build/html/`  
  - **clean** - Clean all `__pycache__`

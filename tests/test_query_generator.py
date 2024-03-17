@@ -52,8 +52,8 @@ class TestQueryGenerator:
     def test_simple_filter(self, sel, query, expected_total):
         try:
             res = sel.search(TEST_INDEX, {"query": query})
-            assert res["results"]["hits"]["total"] == expected_total, \
-                f'Bad document count: {res["results"]["hits"]["total"]}, expected: {expected_total}'
+            assert res["results"]["hits"]["total"]["value"] == expected_total, \
+                f'Bad document count: {res["results"]["hits"]["total"]["value"]}, expected: {expected_total}'
         except Exception as exc:
             assert expected_total is None, str(exc)
 
@@ -69,8 +69,8 @@ class TestQueryGenerator:
     ])
     def test_function(self, sel, query, expected_total):
         res = sel.search(TEST_INDEX, {"query": query})
-        assert res["results"]["hits"]["total"] == expected_total, \
-            f'Bad document count: {res["results"]["hits"]["total"]}, expected: {expected_total}'
+        assert res["results"]["hits"]["total"]["value"] == expected_total, \
+            f'Bad document count: {res["results"]["hits"]["total"]["value"]}, expected: {expected_total}'
 
     @pytest.mark.parametrize(["query", "expected_total"], [
         ["label = person and label = outdoor", 1],
@@ -82,8 +82,8 @@ class TestQueryGenerator:
     ])
     def test_combined_filter(self, sel, query, expected_total):
         res = sel.search(TEST_INDEX, {"query": query})
-        assert res["results"]["hits"]["total"] == expected_total, \
-            f'Bad document count: {res["results"]["hits"]["total"]}, expected: {expected_total}'
+        assert res["results"]["hits"]["total"]["value"] == expected_total, \
+            f'Bad document count: {res["results"]["hits"]["total"]["value"]}, expected: {expected_total}'
 
     @pytest.mark.parametrize(["query", "expected_total"], [
         ["label = person where .score > 0.97", 93],
@@ -96,8 +96,8 @@ class TestQueryGenerator:
     ])
     def test_where_filter(self, sel, query, expected_total):
         res = sel.search(TEST_INDEX, {"query": query})
-        assert res["results"]["hits"]["total"] == expected_total, \
-            f'Bad document count: {res["results"]["hits"]["total"]}, expected: {expected_total}'
+        assert res["results"]["hits"]["total"]["value"] == expected_total, \
+            f'Bad document count: {res["results"]["hits"]["total"]["value"]}, expected: {expected_total}'
 
 
     @pytest.mark.parametrize(["query", "expected_total"], [
@@ -113,8 +113,8 @@ class TestQueryGenerator:
     def test_context(self, sel, query, expected_total):
         try:
             res = sel.search(TEST_INDEX, {"query": query})
-            assert res["results"]["hits"]["total"] == expected_total, \
-                f'Bad document count: {res["results"]["hits"]["total"]}, expected: {expected_total}'
+            assert res["results"]["hits"]["total"]["value"] == expected_total, \
+                f'Bad document count: {res["results"]["hits"]["total"]["value"]}, expected: {expected_total}'
         except Exception as exc:
             assert expected_total is None, str(exc)
 
@@ -130,8 +130,8 @@ class TestQueryGenerator:
     ])
     def test_query_string_filter(self, sel, query, expected_total):
         res = sel.search(TEST_INDEX, {"query": query})
-        assert res["results"]["hits"]["total"] == expected_total, \
-            f'Bad document count: {res["results"]["hits"]["total"]}, expected: {expected_total}'
+        assert res["results"]["hits"]["total"]["value"] == expected_total, \
+            f'Bad document count: {res["results"]["hits"]["total"]["value"]}, expected: {expected_total}'
 
     @pytest.mark.parametrize(["query", "expected_total"], [
         ["date = 2017", 88],
@@ -159,8 +159,8 @@ class TestQueryGenerator:
     def test_date_filter(self, sel, query, expected_total):
         try:
             res = sel.search(TEST_INDEX, {"query": query})
-            assert res["results"]["hits"]["total"] == expected_total, \
-                f'Bad document count: {res["results"]["hits"]["total"]}, expected: {expected_total}'
+            assert res["results"]["hits"]["total"]["value"] == expected_total, \
+                f'Bad document count: {res["results"]["hits"]["total"]["value"]}, expected: {expected_total}'
         except Exception as exc:
             assert expected_total is None, str(exc)
 

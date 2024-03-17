@@ -5,12 +5,10 @@ services:
     image: sel_test:${BUILD_TAG}
     command: bash -c "sleep infinity"
     environment:
-      - "ES_HOSTS=http://elasticsearch"
+      - "ES_HOSTS=http://sel:onlyfortests@elasticsearch"
     depends_on:
       elasticsearch:
         condition: service_healthy
-    networks:
-      - overlay
 
   elasticsearch:
     image: elasticsearch:7.17.18
@@ -24,8 +22,3 @@ services:
       interval: 30s
       timeout: 10s
       retries: 50
-    networks:
-      - overlay
-
-networks:
-  overlay:
