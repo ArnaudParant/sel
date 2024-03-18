@@ -9,7 +9,7 @@ import test_utils
 
 
 TEST_INDEX_FILE = "/tests/data/sample_2017.json"
-TEST_SCHEMA_FILE = "/scripts/schema.json"
+TEST_SCHEMA_FILE = "/tests/data/sample_2017_schema.json"
 TEST_INDEX = "test_index"
 ES_HOSTS = os.environ["ES_HOSTS"].split(",")
 ES_AUTH = os.environ["ES_AUTH"]
