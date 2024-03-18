@@ -1,2 +1,0 @@
-# Passwords
-sel:onlyfortests
