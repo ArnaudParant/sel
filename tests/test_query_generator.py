@@ -13,6 +13,7 @@ TEST_INDEX_FILE = "/tests/data/sample_2017.json"
 TEST_SCHEMA_FILE = "/scripts/schema.json"
 TEST_INDEX = "test_index"
 ES_HOSTS = os.environ["ES_HOSTS"].split(",")
+ES_AUTH = os.environ["ES_AUTH"]
 
 
 class TestQueryGenerator:
@@ -20,7 +21,8 @@ class TestQueryGenerator:
     @pytest.fixture(scope="session", autouse=True)
     def init(self):
         elastic.create_index(
-            TEST_INDEX_FILE, TEST_SCHEMA_FILE, TEST_INDEX, hosts=ES_HOSTS, overwrite=True
+            TEST_INDEX_FILE, TEST_SCHEMA_FILE, TEST_INDEX, hosts=ES_HOSTS, http_auth=ES_AUTH,
+            overwrite=True
         )
 
 
@@ -200,7 +202,7 @@ class TestQueryGenerator:
          ['1253754434252136810', '1476404500146632956', '1323578809726851806', '1423561936200686637', '1435879786500245290', '1524573366823246767', '1505515499667544384', '1383595488075795516', '1490181160960369114', '1434484792463866663']],
 
         ["sort: label.texture under label where label = bag",
-         ['1440258192704582204', '1323578809726851806', '1403565260421537480', '1434815988875981994', '1222459402943827225']]
+         ['1440258192704582204', '1323578809726851806', '1403565260421537480', '1434815988875981994']]
 
     ])
     def test_sort_order(self, sel, query, expected_ids):

@@ -11,10 +11,12 @@ def elastic_connect():
     This connection code is only for tests purpose.
     Use your own secured piece of code for your application with encryped password.
     """
-    es_hosts = os.environ["ES_HOST"].split(",")
+    es_hosts = os.environ["ES_HOSTS"].split(",")
+    http_auth = os.environ["ES_AUTH"]
+
     kwargs = {
         "hosts": _normalize_hosts(es_hosts),
-        "http_auth": ("sel", "onlyfortests"),
+        "http_auth": http_auth,
         "retry_on_timeout": True,
         "timeout": 30,
         "sniff_on_start": True,
