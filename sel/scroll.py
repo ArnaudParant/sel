@@ -11,7 +11,7 @@ def _reader(data):
 def scroll(elastic, index, query, cash_time, scroll_id=None):
 
     if not scroll_id:
-        res = elastic.search(index=index, body=query, scroll=cash_time)
+        res = elastic.search(index=index, scroll=cash_time, **query)
     else:
         res = elastic.scroll(scroll_id=scroll_id, scroll=cash_time)
 

@@ -12,7 +12,7 @@ def osel():
 
 def load_schema():
     with open("/tests/data/sample_2017_schema.json", "r") as fd:
-        return json.load(fd)["mappings"]
+        return json.load(fd)
 
 
 class TestOfflineSEL():

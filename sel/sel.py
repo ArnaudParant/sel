@@ -431,12 +431,8 @@ class SEL:
         warns = query_obj["warns"]
 
         self.logger.debug("es query = %s" % json.dumps(query_obj["elastic_query"]))
-        response = self.elastic.search(
-            index=index,
-            body=query_obj["elastic_query"],
-            _source=True
-            #analyze_wildcard=True  # Does not exists in 5.x ?
-        )
+        response = self.elastic.search(index=index, _source=True, **query_obj["elastic_query"])
+            #analyze_wildcard=True  # Does not exists since 5.x ?
 
         results = self.PostFormater(warns, query_obj["query_data"], response)
 

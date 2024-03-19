@@ -91,7 +91,7 @@ def insert(elastic, index, data):
 
 def _create_index(elastic, index, schema_filepath):
     schema = load_schema(schema_filepath)
-    res = elastic.indices.create(index=index, body=schema, request_timeout=60)
+    res = elastic.indices.create(index=index, mappings=schema, request_timeout=60)
     if "acknowledged" not in res:
         logging.error("Index creation response:\n{res}")
         raise Exception("Failed to create index: {index_name}")
