@@ -169,14 +169,6 @@ class SchemaReader:
         return founds[0]["short_path"]
 
 
-    def schema_root(self, schema):
-        doc_type = meta.get_doc_type(schema)
-        if not doc_type:
-            raise InternalServerError(f"Corrupted index: {index}")
-
-        return schema[doc_type]["properties"]
-
-
     def schema_object_matching(self, field, path, root):
         """
         TODO: REFACTO
@@ -225,7 +217,7 @@ class SchemaReader:
         ## Route Managing
         root_object = False
         if root is None:
-            root = self.schema_root(self.schema)
+            root = self.schema["properties"]
         elif isinstance(root, str):
             root_object = True
             root, field, path = self.__root_from_string(root, field)
@@ -310,7 +302,7 @@ class SchemaReader:
         """
         key = path[position]
         if root is None:
-            root = self.schema_root(self.schema)
+            root = self.schema["properties"]
         if key in root:
             elm = root[key]
             if len(path) > 1:
@@ -339,7 +331,7 @@ class SchemaReader:
         List all existing fields of the schema in details
         """
         if root is None:
-            root = self.schema_root(self.schema)
+            root = self.schema["properties"]
         elif isinstance(root, str):
             root, _, _ = self.__root_from_string(root, None)
 

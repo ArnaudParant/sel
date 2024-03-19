@@ -69,7 +69,7 @@ class SEL:
         .. code-block:: python
 
             > sel.get_schema("foo")
-            {doc_type: {mapping ... }}
+            {mapping ... }
 
         """
 
@@ -95,7 +95,7 @@ class SEL:
 
             > sel.list_index()
             [
-               {'index': 'myindex', 'doc_type': 'document', 'meta': None, 'creation_date': datetime.datetime(2023, 9, 13, 13, 26, 42, 251000)},
+               {'index': 'myindex', 'meta': None, 'creation_date': datetime.datetime(2023, 9, 13, 13, 26, 42, 251000)},
                ...
             ]
 
@@ -431,13 +431,8 @@ class SEL:
         warns = query_obj["warns"]
 
         self.logger.debug("es query = %s" % json.dumps(query_obj["elastic_query"]))
-        response = self.elastic.search(
-            index=index,
-            body=query_obj["elastic_query"],
-            doc_type=self.conf["Elasticsearch"]["DocType"],
-            _source=True
-            #analyze_wildcard=True  # Does not exists in 5.x ?
-        )
+        response = self.elastic.search(index=index, _source=True, **query_obj["elastic_query"])
+            #analyze_wildcard=True  # Does not exists since 5.x ?
 
         results = self.PostFormater(warns, query_obj["query_data"], response)
 
@@ -675,12 +670,11 @@ class SEL:
 
         # Update documents in indexes
         count = 0
-        doc_type = self.conf["Elasticsearch"]["DocType"]
         id_getter = lambda d: d["id"]
 
         for index_name, documents in index_documents.items():
             count += len(documents)
-            upload.bulk(self.elastic, index_name, doc_type, documents, id_getter)
+            upload.bulk(self.elastic, index_name, documents, id_getter)
 
         return {"action": action_id, "count": count}
 
@@ -757,11 +751,10 @@ class SEL:
 
         # Update documents in indexes
         count = 0
-        doc_type = self.conf["Elasticsearch"]["DocType"]
         id_getter = lambda d: d["_id"]
         for index_name, documents in index_documents.items():
             count += len(documents)
-            upload.bulk(self.elastic, index_name, doc_type, documents, id_getter, operation="delete")
+            upload.bulk(self.elastic, index_name, documents, id_getter, operation="delete")
 
         return count
 

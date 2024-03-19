@@ -9,9 +9,10 @@ import test_utils
 
 
 TEST_INDEX_FILE = "/tests/data/sample_2017.json"
-TEST_SCHEMA_FILE = "/scripts/schema.json"
+TEST_SCHEMA_FILE = "/tests/data/sample_2017_schema.json"
 TEST_INDEX = "test_index"
 ES_HOSTS = os.environ["ES_HOSTS"].split(",")
+ES_AUTH = os.environ["ES_AUTH"]
 
 
 class TestSEL:
@@ -19,7 +20,8 @@ class TestSEL:
     @pytest.fixture(scope="function", autouse=True)
     def init(self):
         elastic.create_index(
-            TEST_INDEX_FILE, TEST_SCHEMA_FILE, TEST_INDEX, hosts=ES_HOSTS, overwrite=True
+            TEST_INDEX_FILE, TEST_SCHEMA_FILE, TEST_INDEX, hosts=ES_HOSTS, http_auth=ES_AUTH,
+            overwrite=True
         )
 
 
@@ -105,50 +107,50 @@ class TestSEL:
 
     def test_delete_documents(self, sel):
         res = sel.search(TEST_INDEX, {"meta": {"size": 0}})
-        assert res["results"]["hits"]["total"] == 100
+        assert res["results"]["hits"]["total"]["value"] == 100
 
         query = {"ids": ["1434484792463866663"]}
         res = sel.delete_documents(TEST_INDEX, query)
         assert res == {"count": 1, "action": "delete"}
 
         res = sel.search(TEST_INDEX, {"meta": {"size": 0}})
-        assert res["results"]["hits"]["total"] == 99
+        assert res["results"]["hits"]["total"]["value"] == 99
 
         res = sel.search(TEST_INDEX, {"query": "deleted = true", "meta": {"size": 0}})
-        assert res["results"]["hits"]["total"] == 1
+        assert res["results"]["hits"]["total"]["value"] == 1
 
         res = sel.delete_documents(TEST_INDEX, query)
         assert res == {"count": 1, "action": "delete"}
 
         res = sel.search(TEST_INDEX, {"meta": {"size": 0}})
-        assert res["results"]["hits"]["total"] == 99
+        assert res["results"]["hits"]["total"]["value"] == 99
 
         res = sel.delete_documents(TEST_INDEX, query, undelete=True)
         assert res == {"count": 1, "action": "undelete"}
 
         res = sel.search(TEST_INDEX, {"meta": {"size": 0}})
-        assert res["results"]["hits"]["total"] == 100
+        assert res["results"]["hits"]["total"]["value"] == 100
 
 
     def test_really_delete_documents(self, sel):
         res = sel.search(TEST_INDEX, {"meta": {"size": 0}})
-        assert res["results"]["hits"]["total"] == 100
+        assert res["results"]["hits"]["total"]["value"] == 100
 
         query = {"ids": ["1434484792463866663"]}
         count = sel.really_delete_documents(TEST_INDEX, query)
         assert count == 1
 
         res = sel.search(TEST_INDEX, {"meta": {"size": 0}})
-        assert res["results"]["hits"]["total"] == 99
+        assert res["results"]["hits"]["total"]["value"] == 99
 
         res = sel.search(TEST_INDEX, {"query": "deleted = true", "meta": {"size": 0}})
-        assert res["results"]["hits"]["total"] == 0
+        assert res["results"]["hits"]["total"]["value"] == 0
 
         count = sel.really_delete_documents(TEST_INDEX, query)
         assert count == 0
 
         res = sel.search(TEST_INDEX, {"meta": {"size": 0}})
-        assert res["results"]["hits"]["total"] == 99
+        assert res["results"]["hits"]["total"]["value"] == 99
 
 
 def load_ndjson(fd):

@@ -1,0 +1,5 @@
+all:
+  cluster: [ 'monitor' ]
+  indices:
+    - names: [ '*' ]
+      privileges: [ 'all' ]

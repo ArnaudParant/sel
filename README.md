@@ -7,7 +7,7 @@ The project is split into two sub projects:
 
 
 ## Versions
-Two first digits of SEL version match Elasticsearch version and then it's the inner SEL version, eg 6.8.1 works with ES 6.8, v1 of SEL for this version of ES
+Two first digits of SEL version match Elasticsearch version and then it's the inner SEL version, eg 7.17.1 works with ES 7.17, v1 of SEL for this version of ES
 
 
 ## Full documentation
@@ -25,7 +25,7 @@ Be aware it will request ES schema at any query generation.
 
 #### Add as dependency
 ```
-sel @ git+https://github.com/ArnaudParant/sel.git@v6.8.1
+sel @ git+https://github.com/ArnaudParant/sel.git@v7.17.1
 ```
 
 ### SEL as ES interface
@@ -66,6 +66,7 @@ See [SEL Server](https://github.com/ArnaudParant/sel_server) for API usage
  - **lint** - Lint the code
  - **tests** - Run all tests
  - **upshell** - Up a shell into the docker, useful to run only few tests.  
+ - **down-tests** - Down tests, in case of failed tests
  - **install-sphinx** - Install Sphinx and dependencies to generate documentation.  
  - **doc** - Generate the documentation in `docs/build/html/`  
  - **clean** - Clean all `__pycache__`

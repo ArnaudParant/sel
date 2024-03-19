@@ -21,6 +21,9 @@ upshell:		docker-test
 	docker-compose -f tests/docker-compose.yml -f tests/docker-compose.add_volumes.yml exec tests bash
 	docker-compose -f tests/docker-compose.yml down
 
+down-tests:
+	docker-compose -f tests/docker-compose.yml down
+
 install-sphinx:
 	pip install sphinx sphinx_rtd_theme myst-parser
 	pip install -e .

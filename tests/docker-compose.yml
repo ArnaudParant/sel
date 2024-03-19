@@ -6,22 +6,20 @@ services:
     command: bash -c "sleep infinity"
     environment:
       - "ES_HOSTS=http://elasticsearch"
+      - "ES_AUTH=sel:onlyfortests"
     depends_on:
       elasticsearch:
         condition: service_healthy
-    networks:
-      - overlay
 
   elasticsearch:
-    image: elasticsearch:6.8.0
+    image: elasticsearch:7.17.18
     command: elasticsearch
+    volumes:
+      - $PWD/tests/config:/config:rw
+    environment:
+      - ES_PATH_CONF=/config
     healthcheck:
       test: curl -s http://localhost:9200 >/dev/null || exit 1
       interval: 30s
       timeout: 10s
       retries: 50
-    networks:
-      - overlay
-
-networks:
-  overlay:

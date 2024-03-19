@@ -7,10 +7,16 @@ from sel.sel import SEL
 
 
 def elastic_connect():
-    """ Create new elastic connection """
-    es_hosts = os.environ["ES_HOST"].split(",")
+    """
+    This connection code is only for tests purpose.
+    Use your own secured piece of code for your application with encryped password.
+    """
+    es_hosts = os.environ["ES_HOSTS"].split(",")
+    http_auth = os.environ["ES_AUTH"]
+
     kwargs = {
         "hosts": _normalize_hosts(es_hosts),
+        "http_auth": http_auth,
         "retry_on_timeout": True,
         "timeout": 30,
         "sniff_on_start": True,
