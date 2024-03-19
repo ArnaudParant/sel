@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Queries Documentation &mdash; SEL 6.8.1  documentation</title>
+  <title>Queries Documentation &mdash; SEL 7.17.1  documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
 
@@ -35,7 +35,7 @@
           
           
           <a href="index.html" class="icon icon-home">
-            SEL 6.8.1
+            SEL 7.17.1
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -162,7 +162,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">SEL 6.8.1</a>
+          <a href="index.html">SEL 7.17.1</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -225,8 +225,8 @@ It take all your filters in the same order to make a sort on the inner <code cla
 </pre></div>
 </div>
 <p><strong>Extended</strong></p>
-<p>Allowed keys: <code class="docutils literal notranslate"><span class="pre">_source</span></code>, <code class="docutils literal notranslate"><span class="pre">fields</span></code>, <code class="docutils literal notranslate"><span class="pre">script_fields</span></code>, <code class="docutils literal notranslate"><span class="pre">fielddata_fields</span></code>, <code class="docutils literal notranslate"><span class="pre">explain</span></code>, <code class="docutils literal notranslate"><span class="pre">highlight</span></code>, <code class="docutils literal notranslate"><span class="pre">rescore</span></code>, <code class="docutils literal notranslate"><span class="pre">version</span></code>, <code class="docutils literal notranslate"><span class="pre">indices_boost</span></code>, <code class="docutils literal notranslate"><span class="pre">min_score</span></code>.<br />
-See <a class="reference external" href="https://www.elastic.co/guide/en/elasticsearch/reference/6.8/search-request-body.html">ES Search request body</a></p>
+<p>Allowed keys: <code class="docutils literal notranslate"><span class="pre">_source</span></code>, <code class="docutils literal notranslate"><span class="pre">fields</span></code>, <code class="docutils literal notranslate"><span class="pre">script_fields</span></code>, <code class="docutils literal notranslate"><span class="pre">explain</span></code>, <code class="docutils literal notranslate"><span class="pre">version</span></code>, <code class="docutils literal notranslate"><span class="pre">indices_boost</span></code>, <code class="docutils literal notranslate"><span class="pre">min_score</span></code>.<br />
+See <a class="reference external" href="https://www.elastic.co/guide/en/elasticsearch/reference/7.17/search-search.html">ES Search request body</a></p>
 <p><strong>Examples</strong></p>
 <p>Query string</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
@@ -287,7 +287,7 @@ As you can see it’s possible to use dot <code class="docutils literal notransl
 </section>
 <section id="id1">
 <h4>Query String<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h4>
-<p>Query string use <a class="reference external" href="https://www.elastic.co/guide/en/elasticsearch/reference/6.8/query-dsl-query-string-query.html">ES query string format</a></p>
+<p>Query string use <a class="reference external" href="https://www.elastic.co/guide/en/elasticsearch/reference/7.17/query-dsl-query-string-query.html">ES query string format</a></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">label</span> <span class="o">~</span> <span class="s2">&quot;*pant*&quot;</span>
 <span class="p">{</span><span class="s2">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="s2">&quot;comparator&quot;</span><span class="p">:</span> <span class="s2">&quot;~&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;*pant*&quot;</span><span class="p">}</span>
 </pre></div>
@@ -295,7 +295,7 @@ As you can see it’s possible to use dot <code class="docutils literal notransl
 </section>
 <section id="not-match-query-string">
 <h4>Not match query string<a class="headerlink" href="#not-match-query-string" title="Permalink to this heading"></a></h4>
-<p>Query string use <a class="reference external" href="https://www.elastic.co/guide/en/elasticsearch/reference/6.8/query-dsl-query-string-query.html">ES query string format</a></p>
+<p>Query string use <a class="reference external" href="https://www.elastic.co/guide/en/elasticsearch/reference/7.17/query-dsl-query-string-query.html">ES query string format</a></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>label !~ &quot;*pant*&quot;
 {&quot;field&quot;: &quot;label&quot;, &quot;comparator&quot;: &quot;!~&quot;, &quot;value&quot;: &quot;*pant*&quot;}
 </pre></div>
@@ -451,7 +451,7 @@ As you can see it’s possible to use dot <code class="docutils literal notransl
 </section>
 <section id="id6">
 <h3>Query string<a class="headerlink" href="#id6" title="Permalink to this heading"></a></h3>
-<p>Query string will match the <code class="docutils literal notranslate"><span class="pre">DefaultQueryStringFieldPath</span></code> (from <code class="docutils literal notranslate"><span class="pre">conf.ini</span></code>) with <a class="reference external" href="https://www.elastic.co/guide/en/elasticsearch/reference/6.8/query-dsl-query-string-query.html">ES query string format</a>.</p>
+<p>Query string will match the <code class="docutils literal notranslate"><span class="pre">DefaultQueryStringFieldPath</span></code> (from <code class="docutils literal notranslate"><span class="pre">conf.ini</span></code>) with <a class="reference external" href="https://www.elastic.co/guide/en/elasticsearch/reference/7.17/query-dsl-query-string-query.html">ES query string format</a>.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;foam cage&quot;</span>
 <span class="p">{</span><span class="s2">&quot;query_string&quot;</span><span class="p">:</span> <span class="s2">&quot;foam cage&quot;</span><span class="p">}</span>
 </pre></div>
@@ -971,7 +971,7 @@ Auto sort are made for each fields containing <code class="docutils literal notr
 <span class="mi">3</span><span class="n">h</span><span class="w">  </span><span class="o">#</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="n">hours</span>
 </pre></div>
 </div>
-<p>See <a class="reference external" href="https://www.elastic.co/guide/en/elasticsearch/reference/6.8/common-options.html#time-units">Time units</a></p>
+<p>See <a class="reference external" href="https://www.elastic.co/guide/en/elasticsearch/reference/7.17/common-options.html#time-units">Time units</a></p>
 </section>
 <section id="sub-aggregations">
 <h3>Sub aggregations<a class="headerlink" href="#sub-aggregations" title="Permalink to this heading"></a></h3>
