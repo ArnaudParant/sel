@@ -1,3 +1,6 @@
+# Migration
+The repository has been migrated to [https://github.com/SimpleElasticLanguage/sel](https://github.com/SimpleElasticLanguage/sel)
+
 # SEL
 Simple Elastic Language offer an easy way to query ElasticSearch for everybody even no-tech people and even on a big, complex and nested schema.  
   
